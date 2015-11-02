@@ -94,6 +94,10 @@ if neobundle#tap('YankRing.vim')
     let g:yankring_max_history = 5
     let g:yankring_share_between_instances = 1
     let g:yankring_ignore_duplicate = 1
+    let g:yankring_default_menu_mode = 3
+    let g:yankring_menu_priority = 30
+    let g:yankring_history_dir = '$HOME'
+    let g:yankring_history_file = '.vim_yankring_history.txt'
   endfunction
   call neobundle#untap()
 endif
