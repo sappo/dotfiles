@@ -23,16 +23,16 @@ Other keybindings
 
 Keys | Description
 -----|--------------
-<F2> | Nerdtree
-<F3> | Tagbar
-<F4> | vimshell
-<F5> | Split horizontally
-<F6> | Split vertically
-<c-left>, <c-right>, <c-down>, <c-up> | Move between panes
-<a-left>, <a-right>, <a-down>, <a-up> | Resize panes
-<c-c> | Comment line
-<c-x> | Uncomment line
-<TAB> | Move to next buffer
-<s-TAB> | Move to previous buffer
-<c-r> | Replace the current word or selected text
-<CR> | Highlight current word
+F2 | Nerdtree
+F3 | Tagbar
+F4 | vimshell
+F5 | Split horizontally
+F6 | Split vertically
+c-left, c-right, c-down, c-up | Move between panes
+a-left, a-right, a-down, a-up | Resize panes
+c-c | Comment line
+c-x | Uncomment line
+TAB | Move to next buffer
+s-TAB | Move to previous buffer
+c-r | Replace the current word or selected text
+CR | Highlight current word
