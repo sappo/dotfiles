@@ -10,7 +10,7 @@ This is my vimrc which will automatically install NeoBundle and afterwards autom
 Leader keybindings (',')
 
 Keys | Description
---------------------
+-----|------------
 2 | Show YankRing
 3 | Clear YankRing
 6 | Toogle numbers (relative|absolut)
@@ -22,7 +22,7 @@ Keys | Description
 Other keybindings
 
 Keys | Description
---------------------
+-----|--------------
 <F2> | Nerdtree
 <F3> | Tagbar
 <F4> | vimshell
