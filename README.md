@@ -18,6 +18,7 @@ Keys | Description
 8 | Toogle spell language (en|de)
 9 | Toggle spell check (on|off)
 0 | Enter writers mode
+s | Switch between header and source
 
 Other keybindings
 
