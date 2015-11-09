@@ -1,0 +1,19 @@
+[user]
+	name = Kevin Sapper
+	email = mail@kevinsapper.de
+[url "https://"]
+	insteadOf = git://
+[init]
+	templatedir = ~/.git_template
+[http]
+	sslverify = true
+[core]
+	editor = vim
+    pager = less -x4
+[color]
+	ui = auto
+[rebase]
+    autosquash = true
+[alias]
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --numstat
