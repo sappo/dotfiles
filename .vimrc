@@ -50,9 +50,6 @@ if neobundle#tap('neomake')
   endfunction
   call neobundle#untap()
 endif
-
-" }}}
-
 " }}}
 
 " Completion {{{
@@ -118,6 +115,21 @@ endif
 " Searching {{{
 " ============
 
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
+if neobundle#tap('vimproc.vim')
+  function! neobundle#hooks.on_source(bundle)
+  endfunction
+  call neobundle#untap()
+endif
+
 NeoBundle 'kien/ctrlp.vim'
 if neobundle#tap('ctrlp.vim')
   function! neobundle#hooks.on_source(bundle)
@@ -176,35 +188,35 @@ endif
 " The NERD tree allows you to explore your filesystem.
 NeoBundle 'scrooloose/nerdtree'
 if neobundle#tap('nerdtree')
-  function! neobundle#hooks.on_source(bundle)
-    let g:NERDTreeDirArrows = 1
-    let g:NERDTreeDirArrowExpandable = '▸'
-    let g:NERDTreeDirArrowCollapsible = '▾'
-    " Toggle NERDTree
-    nnoremap <silent> <F2> :NERDTreeToggle<CR>
-  endfunction
-  call neobundle#untap()
+function! neobundle#hooks.on_source(bundle)
+  let g:NERDTreeDirArrows = 1
+  let g:NERDTreeDirArrowExpandable = '▸'
+  let g:NERDTreeDirArrowCollapsible = '▾'
+  " Toggle NERDTree
+  nnoremap <silent> <F2> :NERDTreeToggle<CR>
+endfunction
+call neobundle#untap()
 endif
 
 " Vim plugin that displays tags in a window, ordered by class etc.
 NeoBundle 'majutsushi/tagbar'
 if neobundle#tap('tagbar')
-  function! neobundle#hooks.on_source(bundle)
-    let g:tagbar_width = 30
-    let g:tagbar_foldlevel = 1
-    let g:tagbar_type_rst = {
-        \ 'ctagstype': 'rst',
-        \ 'kinds': [ 'r:references', 'h:headers' ],
-        \ 'sort': 0,
-        \ 'sro': '..',
-        \ 'kind2scope': { 'h': 'header' },
-        \ 'scope2kind': { 'header': 'h' }
-        \ }
+function! neobundle#hooks.on_source(bundle)
+  let g:tagbar_width = 30
+  let g:tagbar_foldlevel = 1
+  let g:tagbar_type_rst = {
+      \ 'ctagstype': 'rst',
+      \ 'kinds': [ 'r:references', 'h:headers' ],
+      \ 'sort': 0,
+      \ 'sro': '..',
+      \ 'kind2scope': { 'h': 'header' },
+      \ 'scope2kind': { 'header': 'h' }
+      \ }
 
-    " Toggle tagbar
-    nnoremap <silent> <F3> :TagbarToggle<CR>
-  endfunction
-  call neobundle#untap()
+  " Toggle tagbar
+  nnoremap <silent> <F3> :TagbarToggle<CR>
+endfunction
+call neobundle#untap()
 endif
 
 NeoBundle 'mbbill/undotree'
@@ -220,6 +232,7 @@ endfunction
 call neobundle#untap()
 endif
 
+
 " }}}
 
 " Shell {{{
@@ -227,45 +240,45 @@ endif
 
 " Vim plugin required by vimshell
 NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \     'windows' : 'tools\\update-dll-mingw',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'linux' : 'make',
-      \     'unix' : 'gmake',
-      \    },
-      \ }
+    \ 'build' : {
+    \     'windows' : 'tools\\update-dll-mingw',
+    \     'cygwin' : 'make -f make_cygwin.mak',
+    \     'mac' : 'make -f make_mac.mak',
+    \     'linux' : 'make',
+    \     'unix' : 'gmake',
+    \    },
+    \ }
 if neobundle#tap('vimproc.vim')
-  function! neobundle#hooks.on_source(bundle)
+function! neobundle#hooks.on_source(bundle)
 
-  endfunction
-  call neobundle#untap()
+endfunction
+call neobundle#untap()
 endif
 
 " Vim plugin that brings the shell to vim
 NeoBundle 'Shougo/vimshell.vim'
 if neobundle#tap('vimshell.vim')
-  function! neobundle#hooks.on_source(bundle)
-    let g:vimshell_enable_smart_case   = 1
-    let g:vimshell_temporary_directory = "~/tmp/vimshell"
-    let g:vimshell_split_command = ''
-    let g:vimshell_enable_transient_user_prompt = 1
-    let g:vimshell_force_overwrite_statusline = 1
+function! neobundle#hooks.on_source(bundle)
+  let g:vimshell_enable_smart_case   = 1
+  let g:vimshell_temporary_directory = "~/tmp/vimshell"
+  let g:vimshell_split_command = ''
+  let g:vimshell_enable_transient_user_prompt = 1
+  let g:vimshell_force_overwrite_statusline = 1
 
-    let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-    let g:vimshell_right_prompt = '"[" . getcwd() . "]"'
+  let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+  let g:vimshell_right_prompt = '"[" . getcwd() . "]"'
 
-    if has('win32') || has('win64')
-      " Display user name on Windows.
-      let g:vimshell_prompt = $USERNAME."% "
-    else
-      " Display user name on Linux.
-      let g:vimshell_prompt = $USER."% "
-    " Toggle vimshell
-    nnoremap <silent> <F4> :VimShellPop<CR>
-    endif
-  endfunction
-  call neobundle#untap()
+  if has('win32') || has('win64')
+    " Display user name on Windows.
+    let g:vimshell_prompt = $USERNAME."% "
+  else
+    " Display user name on Linux.
+    let g:vimshell_prompt = $USER."% "
+  " Toggle vimshell
+  nnoremap <silent> <F4> :VimShellPop<CR>
+  endif
+endfunction
+call neobundle#untap()
 endif
 
 " }}}
@@ -282,58 +295,58 @@ NeoBundle 'tpope/vim-fugitive'
 
 NeoBundle 'bling/vim-airline'
 if neobundle#tap('vim-airline')
-  function! neobundle#hooks.on_source(bundle)
-    set laststatus=2
-    let g:airline_powerline_fonts = 1
-    " Don't show seperators
-    let g:airline#extensions#hunks#enabled=0
+function! neobundle#hooks.on_source(bundle)
+  set laststatus=2
+  let g:airline_powerline_fonts = 1
+  " Don't show seperators
+  let g:airline#extensions#hunks#enabled=0
 
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#fnamemod = ':t'
-    " This allows buffers to be hidden if you've modified a buffer.
-    " This is almost a must if you wish to use buffers in this way.
-    set hidden
-    " Move to the next buffer
-    nmap <tab> :bnext<CR>
-    " Move to the previous buffer
-    nmap <s-tab> :bprev<CR>
-    " Close the current buffer and move to the previous one
-    nmap <s-w> :bp <BAR> bd #<CR>
-  endfunction
-  call neobundle#untap()
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#fnamemod = ':t'
+  " This allows buffers to be hidden if you've modified a buffer.
+  " This is almost a must if you wish to use buffers in this way.
+  set hidden
+  " Move to the next buffer
+  nmap <tab> :bnext<CR>
+  " Move to the previous buffer
+  nmap <s-tab> :bprev<CR>
+  " Close the current buffer and move to the previous one
+  nmap <s-w> :bp <BAR> bd #<CR>
+endfunction
+call neobundle#untap()
 endif
 
 NeoBundle 'edkolev/tmuxline.vim'
 if neobundle#tap('tmuxline.vim')
-  function! neobundle#hooks.on_source(bundle)
-    let g:tmuxline_preset = {
-      \'a'    : '#S',
-      \'win'  : '#I #W',
-      \'cwin' : '#I #W',
-      \'x'    : ['%a', '%D'],
-      \'y'    : '%R',
-      \'z'    : '#H'}
-    let g:tmuxline_powerline_separators = 1
-  endfunction
-  call neobundle#untap()
+function! neobundle#hooks.on_source(bundle)
+  let g:tmuxline_preset = {
+    \'a'    : '#S',
+    \'win'  : '#I #W',
+    \'cwin' : '#I #W',
+    \'x'    : ['%a', '%D'],
+    \'y'    : '%R',
+    \'z'    : '#H'}
+  let g:tmuxline_powerline_separators = 1
+endfunction
+call neobundle#untap()
 endif
 
 NeoBundle 'edkolev/promptline.vim'
 if neobundle#tap('promptline.vim')
-  function! neobundle#hooks.on_source(bundle)
-    let g:promptline_theme = 'papercolor'
-  endfunction
-  call neobundle#untap()
+function! neobundle#hooks.on_source(bundle)
+  let g:promptline_theme = 'papercolor'
+endfunction
+call neobundle#untap()
 endif
 
 NeoBundle 'NLKNguyen/papercolor-theme'
 if neobundle#tap('papercolor-theme')
-  function! neobundle#hooks.on_source(bundle)
-    set t_Co=256
-    colorscheme PaperColor
-    let g:airline_theme='papercolor'
-  endfunction
-  call neobundle#untap()
+function! neobundle#hooks.on_source(bundle)
+  set t_Co=256
+  colorscheme PaperColor
+  let g:airline_theme='papercolor'
+endfunction
+call neobundle#untap()
 endif
 
 " }}}
@@ -343,18 +356,18 @@ endif
 
 NeoBundle 'junegunn/goyo.vim'
 if neobundle#tap('goyo.vim')
-  function! neobundle#hooks.on_source(bundle)
-    let g:goyo_width=90
-    let g:goyo_height=90
-  endfunction
-  call neobundle#untap()
+function! neobundle#hooks.on_source(bundle)
+  let g:goyo_width=90
+  let g:goyo_height=90
+endfunction
+call neobundle#untap()
 endif
 
 NeoBundle 'amix/vim-zenroom2'
 if neobundle#tap('vim-zenroom2')
-  function! neobundle#hooks.on_source(bundle)
-  endfunction
-  call neobundle#untap()
+function! neobundle#hooks.on_source(bundle)
+endfunction
+call neobundle#untap()
 endif
 
 " }}}
@@ -368,11 +381,11 @@ NeoBundleLazy 'vim-scripts/LargeFile'
 " Find and eliminate trailing whitespaces
 NeoBundle 'ntpeters/vim-better-whitespace'
 if neobundle#tap('vim-better-whitespace')
-  function! neobundle#hooks.on_source(bundle)
-    autocmd BufWritePre <buffer> StripWhitespace
-    let g:better_whitespace_filetypes_blacklist=['<filetype1>', '<filetype2>', '<etc>']
-  endfunction
-  call neobundle#untap()
+function! neobundle#hooks.on_source(bundle)
+  autocmd BufWritePre <buffer> StripWhitespace
+  let g:better_whitespace_filetypes_blacklist=['<filetype1>', '<filetype2>', '<etc>']
+endfunction
+call neobundle#untap()
 endif
 
 " }}}
@@ -387,56 +400,56 @@ NeoBundleCheck
 
 " Set augroup
 augroup MyAutoCmd
-  autocmd!
+autocmd!
 augroup END
 
 " Redraw since vim gets corrupt for no reason
 au FocusGained * redraw! " redraw screen on focus
 
 if has("autocmd")
-  autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
-  autocmd FileType gitcommit setlocal spell
-  autocmd FileType gitrebase nnoremap <buffer> S :Cycle<CR>
+autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
+autocmd FileType gitcommit setlocal spell
+autocmd FileType gitrebase nnoremap <buffer> S :Cycle<CR>
 
-  autocmd FileType html,xhtml,xml,htmldjango,jinja.html,jinja,eruby,mako setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType html,xhtml,xml,htmldjango,jinja.html,jinja,eruby,mako setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 
-  " go support
-  " ----------
-  autocmd BufNewFile,BufRead *.go setlocal ft=go
-  autocmd FileType go setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
+" go support
+" ----------
+autocmd BufNewFile,BufRead *.go setlocal ft=go
+autocmd FileType go setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
 
-  " Java
-  " ----
-  autocmd FileType java setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+" Java
+" ----
+autocmd FileType java setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 
-  " C/C++
-  autocmd FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-  autocmd FileType cpp setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab
+" C/C++
+autocmd FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+autocmd FileType cpp setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab
 
-  " vim
-  " ---
-  autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
+" vim
+" ---
+autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 
-  " make support
-  " ------------
-  autocmd FileType make setlocal noexpandtab
+" make support
+" ------------
+autocmd FileType make setlocal noexpandtab
 
-  " cmake support
-  " -------------
-  autocmd BufNewFile,BufRead CMakeLists.txt setlocal ft=cmake
+" cmake support
+" -------------
+autocmd BufNewFile,BufRead CMakeLists.txt setlocal ft=cmake
 
-  " Json
-  " ----
-  autocmd FileType json setlocal syntax=javascript
+" Json
+" ----
+autocmd FileType json setlocal syntax=javascript
 
-  autocmd BufRead,BufNewFile *.adoc,*.asciidoc set syntax=asciidoc
-  autocmd BufRead,BufNewFile README.txt set syntax=markdown
-  autocmd BufRead,BufNewFile *.gsl set syntax=c
+autocmd BufRead,BufNewFile *.adoc,*.asciidoc set syntax=asciidoc
+autocmd BufRead,BufNewFile README.txt set syntax=markdown
+autocmd BufRead,BufNewFile *.gsl set syntax=c
 
-  " Goyo
-  " ----
-  autocmd! User GoyoEnter nested call <SID>goyo_enter()
-  autocmd! User GoyoLeave nested call <SID>goyo_leave()
+" Goyo
+" ----
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 endif
 
 " ==============================================================================
@@ -444,58 +457,60 @@ endif
 " ==============================================================================
 
 function! NumberRelativeToggle()
-  if(&relativenumber == 0 && &number == 0)
-    echo "Line numbers not enables, use <leader>7 or :set number / :set relativenumber to enable"
-  elseif(&relativenumber == 1)
-    set norelativenumber
-  else
-    set relativenumber
-  endif
+if(&relativenumber == 0 && &number == 0)
+  echo "Line numbers not enables, use <leader>7 or :set number / :set relativenumber to enable"
+elseif(&relativenumber == 1)
+  set norelativenumber
+else
+  set relativenumber
+endif
 endfunc
 
 function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber
-  endif
-  if(&number == 1)
-    set nonumber
-  else
-    set number
-  endif
+if(&relativenumber == 1)
+  set norelativenumber
+endif
+if(&number == 1)
+  set nonumber
+else
+  set number
+endif
 endfunc
 
 function! SpellLangToggle()
-  if(&spelllang == 'en_us')
-    set spelllang=de_de
-  else
-    set spelllang=en_us
-  endif
-  echo 'spellang is now:' &spelllang
+if(&spelllang == 'en_us')
+  set spelllang=de_de
+else
+  set spelllang=en_us
+endif
+echo 'spellang is now:' &spelllang
 endfunction
 
 function! SpellCheckToggle()
-  setlocal spell!
-  if(&spell == 1)
-    echo 'spell checking is enabled.'
-  else
-    echo 'spell checking is disabled.'
-  endif
+setlocal spell!
+if(&spell == 1)
+  echo 'spell checking is enabled.'
+else
+  echo 'spell checking is disabled.'
+endif
 endfunction
 
 function! s:goyo_enter()
-  silent !tmux set status off
-  set noshowmode
-  set noshowcmd
-  set scrolloff=999
-  " ...
+silent !tmux set status off
+set noshowmode
+set noshowcmd
+set scrolloff=999
+NeoCompleteDisable
+" ...
 endfunction
 
 function! s:goyo_leave()
-  silent !tmux set status on
-  set showmode
-  set showcmd
-  set scrolloff=5
-  " ...
+silent !tmux set status on
+set showmode
+set showcmd
+set scrolloff=5
+NeoCompleteEnable
+" ...
 endfunction
 
 " ==============================================================================
@@ -531,12 +546,19 @@ nmap <c-Left> <c-W><c-h>
 nmap <c-Right> <c-W><c-l>
 nmap <c-Down> <c-W><c-j>
 nmap <c-Up> <c-W><c-k>
+nmap <c-h> <c-W><c-h>
+nmap <c-l> <c-W><c-l>
+nmap <c-j> <c-W><c-j>
+nmap <c-k> <c-W><c-k>
 
 " Resize window"
 nmap <a-Left> <c-w><c-<>
 nmap <a-Right> <c-w><c->>
 nmap <a-Down> <c-w><c-->
 nmap <a-Up> <c-w><c-+>
+
+"  Redo on captital U
+nmap <U> :red
 
 " Prepare a substitute command using the current word or the selected text"
 nnoremap <c-r> yiw:%s/\<<C-r>"\>/<C-r>"/g<Left><Left><Left>
@@ -574,7 +596,7 @@ set cmdheight=1
 set expandtab "convert tabs into spaces
 set cindent
 set number "show line numbers
-set hlsearch " highlight search"
+set hlsearch
 set incsearch " incremental searching
 syntax enable
 
@@ -582,22 +604,22 @@ syntax enable
 " keys combined with modifiers such as Shift, Control, and Alt.
 " See http://www.reddit.com/r/vim/comments/1a29vk/_/c8tze8p
 if &term =~ '^screen'
-  " Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
-  execute "set t_kP=\e[5;*~"
-  execute "set t_kN=\e[6;*~"
-  " Arrow keys http://unix.stackexchange.com/a/34723
-  execute "set <xUp>=\e[1;*A"
-  execute "set <xDown>=\e[1;*B"
-  execute "set <xRight>=\e[1;*C"
-  execute "set <xLeft>=\e[1;*D"
+" Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
+execute "set t_kP=\e[5;*~"
+execute "set t_kN=\e[6;*~"
+" Arrow keys http://unix.stackexchange.com/a/34723
+execute "set <xUp>=\e[1;*A"
+execute "set <xDown>=\e[1;*B"
+execute "set <xRight>=\e[1;*C"
+execute "set <xLeft>=\e[1;*D"
 endif
 
 " Cursor settings. This makes terminal vim sooo much nicer!
 " Tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
 if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 else
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
