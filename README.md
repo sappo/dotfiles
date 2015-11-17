@@ -13,10 +13,10 @@ Keys | Description
 -----|------------
 2 | Show YankRing
 3 | Clear YankRing
-6 | Toogle numbers (relative|absolut)
-7 | Toogle numbers (on|off)
-8 | Toogle spell language (en|de)
-9 | Toggle spell check (on|off)
+6 | Toogle numbers (relative\|absolut)
+7 | Toogle numbers (on\|off)
+8 | Toogle spell language (en\|de)
+9 | Toggle spell check (on\|off)
 0 | Enter writers mode
 s | Switch between header and source
 
