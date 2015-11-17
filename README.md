@@ -30,7 +30,7 @@ F4 | vimshell
 F5 | Split horizontally
 F6 | Split vertically
 F9 | Toggle undo list
-c-left, c-right, c-down, c-up | Move between panes
+c-left, c-right, c-down, c-up or c-l, c-h, c-k, c-j | Move between panes
 a-left, a-right, a-down, a-up | Resize panes
 c-c | Comment line
 c-x | Uncomment line
