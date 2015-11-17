@@ -29,6 +29,7 @@ F3 | Tagbar
 F4 | vimshell
 F5 | Split horizontally
 F6 | Split vertically
+F9 | Toggle undo list
 c-left, c-right, c-down, c-up | Move between panes
 a-left, a-right, a-down, a-up | Resize panes
 c-c | Comment line
@@ -37,3 +38,4 @@ TAB | Move to next buffer
 s-TAB | Move to previous buffer
 c-r | Replace the current word or selected text
 CR | Highlight current word
+U | redo
