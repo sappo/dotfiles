@@ -46,6 +46,7 @@ NeoBundle 'benekastah/neomake'
 if neobundle#tap('neomake')
   function! neobundle#hooks.on_source(bundle)
     autocmd! BufWritePost * Neomake
+    let g:neomake_airline = 1
   endfunction
   call neobundle#untap()
 endif
@@ -204,6 +205,19 @@ if neobundle#tap('tagbar')
     nnoremap <silent> <F3> :TagbarToggle<CR>
   endfunction
   call neobundle#untap()
+endif
+
+NeoBundle 'mbbill/undotree'
+if neobundle#tap('tagbar')
+function! neobundle#hooks.on_source(bundle)
+  if has("persistent_undo")
+    set undodir=~/.vim_undodir/
+    set undofile
+  endif
+  " Toggle undotree
+  nnoremap <F9> :UndotreeToggle<cr>
+endfunction
+call neobundle#untap()
 endif
 
 " }}}
