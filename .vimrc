@@ -30,17 +30,27 @@ filetype plugin indent on     " Required!
 " Syntax {{{
 " ==========
 
-NeoBundle 'scrooloose/syntastic'
-if neobundle#tap('syntastic')
+"NeoBundle 'scrooloose/syntastic'
+"if neobundle#tap('syntastic')
+  "function! neobundle#hooks.on_source(bundle)
+    "let g:syntastic_loc_list_height = 5
+    "let g:syntastic_always_populate_loc_list = 1
+    "let g:syntastic_auto_loc_list = 1
+    "let g:syntastic_check_on_open = 1
+    "let g:syntastic_check_on_wq = 0
+  "endfunction
+  "call neobundle#untap()
+"endif
+
+NeoBundle 'benekastah/neomake'
+if neobundle#tap('neomake')
   function! neobundle#hooks.on_source(bundle)
-    let g:syntastic_loc_list_height = 5
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
+    autocmd! BufWritePost * Neomake
   endfunction
   call neobundle#untap()
 endif
+
+" }}}
 
 " }}}
 
@@ -123,6 +133,28 @@ if neobundle#tap('ctrlp.vim')
     nmap <space> [ctrlp]
 
     nnoremap <silent> [ctrlp]<space> :<C-u>CtrlPMixed<CR>
+  endfunction
+  call neobundle#untap()
+endif
+
+NeoBundle 'haya14busa/incsearch.vim'
+if neobundle#tap('incsearch.vim')
+  function! neobundle#hooks.on_source(bundle)
+    map /  <Plug>(incsearch-forward)
+
+    let g:incsearch#auto_nohlsearch = 1
+    map n  <Plug>(incsearch-nohl-n)
+    map N  <Plug>(incsearch-nohl-N)
+    map *  <Plug>(incsearch-nohl-*)
+    map #  <Plug>(incsearch-nohl-#)
+  endfunction
+  call neobundle#untap()
+endif
+
+NeoBundle 'haya14busa/incsearch-fuzzy.vim'
+if neobundle#tap('incsearch-fuzzy.vim')
+  function! neobundle#hooks.on_source(bundle)
+    map z/ <Plug>(incsearch-fuzzy-/)
   endfunction
   call neobundle#untap()
 endif
@@ -311,22 +343,6 @@ if neobundle#tap('vim-zenroom2')
   call neobundle#untap()
 endif
 
-NeoBundle 'dpelle/vim-LanguageTool'
-if neobundle#tap('vim-LanguageTool')
-  function! neobundle#hooks.on_source(bundle)
-    let languagetool_jar=expand('~/.vim/jars/LanguageTool-2.9/languagetool-commandline.jar')
-    if !filereadable(languagetool_jar)
-      silent !wget https://languagetool.org/download/LanguageTool-2.9.zip
-      silent !mkdir -p ~/.vim/jars
-      silent !unzip LanguageTool-2.9.zip -d ~/.vim/jars
-      silent !rm LanguageTool-2.9.zip
-    endif
-    let g:languagetool_jar='$HOME/.vim/jars/LanguageTool-2.9/languagetool-commandline.jar'
-    set spelllang=en_us
-  endfunction
-  call neobundle#untap()
-endif
-
 " }}}
 
 " Optimazation {{{
@@ -400,6 +416,8 @@ if has("autocmd")
   autocmd FileType json setlocal syntax=javascript
 
   autocmd BufRead,BufNewFile *.adoc,*.asciidoc set syntax=asciidoc
+  autocmd BufRead,BufNewFile README.txt set syntax=markdown
+  autocmd BufRead,BufNewFile *.gsl set syntax=c
 
   " Goyo
   " ----
@@ -483,6 +501,7 @@ nnoremap <silent> <leader>7 :call NumberToggle()<CR>
 nnoremap <silent> <leader>8 :call SpellLangToggle()<CR>
 nnoremap <silent> <leader>9 :call SpellCheckToggle()<CR>
 nnoremap <silent> <Leader>0 :Goyo<cr>
+nnoremap <silent> <Leader>s :A<cr>
 
 " Use CTRL-S for saving, also in Insert mode
 nmap <c-s> :w<CR>
