@@ -532,6 +532,9 @@ nnoremap <silent> <leader>9 :call SpellCheckToggle()<CR>
 nnoremap <silent> <Leader>0 :Goyo<cr>
 nnoremap <silent> <Leader>s :A<cr>
 
+" Toogle paste mode
+set pastetoggle=<F8>
+
 " Use CTRL-S for saving, also in Insert mode
 nmap <c-s> :w<CR>
 vmap <c-s> <Esc><c-s>gv
@@ -576,6 +579,12 @@ let g:highlighting = 1
 return ":silent set hlsearch\<CR>"
 endfunction
 nnoremap <silent> <expr> <CR> Highlighting()
+
+" Highlight if a line goes above 80 chars
+call matchadd('ColorColumn', '\%81v', 100)
+autocmd VimEnter * autocmd WinEnter * let w:colorcolumn=1
+autocmd VimEnter * let w:colorcolumn=1
+autocmd WinEnter * if !exists('w:colorcolumn') | call matchadd('ColorColumn', '\%81v', 100) | endif
 
 " For wrapped lines
 imap <silent> <Down> <C-o>gj
