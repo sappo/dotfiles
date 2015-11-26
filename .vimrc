@@ -192,8 +192,6 @@ function! neobundle#hooks.on_source(bundle)
   let g:NERDTreeDirArrows = 1
   let g:NERDTreeDirArrowExpandable = '▸'
   let g:NERDTreeDirArrowCollapsible = '▾'
-  " Toggle NERDTree
-  nnoremap <silent> <F2> :NERDTreeToggle<CR>
 endfunction
 call neobundle#untap()
 endif
@@ -213,8 +211,6 @@ function! neobundle#hooks.on_source(bundle)
       \ 'scope2kind': { 'header': 'h' }
       \ }
 
-  " Toggle tagbar
-  nnoremap <silent> <F3> :TagbarToggle<CR>
 endfunction
 call neobundle#untap()
 endif
@@ -226,8 +222,6 @@ function! neobundle#hooks.on_source(bundle)
     set undodir=~/.vim_undodir/
     set undofile
   endif
-  " Toggle undotree
-  nnoremap <F9> :UndotreeToggle<cr>
 endfunction
 call neobundle#untap()
 endif
@@ -274,8 +268,6 @@ function! neobundle#hooks.on_source(bundle)
   else
     " Display user name on Linux.
     let g:vimshell_prompt = $USER."% "
-  " Toggle vimshell
-  nnoremap <silent> <F4> :VimShellPop<CR>
   endif
 endfunction
 call neobundle#untap()
@@ -532,19 +524,24 @@ nnoremap <silent> <leader>9 :call SpellCheckToggle()<CR>
 nnoremap <silent> <Leader>0 :Goyo<cr>
 nnoremap <silent> <Leader>s :A<cr>
 
-" Toogle paste mode
-set pastetoggle=<F8>
 
 " Use CTRL-S for saving, also in Insert mode
 nmap <c-s> :w<CR>
 vmap <c-s> <Esc><c-s>gv
 imap <c-s> <Esc><c-s>
 
+" F-key Bindings
+nnoremap <silent> <F2> :NERDTreeToggle<CR>
+nnoremap <silent> <F3> :TagbarToggle<CR>
+nnoremap <silent> <F4> :VimShellPop<CR>
+nmap <F5> :split<CR>
+nmap <F6> :vsplit<CR>
+set pastetoggle=<F8>
+nnoremap <F9> :UndotreeToggle<cr>
+
 " Spliting window"
 set splitbelow
 set splitright
-nmap <F5> :split<CR>
-nmap <F6> :vsplit<CR>
 nmap <c-Left> <c-W><c-h>
 nmap <c-Right> <c-W><c-l>
 nmap <c-Down> <c-W><c-j>
