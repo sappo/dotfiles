@@ -308,20 +308,20 @@ endfunction
 call neobundle#untap()
 endif
 
-NeoBundle 'edkolev/tmuxline.vim'
-if neobundle#tap('tmuxline.vim')
-function! neobundle#hooks.on_source(bundle)
-  let g:tmuxline_preset = {
-    \'a'    : '#S',
-    \'win'  : '#I #W',
-    \'cwin' : '#I #W',
-    \'x'    : ['%a', '%D'],
-    \'y'    : '%R',
-    \'z'    : '#H'}
-  let g:tmuxline_powerline_separators = 1
-endfunction
-call neobundle#untap()
-endif
+"NeoBundle 'edkolev/tmuxline.vim'
+"if neobundle#tap('tmuxline.vim')
+"function! neobundle#hooks.on_source(bundle)
+  "let g:tmuxline_preset = {
+    "\'a'    : '#S',
+    "\'win'  : '#I #W',
+    "\'cwin' : '#I #W',
+    "\'x'    : ['%a', '%D'],
+    "\'y'    : '%R',
+    "\'z'    : '#H'}
+  "let g:tmuxline_powerline_separators = 1
+"endfunction
+"call neobundle#untap()
+"endif
 
 NeoBundle 'edkolev/promptline.vim'
 if neobundle#tap('promptline.vim')
