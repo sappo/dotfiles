@@ -80,6 +80,33 @@ if neobundle#tap('neocomplete.vim')
     inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
     inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
+    " Enable omni completion.
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  endfunction
+  call neobundle#untap()
+endif
+
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
+if neobundle#tap('neosnippet-snippets')
+  function! neobundle#hooks.on_source(bundle)
+    " Plugin key-mappings.
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+    " SuperTab like snippets behavior.
+    imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+    " For conceal markers.
+    if has('conceal')
+      set conceallevel=2 concealcursor=niv
+    endif
   endfunction
   call neobundle#untap()
 endif
@@ -93,8 +120,14 @@ if neobundle#tap('vim-simple_comments')
   call neobundle#untap()
 endif
 
-NeoBundle 'xolox/vim-easytags'
 NeoBundle 'xolox/vim-misc' " dependency for easytags
+NeoBundle 'xolox/vim-easytags'
+if neobundle#tap('vim-easytags')
+  function! neobundle#hooks.on_source(bundle)
+    set tags=./tags;
+  endfunction
+  call neobundle#untap()
+endif
 
 NeoBundle 'vim-scripts/YankRing.vim'
 if neobundle#tap('YankRing.vim')
@@ -556,13 +589,18 @@ nmap <a-Left> <c-w><c-<>
 nmap <a-Right> <c-w><c->>
 nmap <a-Down> <c-w><c-->
 nmap <a-Up> <c-w><c-+>
-
-"  Redo on captital U
-nmap <U> :red
+nmap <a-h> <c-W><c-h>
+nmap <a-l> <c-W><c-l>
+nmap <a-j> <c-W><c-j>
+nmap <a-k> <c-W><c-k>
 
 " Prepare a substitute command using the current word or the selected text"
-nnoremap <c-r> yiw:%s/\<<C-r>"\>/<C-r>"/g<Left><Left><Left>
-vnoremap <c-r> y:%s/\<<C-r>"\>/<C-r>"/g<Left><Left><Left>
+nnoremap <leader>r yiw:%s/\<<C-r>"\>/<C-r>"/g<Left><Left><Left>
+vnoremap <leader>r y:%s/\<<C-r>"\>/<C-r>"/g<Left><Left><Left>
+
+" Jump to tag
+nnoremap <leader>k yiw:ta <C-r>"<Left><Left><Left>
+vnoremap <leader>k yiw:ta <C-r>"<Left><Left><Left>
 
 " Highlight current word with enter"
 let g:highlighting = 0
@@ -588,6 +626,10 @@ imap <silent> <Down> <C-o>gj
 imap <silent> <Up> <C-o>gk
 nmap <silent> <Down> gj
 nmap <silent> <Up> gk
+noremap  <buffer> <silent> k gk
+noremap  <buffer> <silent> j gj
+noremap  <buffer> <silent> 0 g0
+noremap  <buffer> <silent> $ g$
 
 " ==============================================================================
 " Settings and Defaults
@@ -628,4 +670,47 @@ let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 else
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+" ==============================================================================
+" Backup, Swap and Undo
+" ==============================================================================
+
+" Save your backups to a less annoying place than the current directory.
+" If you have .vim-backup in the current directory, it'll use that.
+" Otherwise it saves it to ~/.vim/backup or . if all else fails.
+if isdirectory($HOME . '/.vim/backup') == 0
+  :silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
+endif
+set backupdir-=.
+set backupdir+=.
+set backupdir-=~/
+set backupdir^=~/.vim/backup/
+set backupdir^=./.vim-backup/
+set backup
+
+" Save your swp files to a less annoying place than the current directory.
+" If you have .vim-swap in the current directory, it'll use that.
+" Otherwise it saves it to ~/.vim/swap, ~/tmp or .
+if isdirectory($HOME . '/.vim/swap') == 0
+  :silent !mkdir -p ~/.vim/swap >/dev/null 2>&1
+endif
+set directory=./.vim-swap//
+set directory+=~/.vim/swap//
+set directory+=~/tmp//
+set directory+=.
+
+" viminfo stores the the state of your previous editing session
+set viminfo+=n~/.vim/viminfo
+
+if exists("+undofile")
+  " undofile - This allows you to use undos after exiting and restarting
+  " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
+  " :help undo-persistence
+  if isdirectory($HOME . '/.vim/undo') == 0
+    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+  endif
+  set undodir=./.vim-undo//
+  set undodir+=~/.vim/undo//
+  set undofile
 endif
