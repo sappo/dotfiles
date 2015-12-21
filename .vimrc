@@ -30,18 +30,6 @@ filetype plugin indent on     " Required!
 " Syntax {{{
 " ==========
 
-"NeoBundle 'scrooloose/syntastic'
-"if neobundle#tap('syntastic')
-  "function! neobundle#hooks.on_source(bundle)
-    "let g:syntastic_loc_list_height = 5
-    "let g:syntastic_always_populate_loc_list = 1
-    "let g:syntastic_auto_loc_list = 1
-    "let g:syntastic_check_on_open = 1
-    "let g:syntastic_check_on_wq = 0
-  "endfunction
-  "call neobundle#untap()
-"endif
-
 NeoBundle 'benekastah/neomake'
 if neobundle#tap('neomake')
   function! neobundle#hooks.on_source(bundle)
@@ -111,20 +99,25 @@ if neobundle#tap('neosnippet-snippets')
   call neobundle#untap()
 endif
 
-NeoBundle 'aklt/vim-simple_comments'
-if neobundle#tap('vim-simple_comments')
-  function! neobundle#hooks.on_source(bundle)
-    let g:simple_comments_Comment = '<c-c>'
-    let g:simple_comments_Remove = '<c-x>'
-  endfunction
-  call neobundle#untap()
-endif
-
 NeoBundle 'xolox/vim-misc' " dependency for easytags
 NeoBundle 'xolox/vim-easytags'
 if neobundle#tap('vim-easytags')
   function! neobundle#hooks.on_source(bundle)
     set tags=./tags;
+  endfunction
+  call neobundle#untap()
+endif
+
+" }}}
+
+" Manipulation {{{
+" ============
+
+NeoBundle 'aklt/vim-simple_comments'
+if neobundle#tap('vim-simple_comments')
+  function! neobundle#hooks.on_source(bundle)
+    let g:simple_comments_Comment = '<c-c>'
+    let g:simple_comments_Remove = '<c-x>'
   endfunction
   call neobundle#untap()
 endif
@@ -151,26 +144,58 @@ if neobundle#tap('vim-easyclip')
   call neobundle#untap()
 endif
 
+NeoBundle 'terryma/vim-multiple-cursors'
+if neobundle#tap('vim-multiple-cursors')
+  function! neobundle#hooks.on_source(bundle)
+    let g:multi_cursor_use_default_mapping=0
+    let g:multi_cursor_next_key='<c-y>'
+    let g:multi_cursor_prev_key=''
+    let g:multi_cursor_skip_key=''
+    let g:multi_cursor_quit_key='<Esc>'
+
+    " Called once right before you start selecting multiple cursors
+    function! Multiple_cursors_before()
+      if exists(':NeoCompleteLock')==2
+        exe 'NeoCompleteLock'
+      endif
+    endfunction
+
+    " Called once only when the multiple selection is canceled (default <Esc>)
+    function! Multiple_cursors_after()
+      if exists(':NeoCompleteUnlock')==2
+        exe 'NeoCompleteUnlock'
+      endif
+    endfunction
+  endfunction
+  call neobundle#untap()
+endif
+
 " }}}
+
 " Searching {{{
 " ============
 
-NeoBundle 'kien/ctrlp.vim'
-if neobundle#tap('ctrlp.vim')
+NeoBundle 'Shougo/unite.vim'
+if neobundle#tap('unite.vim')
   function! neobundle#hooks.on_source(bundle)
-    " Setup some default ignores
-    let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
-      \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
-    \}
-    let g:ctrlp_cmd = 'CtrlPMixed'
-    let g:ctrlp_open_multiple_files = '1vjr'
-
     " Map space to the prefix for Unite
-    nnoremap [ctrlp] <Nop>
-    nmap <space> [ctrlp]
+    nnoremap [unite] <Nop>
+    nmap <space> [unite]
 
-    nnoremap <silent> [ctrlp]<space> :<C-u>CtrlPMixed<CR>
+    " Like ctrlp.vim settings.
+    call unite#custom#profile('default', 'context', {
+    \   'start_insert': 1,
+    \   'winheight': 10,
+    \   'direction': 'botright',
+    \ })
+
+    " Search for files
+    call unite#filters#matcher_default#use(['matcher_fuzzy'])
+    nnoremap <silent> [unite]<space> :<C-u>Unite -start-insert file_rec/async:!<CR>
+
+    " Search in files
+    let g:unite_source_grep_max_candidates = 200
+    nnoremap <silent> [unite]/ :Unite grep:.<cr>
   endfunction
   call neobundle#untap()
 endif
@@ -235,7 +260,6 @@ if neobundle#tap('tagbar')
         \ 'kind2scope': { 'h': 'header' },
         \ 'scope2kind': { 'header': 'h' }
         \ }
-
   endfunction
   call neobundle#untap()
 endif
@@ -411,7 +435,7 @@ endif
 
 " }}}
 
-" Optimazation {{{
+" Optimization {{{
 " ==============================
 
 " Disable plugins for LargeFile
@@ -683,6 +707,19 @@ else
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
+
+" Alt-letter will now be recognised by vi in a terminal as well as by gvim. The
+" timeout settings are used to work around the ambiguity with escape sequences.
+" Esc and j sent within 50ms will be mapped to <A-j>, greater than 50ms will
+" count as separate keys. That should be enough time to distinguish between Meta
+" encoding and hitting two keys.
+let c='a'
+while c <= 'z'
+  exec "set <A-".c.">=\e".c
+  exec "imap \e".c." <A-".c.">"
+  let c = nr2char(1+char2nr(c))
+endw
+set timeout ttimeoutlen=50
 
 " ==============================================================================
 " Backup, Swap and Undo
