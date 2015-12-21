@@ -47,6 +47,8 @@ ctrl-n      | Rotate the previous paste backward in yank buffer
 s\<motion\> | substitute
 ss          | substitute line
 
+To compile asynchronously use `:Make` for foreground compilation and `:Make!` for background compilation.
+
 #### GitGutter Bindings
 https://github.com/airblade/vim-gitgutter
 
