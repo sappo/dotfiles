@@ -310,6 +310,8 @@ if neobundle#tap('vimshell.vim')
   call neobundle#untap()
 endif
 
+NeoBundle 'tpope/vim-dispatch'
+
 " }}}
 
 " Version Control {{{
