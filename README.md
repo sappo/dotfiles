@@ -41,11 +41,10 @@ ctrl-c      | Comment line
 ctrl-x      | Uncomment line
 TAB         | Move to next buffer
 s-TAB       | Move to previous buffer
-ctrl-r      | Replace the current word or selected text
 CR          | Highlight current word
 ctrl-p      | Rotate the previous paste forward in yank buffer
 ctrl-n      | Rotate the previous paste backward in yank buffer
-s<motion>   | substitute
+s\<motion\> | substitute
 ss          | substitute line
 
 #### GitGutter Bindings
@@ -56,8 +55,8 @@ You can jump between hunks:
 * jump to previous hunk (change): [c.
 
 You can stage or revert an individual hunk when your cursor is in it:
-* stage the hunk with <Leader>hs or
-* revert it with <Leader>hr.
+* stage the hunk with \<Leader\>hs or
+* revert it with \<Leader\>hr.
 
 ## tmux.conf
 
@@ -71,7 +70,7 @@ After you started tmux press `ctrl+a I` to install all plugins. To update the pl
 
 ### Keybindings
 
-The leader key is ctrl+a.
+The leader key is `ctrl+a`.
 
 Keys        | Description
 ------------|------------
