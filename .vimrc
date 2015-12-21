@@ -129,22 +129,29 @@ if neobundle#tap('vim-easytags')
   call neobundle#untap()
 endif
 
-NeoBundle 'vim-scripts/YankRing.vim'
-if neobundle#tap('YankRing.vim')
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'svermeulen/vim-easyclip'
+if neobundle#tap('vim-easyclip')
   function! neobundle#hooks.on_source(bundle)
-    let g:yankring_max_history = 5
-    let g:yankring_share_between_instances = 1
-    let g:yankring_ignore_duplicate = 1
-    let g:yankring_default_menu_mode = 3
-    let g:yankring_menu_priority = 30
-    let g:yankring_history_dir = '$HOME'
-    let g:yankring_history_file = '.vim_yankring_history.txt'
+  " Make vim use the system register for copy and paste
+  set clipboard=unnamed
+
+  let g:EasyClipYankHistorySize = 7
+  let g:EasyClipShareYanks = 1
+  let g:EasyClipShareYanksDirectory = '$HOME'
+  let g:EasyClipShareYanksFile = '.vim/.easyclip'
+
+  let g:EasyClipUseYankDefaults = 1
+  let g:EasyClipUseCutDefaults = 0
+  let g:EasyClipUsePasteDefaults = 1
+  let g:EasyClipEnableBlackHoleRedirect = 0
+  let g:EasyClipUsePasteToggleDefaults = 0
+  let g:EasyClipUseSubstituteDefaults = 1
   endfunction
   call neobundle#untap()
 endif
 
 " }}}
-
 " Searching {{{
 " ============
 
@@ -553,14 +560,13 @@ let g:mapleader = ","
 let maplocalleader = ","
 let g:maplocalleader = ","
 
-nnoremap <silent> <Leader>2 :YRShow<cr>
-nnoremap <silent> <Leader>3 :YRClear<cr>
+nnoremap <silent> <leader>2 :Yanks<cr>
 nnoremap <silent> <leader>6 :call NumberRelativeToggle()<CR>
 nnoremap <silent> <leader>7 :call NumberToggle()<CR>
 nnoremap <silent> <leader>8 :call SpellLangToggle()<CR>
 nnoremap <silent> <leader>9 :call SpellCheckToggle()<CR>
-nnoremap <silent> <Leader>0 :Goyo<cr>
-nnoremap <silent> <Leader>s :A<cr>
+nnoremap <silent> <leader>0 :Goyo<cr>
+nnoremap <silent> <leader>s :A<cr>
 
 
 " Use CTRL-S for saving, also in Insert mode
