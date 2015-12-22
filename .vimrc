@@ -3,6 +3,12 @@ if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
+" Map leader and localleader key to comma
+let mapleader = ","
+let g:mapleader = ","
+let maplocalleader = ","
+let g:maplocalleader = ","
+
 " ==============================================================================
 " Bundles
 " ==============================================================================
@@ -321,7 +327,18 @@ NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'tpope/vim-fugitive'
 if neobundle#tap('vim-fugitive')
   function! neobundle#hooks.on_source(bundle)
-
+    " Fugitive reference
+    noremap <silent> <leader>g? :map <leader>g<cr>
+    " Fugitive mapping
+    noremap <silent> <leader>gb :Gblame<cr>
+    noremap <silent> <leader>gc :Gcommit<cr>
+    noremap <silent> <leader>gd :Gdiff<cr>
+    noremap <silent> <leader>gg :Ggrep
+    noremap <silent> <leader>gl :Glog<cr>
+    noremap <silent> <leader>gp :Git pull<cr>
+    noremap <silent> <leader>gP :Git push<cr>
+    noremap <silent> <leader>gs :Gstatus<cr>
+    noremap <silent> <leader>gw :Gbrowse<cr>
   endfunction
   call neobundle#untap()
 endif
@@ -455,6 +472,19 @@ endif
 
 " }}}
 
+" Help {{{
+" ==============================
+
+NeoBundle 'ktonga/vim-follow-my-lead'
+if neobundle#tap('vim-follow-my-lead')
+  function! neobundle#hooks.on_source(bundle)
+    let g:fml_all_sources = 1
+  endfunction
+  call neobundle#untap()
+endif
+
+" }}}
+
 call neobundle#end()
 " Installation check.
 NeoBundleCheck
@@ -580,18 +610,19 @@ endfunction
 " Keymappings
 " ==============================================================================
 
-" Map leader and localleader key to comma
-let mapleader = ","
-let g:mapleader = ","
-let maplocalleader = ","
-let g:maplocalleader = ","
-
+" Show the Yank Buffer
 nnoremap <silent> <leader>2 :Yanks<cr>
+" Toggle numbers (relative|absolute)
 nnoremap <silent> <leader>6 :call NumberRelativeToggle()<CR>
+" Toggle number (on|off)
 nnoremap <silent> <leader>7 :call NumberToggle()<CR>
+" Toggle spell language (en|de)
 nnoremap <silent> <leader>8 :call SpellLangToggle()<CR>
+" Toggle spell check (on|off)
 nnoremap <silent> <leader>9 :call SpellCheckToggle()<CR>
+" Enter writers mode
 nnoremap <silent> <leader>0 :Goyo<cr>
+" Switch between header and source file
 nnoremap <silent> <leader>s :A<cr>
 
 
@@ -640,9 +671,9 @@ noremap <C-j> <C-y>
 nnoremap <leader>r yiw:%s/\<<C-r>"\>/<C-r>"/g<Left><Left><Left>
 vnoremap <leader>r y:%s/\<<C-r>"\>/<C-r>"/g<Left><Left><Left>
 
-" Jump to tag
-nnoremap <leader>k yiw:ta <C-r>"<Left><Left><Left>
-vnoremap <leader>k yiw:ta <C-r>"<Left><Left><Left>
+" Jump to a ctag
+nnoremap <leader>k yiw:ta <C-r>"<Left><Left><Left><cr>
+vnoremap <leader>k yiw:ta <C-r>"<Left><Left><Left><cr>
 
 " Highlight current word with enter"
 let g:highlighting = 0
