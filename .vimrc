@@ -632,6 +632,10 @@ nmap <a-l> <c-w><c->>
 nmap <a-j> <c-w><c-->
 nmap <a-k> <c-w><c-+>
 
+" Scroll up and down
+noremap <C-k> <C-e>
+noremap <C-j> <C-y>
+
 " Prepare a substitute command using the current word or the selected text"
 nnoremap <leader>r yiw:%s/\<<C-r>"\>/<C-r>"/g<Left><Left><Left>
 vnoremap <leader>r y:%s/\<<C-r>"\>/<C-r>"/g<Left><Left><Left>
