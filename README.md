@@ -37,8 +37,6 @@ F8          | Toggle paste mode
 F9          | Toggle undo list
 ctrl-left, ctrl-right, ctrl-down, ctrl-up or ctrl-l, ctrl-h, ctrl-k, ctrl-j | Move between panes
 alt-left, alt-right, alt-down, alt-up or alt-l, alt-h, alt-k, alt-j | Resize panes
-ctrl-k      | Scroll up one line
-ctrl-j      | Scroll down one line
 ctrl-c      | Comment line
 ctrl-x      | Uncomment line
 TAB         | Move to next buffer
