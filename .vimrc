@@ -84,6 +84,8 @@ if neobundle#tap('neocomplete.vim')
   call neobundle#untap()
 endif
 
+"NeoBundle 'Valloric/YouCompleteMe'
+
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 if neobundle#tap('neosnippet-snippets')
@@ -225,77 +227,145 @@ if neobundle#tap('unite.vim')
     call unite#custom#profile('default', 'context', {
     \   'start_insert': 0,
     \   'direction': 'botright',
+    \   'marked-icon': '✓'
     \ })
 
     let g:unite_prompt = '>>> '
-    let g:unite_marked_icon = '✓'
+    let g:unite_marked_icon = '✗'
 
     " Initialize Unite's global list of menus
     if !exists('g:unite_source_menu_menus')
         let g:unite_source_menu_menus = {}
     endif
 
+  function! s:register_quickmenu(name, description, candidate_precursors) " {{{
+    " find the length of longest name
+    let max_length = max(map(filter(
+          \ deepcopy(a:candidate_precursors),
+          \ printf('v:val[0] != "%s"', '-'),
+          \), 'len(v:val[0])'))
+    " create candidates
+    let candidates = []
+    for precursor in a:candidate_precursors
+      if len(precursor) == 1
+        " Separator
+        call add(candidates, [
+              \ precursor[0],
+              \ '',
+              \])
+      elseif len(precursor) == 2
+        " Action (short)
+        call add(candidates, [
+              \ printf(
+              \   printf("▷ %%-%ds", max_length),
+              \   precursor[0]
+              \ ),
+              \ precursor[1],
+              \])
+      elseif len(precursor) == 3
+        " Action
+        call add(candidates, [
+              \ printf(
+              \   printf("▷ %%-%ds    ⚷ %%s", max_length),
+              \   precursor[0], precursor[2]
+              \ ),
+              \ precursor[1],
+              \])
+      endif
+    endfor
+    let separator_length = max(map(
+          \ deepcopy(candidates),
+          \ 'len(v:val[0])',
+          \))
+    if separator_length % 2 != 0
+      let separator_length += 1
+    endif
+    " register to 'g:unite_source_menu_menus'
+    let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
+    let g:unite_source_menu_menus[a:name] = {}
+    let g:unite_source_menu_menus[a:name].description = a:description
+    let g:unite_source_menu_menus[a:name].candidates = deepcopy(candidates)
+    call reverse(g:unite_source_menu_menus[a:name].candidates)
+    let g:unite_source_menu_menus[a:name].separator_length = max(map(
+          \ deepcopy(candidates),
+          \ 'len(v:val[0])',
+          \))
+
+    function! g:unite_source_menu_menus[a:name].map(key, value) abort " {{{
+      if empty(a:value[1])
+        if empty(a:value[0])
+          let word = repeat('-', self.separator_length)
+        else
+          let length = self.separator_length - (len(a:value[0]) + 3)
+          let word = printf('- %s %s', a:value[0], repeat('-', length))
+        endif
+        return {
+              \ 'word': word,
+              \ 'kind': 'common', 'is_dummy': 1,
+              \}
+      else
+        return {
+              \ 'word': a:value[0],
+              \ 'kind': 'command',
+              \ 'action__command': a:value[1],
+              \}
+      endif
+    endfunction " }}}
+  endfunction " }}}
+
     " Neobundle Menu {{{
 
-    let g:unite_source_menu_menus.Neobundle = {
-        \ 'description' : '      Plugins administration with neobundle                 ⚷ [space]n'}
+    call s:register_quickmenu('NeoBundle', 'Install/Update/Manage plugins            ⚷ [space]n', [
+        \['NeoBundle commands'],
+        \['NeoBundle check', 'Unite -no-empty output:NeoBundleCheck'],
+        \['NeoBundle clean', 'NeoBundleClean'],
+        \['NeoBundle direct edit', 'NeoBundleDirectEdit'],
+        \['NeoBundle docs', 'Unite output:NeoBundleDocs'],
+        \['NeoBundle install', 'Unite neobundle/install'],
+        \['NeoBundle lazy', 'Unite neobundle/lazy'],
+        \['NeoBundle list', 'Unite output:NeoBundleList'],
+        \['NeoBundle log', 'Unite neobundle/log'],
+        \['NeoBundle search', 'Unite neobundle/search'],
+        \['NeoBundle update', 'Unite neobundle/update'],
+    \])
 
-    let g:unite_source_menu_menus.Neobundle.command_candidates = [
-        \['▷ Neobundle update', 'Unite neobundle/update'],
-        \['▷ Neobundle search', 'Unite neobundle/search'],
-        \['▷ Neobundle log', 'Unite neobundle/log'],
-        \['▷ Neobundle list', 'Unite output:NeoBundleList'],
-        \['▷ Neobundle lazy', 'Unite neobundle/lazy'],
-        \['▷ Neobundle install', 'Unite neobundle/install'],
-        \['▷ Neobundle docs', 'Unite output:NeoBundleDocs'],
-        \['▷ Neobundle direct edit', 'NeoBundleDirectEdit'],
-        \['▷ Neobundle clean', 'NeoBundleClean'],
-        \['▷ Neobundle check', 'Unite -no-empty output:NeoBundleCheck'],
-    \]
-
-    exe 'nnoremap <silent>[menu]n :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Neobundle.command_candidates) + 2).' menu:Neobundle<CR>'
+    exe 'nnoremap <silent>[menu]n :Unite -silent -winheight='.(len(g:unite_source_menu_menus.NeoBundle.candidates) + 2).' menu:NeoBundle<CR>'
 
     " }}}
 
     " Buffers, tabs and windows operations Menu {{{
 
-    let g:unite_source_menu_menus.Navigation = {
-        \ 'description' : '     Navigate by buffers, tabs & windows                   ⚷ [space]b', }
+    call s:register_quickmenu('Navigation', 'Navigate by buffers, tabs & windows     ⚷ [space]b', [
+        \['Buffers', 'Unite buffer'],
+        \['Close current window', 'close', '[shift]w'],
+        \['Location list', 'Unite location_list'],
+        \['New horizontal window', 'split'],
+        \['New vertical window', 'vsplit'],
+        \['Quickfix', 'Unite quickfix'],
+        \['Tabs', 'Unite tab'],
+        \['Toggle quickfix window', 'normal ,ll', ',ll'],
+        \['Windows', 'Unite window'],
+    \])
 
-    let g:unite_source_menu_menus.Navigation.command_candidates = [
-        \['▷ Windows', 'Unite window'],
-        \['▷ Toggle quickfix window                                      ⚷ ,ll', 'normal ,ll'],
-        \['▷ Tabs', 'Unite tab'],
-        \['▷ Quickfix', 'Unite quickfix'],
-        \['▷ New vertical window', 'vsplit'],
-        \['▷ New horizontal window', 'split'],
-        \['▷ Location list', 'Unite location_list'],
-        \['▷ Close current window                                        ⚷ [shift]w', 'close'],
-        \['▷ Buffers', 'Unite buffer'],
-    \]
-
-    exe 'nnoremap <silent>[menu]b :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Navigation.command_candidates) + 2).' menu:Navigation<CR>'
+    exe 'nnoremap <silent>[menu]b :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Navigation.candidates) + 2).' menu:Navigation<CR>'
 
     " }}}
 
     " File's operations {{{
 
-    let g:unite_source_menu_menus.Files = {
-        \ 'description' : '          Files & dirs                                          ⚷ [space]f', }
+    call s:register_quickmenu('Files', 'Files & dirs                                 ⚷ [space]f', [
+        \['Change working directory', 'Unite -default-action=lcd directory'],
+        \['Create new file', 'Unite file/new'],
+        \['Grep in files', 'normal [unite]/', '[space]/'],
+        \['Make new directory', 'Unite directory/new'],
+        \['Print current working directory', 'Unite -winheight=3 output:pwd'],
+        \['Save as root', 'exe "write !sudo tee % >/dev/null"', ':w!!'],
+        \['Search directory recursively', 'Unite -start-insert file_rec/async', '[space][space]'],
+        \['Search recently used directories', 'Unite directory_mru'],
+        \['Search directory', 'Unite -start-insert directory'],
+    \])
 
-    let g:unite_source_menu_menus.Files.command_candidates = [
-        \['▷ Search directory', 'Unite -start-insert directory'],
-        \['▷ Search recently used directories', 'Unite directory_mru'],
-        \['▷ Search directory recursively                               ⚷ [space][space]', 'Unite -start-insert file_rec/async'],
-        \['▷ Save as root                                               ⚷ :w!!', 'exe "write !sudo tee % >/dev/null"'],
-        \['▷ Print current working directory', 'Unite -winheight=3 output:pwd'],
-        \['▷ Grep in files                                              ⚷ [space]/', 'normal [unite]/'],
-        \['▷ Make new directory', 'Unite directory/new'],
-        \['▷ Create new file', 'Unite file/new'],
-        \['▷ Change working directory', 'Unite -default-action=lcd directory'],
-    \]
-
-    exe 'nnoremap <silent>[menu]f :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Files.command_candidates) + 2).' menu:Files<CR>'
+    exe 'nnoremap <silent>[menu]f :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Files.candidates) + 2).' menu:Files<CR>'
 
     " }}}
 
@@ -443,20 +513,17 @@ if neobundle#tap('vim-fugitive')
     noremap <silent> <leader>gs :Gstatus<cr>
 
     " Unite menu [[[
-    let g:unite_source_menu_menus.Git = {
-        \ 'description' : '            Admin git repositories                                ⚷ [space]g'}
+    call s:register_quickmenu('Git', 'Admin git repositories                         ⚷ [space]g', [
+        \['git status      (fugitive)', 'normal ,gs', ',gs'],
+        \['git log         (fugitive)', 'normal ,gl', ',gl'],
+        \['git grep        (fugitive)', 'normal ,gg', ',gg'],
+        \['git diff        (fugitive)', 'normal ,gd', ',gd'],
+        \['git commit      (fugitive)', 'normal ,gc', ',gc'],
+        \['git browse      (fugitive)', 'normal ,gw', ',gw'],
+        \['git blame       (fugitive)', 'normal ,gb', ',gb'],
+    \])
 
-    let g:unite_source_menu_menus.Git.command_candidates = [
-        \['▷ git status             (fugitive)                          ⚷ ,gs', 'normal ,gs'],
-        \['▷ git log                (fugitive)                          ⚷ ,gl', 'normal ,gl'],
-        \['▷ git grep               (fugitive)                          ⚷ ,gg', 'normal ,gg'],
-        \['▷ git diff               (fugitive)                          ⚷ ,gd', 'normal ,gd'],
-        \['▷ git commit             (fugitive)                          ⚷ ,gc', 'normal ,gc'],
-        \['▷ git browse             (fugitive)                          ⚷ ,gw', 'normal ,gw'],
-        \['▷ git blame              (fugitive)                          ⚷ ,gb', 'normal ,gb'],
-    \]
-
-    exe 'nnoremap <silent>[menu]g :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Git.command_candidates) + 2).' menu:Git<CR>'
+    exe 'nnoremap <silent>[menu]g :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Git.candidates) + 2).' menu:Git<CR>'
     " ]]]
 
   endfunction
