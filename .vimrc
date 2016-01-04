@@ -109,10 +109,38 @@ NeoBundle 'xolox/vim-misc' " dependency for easytags
 NeoBundle 'xolox/vim-easytags'
 if neobundle#tap('vim-easytags')
   function! neobundle#hooks.on_source(bundle)
+    let g:easytags_file = '~/.vim/tags'
     set tags=./tags;
   endfunction
   call neobundle#untap()
 endif
+
+"NeoBundle 'vim-scripts/DfrankUtil'
+"NeoBundle 'vim-scripts/vimprj'
+"NeoBundle 'vim-scripts/indexer.tar.gz'
+"if neobundle#tap('indexer.tar.gz')
+  "function! neobundle#hooks.on_source(bundle)
+
+  "endfunction
+  "call neobundle#untap()
+"endif
+
+"NeoBundle 'ludovicchabant/vim-gutentags'
+"if neobundle#tap('indexer.tar.gz')
+  "function! neobundle#hooks.on_source(bundle)
+  "set statusline+=%{gutentags#statusline('[Generating...]')}
+  "endfunction
+  "call neobundle#untap()
+"endif
+
+"NeoBundle 'brookhong/cscope.vim'
+"if neobundle#tap('cscope.vim')
+  "function! neobundle#hooks.on_source(bundle)
+    "nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
+    "nnoremap <leader>l :call ToggleLocationList()<CR>
+  "endfunction
+  "call neobundle#untap()
+"endif
 
 " }}}
 
@@ -154,7 +182,7 @@ NeoBundle 'terryma/vim-multiple-cursors'
 if neobundle#tap('vim-multiple-cursors')
   function! neobundle#hooks.on_source(bundle)
     let g:multi_cursor_use_default_mapping=0
-    let g:multi_cursor_next_key='<c-y>'
+    let g:multi_cursor_next_key='<c-d>'
     let g:multi_cursor_prev_key=''
     let g:multi_cursor_skip_key=''
     let g:multi_cursor_quit_key='<Esc>'
@@ -188,12 +216,88 @@ if neobundle#tap('unite.vim')
     nnoremap [unite] <Nop>
     nmap <space> [unite]
 
+    nnoremap [menu] <Nop>
+    "nmap <LocalLeader> [menu]
+    nmap [unite] [menu]
+    nnoremap <silent>[menu]u :Unite -silent -winheight=12 menu<CR>
+
     " Like ctrlp.vim settings.
     call unite#custom#profile('default', 'context', {
-    \   'start_insert': 1,
-    \   'winheight': 10,
+    \   'start_insert': 0,
     \   'direction': 'botright',
     \ })
+
+    let g:unite_prompt = '>>> '
+    let g:unite_marked_icon = '✓'
+
+    " Initialize Unite's global list of menus
+    if !exists('g:unite_source_menu_menus')
+        let g:unite_source_menu_menus = {}
+    endif
+
+    " Neobundle Menu {{{
+
+    let g:unite_source_menu_menus.Neobundle = {
+        \ 'description' : '      Plugins administration with neobundle                 ⚷ [space]n'}
+
+    let g:unite_source_menu_menus.Neobundle.command_candidates = [
+        \['▷ Neobundle update', 'Unite neobundle/update'],
+        \['▷ Neobundle search', 'Unite neobundle/search'],
+        \['▷ Neobundle log', 'Unite neobundle/log'],
+        \['▷ Neobundle list', 'Unite output:NeoBundleList'],
+        \['▷ Neobundle lazy', 'Unite neobundle/lazy'],
+        \['▷ Neobundle install', 'Unite neobundle/install'],
+        \['▷ Neobundle docs', 'Unite output:NeoBundleDocs'],
+        \['▷ Neobundle direct edit', 'NeoBundleDirectEdit'],
+        \['▷ Neobundle clean', 'NeoBundleClean'],
+        \['▷ Neobundle check', 'Unite -no-empty output:NeoBundleCheck'],
+    \]
+
+    exe 'nnoremap <silent>[menu]n :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Neobundle.command_candidates) + 2).' menu:Neobundle<CR>'
+
+    " }}}
+
+    " Buffers, tabs and windows operations Menu {{{
+
+    let g:unite_source_menu_menus.Navigation = {
+        \ 'description' : '     Navigate by buffers, tabs & windows                   ⚷ [space]b', }
+
+    let g:unite_source_menu_menus.Navigation.command_candidates = [
+        \['▷ Windows', 'Unite window'],
+        \['▷ Toggle quickfix window                                      ⚷ ,ll', 'normal ,ll'],
+        \['▷ Tabs', 'Unite tab'],
+        \['▷ Quickfix', 'Unite quickfix'],
+        \['▷ New vertical window', 'vsplit'],
+        \['▷ New horizontal window', 'split'],
+        \['▷ Location list', 'Unite location_list'],
+        \['▷ Close current window                                        ⚷ [shift]w', 'close'],
+        \['▷ Buffers', 'Unite buffer'],
+    \]
+
+    exe 'nnoremap <silent>[menu]b :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Navigation.command_candidates) + 2).' menu:Navigation<CR>'
+
+    " }}}
+
+    " File's operations {{{
+
+    let g:unite_source_menu_menus.Files = {
+        \ 'description' : '          Files & dirs                                          ⚷ [space]f', }
+
+    let g:unite_source_menu_menus.Files.command_candidates = [
+        \['▷ Search directory', 'Unite -start-insert directory'],
+        \['▷ Search recently used directories', 'Unite directory_mru'],
+        \['▷ Search directory recursively                               ⚷ [space][space]', 'Unite -start-insert file_rec/async'],
+        \['▷ Save as root                                               ⚷ :w!!', 'exe "write !sudo tee % >/dev/null"'],
+        \['▷ Print current working directory', 'Unite -winheight=3 output:pwd'],
+        \['▷ Grep in files                                              ⚷ [space]/', 'normal [unite]/'],
+        \['▷ Make new directory', 'Unite directory/new'],
+        \['▷ Create new file', 'Unite file/new'],
+        \['▷ Change working directory', 'Unite -default-action=lcd directory'],
+    \]
+
+    exe 'nnoremap <silent>[menu]f :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Files.command_candidates) + 2).' menu:Files<CR>'
+
+    " }}}
 
     " Search for files
     call unite#filters#matcher_default#use(['matcher_fuzzy'])
@@ -331,14 +435,30 @@ if neobundle#tap('vim-fugitive')
     noremap <silent> <leader>g? :map <leader>g<cr>
     " Fugitive mapping
     noremap <silent> <leader>gb :Gblame<cr>
+    noremap <silent> <leader>gw :Gbrowse<cr>
     noremap <silent> <leader>gc :Gcommit<cr>
     noremap <silent> <leader>gd :Gdiff<cr>
     noremap <silent> <leader>gg :Ggrep
     noremap <silent> <leader>gl :Glog<cr>
-    noremap <silent> <leader>gp :Git pull<cr>
-    noremap <silent> <leader>gP :Git push<cr>
     noremap <silent> <leader>gs :Gstatus<cr>
-    noremap <silent> <leader>gw :Gbrowse<cr>
+
+    " Unite menu [[[
+    let g:unite_source_menu_menus.Git = {
+        \ 'description' : '            Admin git repositories                                ⚷ [space]g'}
+
+    let g:unite_source_menu_menus.Git.command_candidates = [
+        \['▷ git status             (fugitive)                          ⚷ ,gs', 'normal ,gs'],
+        \['▷ git log                (fugitive)                          ⚷ ,gl', 'normal ,gl'],
+        \['▷ git grep               (fugitive)                          ⚷ ,gg', 'normal ,gg'],
+        \['▷ git diff               (fugitive)                          ⚷ ,gd', 'normal ,gd'],
+        \['▷ git commit             (fugitive)                          ⚷ ,gc', 'normal ,gc'],
+        \['▷ git browse             (fugitive)                          ⚷ ,gw', 'normal ,gw'],
+        \['▷ git blame              (fugitive)                          ⚷ ,gb', 'normal ,gb'],
+    \]
+
+    exe 'nnoremap <silent>[menu]g :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Git.command_candidates) + 2).' menu:Git<CR>'
+    " ]]]
+
   endfunction
   call neobundle#untap()
 endif
@@ -663,10 +783,6 @@ nmap <a-l> <c-w><c->>
 nmap <a-j> <c-w><c-->
 nmap <a-k> <c-w><c-+>
 
-" Scroll up and down
-noremap <C-k> <C-e>
-noremap <C-j> <C-y>
-
 " Prepare a substitute command using the current word or the selected text"
 nnoremap <leader>r yiw:%s/\<<C-r>"\>/<C-r>"/g<Left><Left><Left>
 vnoremap <leader>r y:%s/\<<C-r>"\>/<C-r>"/g<Left><Left><Left>
@@ -744,6 +860,8 @@ else
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
+" Mouse enabled for scrolling, selection, and cursor movement
+set mouse=a
 
 " Alt-letter will now be recognised by vi in a terminal as well as by gvim. The
 " timeout settings are used to work around the ambiguity with escape sequences.
@@ -799,4 +917,6 @@ if exists("+undofile")
   set undodir=./.vim-undo//
   set undodir+=~/.vim/undo//
   set undofile
+  set undolevels=50
+
 endif
