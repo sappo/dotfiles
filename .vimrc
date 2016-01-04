@@ -359,13 +359,23 @@ if neobundle#tap('unite.vim')
         \['Grep in files', 'normal [unite]/', '[space]/'],
         \['Make new directory', 'Unite directory/new'],
         \['Print current working directory', 'Unite -winheight=3 output:pwd'],
-        \['Save as root', 'exe "write !sudo tee % >/dev/null"', ':w!!'],
+        \['Save as root', 'exe "write !sudo tee % >/dev/null"'],
         \['Search directory recursively', 'Unite -start-insert file_rec/async', '[space][space]'],
         \['Search recently used directories', 'Unite directory_mru'],
         \['Search directory', 'Unite -start-insert directory'],
     \])
 
     exe 'nnoremap <silent>[menu]f :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Files.candidates) + 2).' menu:Files<CR>'
+
+    " }}}
+
+    " Key Guide {{{
+
+    call s:register_quickmenu('Keyguide', 'Key bindings explained                    ⚷ [space]k', [
+        \['Leader key mappings', 'normal ,fml', ',fml'],
+    \])
+
+    exe 'nnoremap <silent>[menu]k :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Keyguide.candidates) + 2).' menu:Keyguide<CR>'
 
     " }}}
 
@@ -514,13 +524,18 @@ if neobundle#tap('vim-fugitive')
 
     " Unite menu [[[
     call s:register_quickmenu('Git', 'Admin git repositories                         ⚷ [space]g', [
-        \['git status      (fugitive)', 'normal ,gs', ',gs'],
-        \['git log         (fugitive)', 'normal ,gl', ',gl'],
-        \['git grep        (fugitive)', 'normal ,gg', ',gg'],
-        \['git diff        (fugitive)', 'normal ,gd', ',gd'],
-        \['git commit      (fugitive)', 'normal ,gc', ',gc'],
-        \['git browse      (fugitive)', 'normal ,gw', ',gw'],
+        \['View'],
         \['git blame       (fugitive)', 'normal ,gb', ',gb'],
+        \['git browse      (fugitive)', 'normal ,gw', ',gw'],
+        \['git diff        (fugitive)', 'normal ,gd', ',gd'],
+        \['git grep        (fugitive)', 'normal ,gg', ',gg'],
+        \['git log         (fugitive)', 'normal ,gl', ',gl'],
+        \['git status      (fugitive)', 'normal ,gs', ',gs'],
+        \['Modify'],
+        \['git commit      (fugitive)', 'normal ,gc', ',gc'],
+        \['git merge       (fugitive)', 'normal ,gm', ',gm'],
+        \['Help'],
+        \['vim help        (fugitive)', 'help fugitive'],
     \])
 
     exe 'nnoremap <silent>[menu]g :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Git.candidates) + 2).' menu:Git<CR>'
