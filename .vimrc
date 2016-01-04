@@ -902,6 +902,7 @@ set cindent
 set number "show line numbers
 set hlsearch
 set incsearch " incremental searching
+set diffopt+=vertical " split vimdiff vertical
 syntax enable
 
 " Make Vim recognize XTerm escape sequences for Page and Arrow
