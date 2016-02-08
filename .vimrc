@@ -432,6 +432,7 @@ if neobundle#tap('nerdtree')
     let g:NERDTreeDirArrows = 1
     let g:NERDTreeDirArrowExpandable = '▸'
     let g:NERDTreeDirArrowCollapsible = '▾'
+    let g:NERDTreeShowBookmarks=1
   endfunction
   call neobundle#untap()
 endif
