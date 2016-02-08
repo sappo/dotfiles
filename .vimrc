@@ -574,8 +574,8 @@ endif
 
 " Look & Feel + nice Buffers {{{
 " ==============================
-
-NeoBundle 'bling/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
+NeoBundle 'vim-airline/vim-airline'
 if neobundle#tap('vim-airline')
   function! neobundle#hooks.on_source(bundle)
     set laststatus=2
