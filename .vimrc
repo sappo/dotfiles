@@ -1,6 +1,9 @@
 if has('vim_starting')
   set nocompatible               " Be iMproved
   set runtimepath+=~/.vim/bundle/neobundle.vim/
+else
+  " Call on_source hook when reloading .vimrc.
+  call neobundle#call_hook('on_source')
 endif
 
 " Map leader and localleader key to comma
@@ -44,6 +47,7 @@ if neobundle#tap('neomake')
   endfunction
   call neobundle#untap()
 endif
+
 " }}}
 
 " Completion {{{
@@ -83,8 +87,6 @@ if neobundle#tap('neocomplete.vim')
   endfunction
   call neobundle#untap()
 endif
-
-"NeoBundle 'Valloric/YouCompleteMe'
 
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
@@ -574,6 +576,13 @@ endif
 
 " Look & Feel + nice Buffers {{{
 " ==============================
+
+NeoBundleFetch 'powerline/fonts', { 'build' : 'sh install.sh' }
+let font_otf=expand('~/.local/share/fonts/Sauce Code Powerline Medium.otf')
+if filereadable(font_otf)
+  silent !gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Source Code Pro for Powerline Medium 11"
+endif
+
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'vim-airline/vim-airline'
 if neobundle#tap('vim-airline')
@@ -906,6 +915,7 @@ noremap  <buffer> <silent> $ g$
 " Settings and Defaults
 " ==============================================================================
 
+set term=screen-256color
 set encoding=utf-8
 set fileencoding=utf-8
 set backspace=2 " make backspace work like most other apps

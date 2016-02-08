@@ -3,7 +3,7 @@ Collection of my program profiles for linux
 
 ## .vimrc
 
-This is my vimrc it is completly self managed and automatically installed the plugin manager NeoBundle and all plugins. Only prerequsite is that you have `git` installed on your system.
+This is my vimrc it is completely self managed and automatically installed the plugin manager NeoBundle and all plugins. Only prerequisite is that you have `git` installed on your system. If you like to use autocompletion make sure you're vim has python and lua enabled. For Ubuntu install 'vim-nox'.
 
 If you like later on to update the vim plugins enter `:NeoBundleUpdate`.
 
