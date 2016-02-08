@@ -577,6 +577,15 @@ endif
 " Look & Feel + nice Buffers {{{
 " ==============================
 
+NeoBundle 'vim-ctrlspace/vim-ctrlspace'
+if neobundle#tap('vim-ctrlspace')
+  function! neobundle#hooks.on_source(bundle)
+    let g:CtrlSpaceStatuslineFunction = "airline#extensions#ctrlspace#statusline()"
+    let g:airline_exclude_preview = 1
+  endfunction
+  call neobundle#untap()
+endif
+
 NeoBundleFetch 'powerline/fonts', { 'build' : 'sh install.sh' }
 let font_otf=expand('~/.local/share/fonts/Sauce Code Powerline Medium.otf')
 if filereadable(font_otf)
@@ -600,9 +609,9 @@ if neobundle#tap('vim-airline')
     " This is almost a must if you wish to use buffers in this way.
     set hidden
     " Move to the next buffer
-    nmap <tab> :bnext<CR>
+    nmap <tab> :CtrlSpaceGoDown<CR>
     " Move to the previous buffer
-    nmap <s-tab> :bprev<CR>
+    nmap <s-tab> :CtrlSpaceGoUp<CR>
     " Close the current buffer and move to the previous one
     nmap <s-w> :bp <BAR> bd #<CR>
   endfunction
