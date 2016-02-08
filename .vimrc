@@ -590,6 +590,7 @@ NeoBundleFetch 'powerline/fonts', { 'build' : 'sh install.sh' }
 let font_otf=expand('~/.local/share/fonts/Sauce Code Powerline Medium.otf')
 if filereadable(font_otf)
   silent !gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Source Code Pro for Powerline Medium 11"
+  let g:airline_powerline_fonts = 1
 endif
 
 NeoBundle 'vim-airline/vim-airline-themes'
@@ -597,7 +598,6 @@ NeoBundle 'vim-airline/vim-airline'
 if neobundle#tap('vim-airline')
   function! neobundle#hooks.on_source(bundle)
     set laststatus=2
-    let g:airline_powerline_fonts = 1
     " Don't show seperators
     let g:airline#extensions#hunks#enabled=0
     " Disable tagbar integration as it might slows vim down
