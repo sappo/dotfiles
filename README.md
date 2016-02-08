@@ -25,6 +25,8 @@ k       | Jump to a tag
 
 Other keybindings
 
+To open a menu with useful commands press `ctrl + u` to close the menu press `q`.
+
 Keys        | Description
 ------------|------------
 F2          | Nerdtree
