@@ -165,7 +165,7 @@ NeoBundle 'svermeulen/vim-easyclip'
 if neobundle#tap('vim-easyclip')
   function! neobundle#hooks.on_source(bundle)
   " Make vim use the system register for copy and paste
-  set clipboard=unnamed
+  set clipboard=unnamedplus
 
   let g:EasyClipYankHistorySize = 7
   let g:EasyClipShareYanks = 1

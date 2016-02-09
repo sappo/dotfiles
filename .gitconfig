@@ -3,8 +3,6 @@
 	email = mail@kevinsapper.de
 [url "https://"]
 	insteadOf = git://
-[init]
-	templatedir = ~/.git_template
 [http]
 	sslverify = true
 [core]
