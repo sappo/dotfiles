@@ -1,17 +1,17 @@
 [user]
-	name = Kevin Sapper
-	email = mail@kevinsapper.de
+    name = Kevin Sapper
+    email = mail@kevinsapper.de
 [url "https://"]
-	insteadOf = git://
+    insteadOf = git://
 [http]
-	sslverify = true
+    sslverify = true
 [core]
-	editor = vim
+    editor = vim
     pager = less -x4
 [color]
-	ui = auto
+    ui = auto
 [rebase]
     autosquash = true
 [alias]
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-	ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --numstat
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --numstat
