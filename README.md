@@ -1,11 +1,11 @@
-# profiles
-Collection of my program profiles for linux
+# dotfiles
+Collection of my dotfiles for linux
 
 ## .vimrc
 
 This is my vimrc it is completely self managed and automatically installs the plugin manager NeoBundle and all plugins. Only prerequisite is that you have `git` installed on your system. If you like to use autocompletion make sure you're vim has python and lua enabled. For Ubuntu install `vim-nox` if you're running on a headless server and `vim-gnome` on a desktop to enable clipboard support.
 
-If you like later on to update the vim plugins enter `:NeoBundleUpdate`.
+To update the plugins enter `:NeoBundleUpdate`.
 
 ### Keybindings
 
@@ -43,11 +43,14 @@ ctrl-c      | Comment line
 ctrl-x      | Uncomment line
 TAB         | Move to next buffer
 s-TAB       | Move to previous buffer
+ctrl-w      | Close current buffer (does not close the last)
 CR          | Highlight current word
-ctrl-p      | Rotate the previous paste forward in yank buffer
-ctrl-n      | Rotate the previous paste backward in yank buffer
+ctrl-p      | Rotate forward in yank buffer
+ctrl-n      | Rotate backward in yank buffer
 s\<motion\> | substitute
 ss          | substitute line
+space-u     | open the menu
+ctrl-space  | ctrlspace menu
 
 To compile asynchronously use `:Make` for foreground compilation and `:Make!` for background compilation.
 
