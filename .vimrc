@@ -583,6 +583,9 @@ if neobundle#tap('vim-ctrlspace')
   function! neobundle#hooks.on_source(bundle)
     let g:CtrlSpaceStatuslineFunction = "airline#extensions#ctrlspace#statusline()"
     let g:airline_exclude_preview = 1
+    let g:CtrlSpaceLoadLastWorkspaceOnStart = 0
+    let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
+    let g:CtrlSpaceSaveWorkspaceOnExit = 1
   endfunction
   call neobundle#untap()
 endif
@@ -606,6 +609,7 @@ if neobundle#tap('vim-airline')
 
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#fnamemod = ':t'
+
     " This allows buffers to be hidden if you've modified a buffer.
     " This is almost a must if you wish to use buffers in this way.
     set hidden
