@@ -86,4 +86,10 @@ n           | Next
 N           | Previous
 CR          | Copy selected text
 ]           | Paste
-
+ctrl+,      | Rename pane
+ctrl+;      | Rename session
+ctrl+x      | Kill current pane
+ctrl+X      | Kill current session
+ctrl+Q      | Kill tmux server
+\|          | Split vertically
+-           | Split horizontally
