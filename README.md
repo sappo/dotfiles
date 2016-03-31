@@ -29,28 +29,28 @@ To open a menu with useful commands press `ctrl + u` to close the menu press `q`
 
 Keys        | Description
 ------------|------------
-F2          | Nerdtree
-F3          | Tagbar
-F4          | vimshell
-F5          | Split horizontally
-F6          | Split vertically
-F7          | Toggle GitGutter
-F8          | Toggle paste mode
-F9          | Toggle undo list
-ctrl-left, ctrl-right, ctrl-down, ctrl-up or ctrl-l, ctrl-h, ctrl-k, ctrl-j | Move between panes
-alt-left, alt-right, alt-down, alt-up or alt-l, alt-h, alt-k, alt-j | Resize panes
-ctrl-c      | Comment line
-ctrl-x      | Uncomment line
-TAB         | Move to next buffer
-s-TAB       | Move to previous buffer
-ctrl-w      | Close current buffer (does not close the last)
-CR          | Highlight current word
-ctrl-p      | Rotate forward in yank buffer
-ctrl-n      | Rotate backward in yank buffer
-s\<motion\> | substitute
-ss          | substitute line
-space-u     | open the menu
-ctrl-space  | ctrlspace menu
+`F2`          | Nerdtree
+`F3`          | Tagbar
+`F4`          | vimshell
+`F5`          | Split horizontally
+`F6`          | Split vertically
+`F7`          | Toggle GitGutter
+`F8`          | Toggle paste mode
+`F9`          | Toggle undo list
+`C-LEFT`, `C-RIGHT`, `C-DOWN`, `C-UP` or `C-l`, `C-h`, `C-k`, `C-j` | Move between panes
+`A-LEFT`, `A-RIGHT`, `A-DOWN`, `A-UP` or `A-l`, `A-h`, `A-k`, `A-j` | Resize panes
+`C-c`      | Comment line
+`C-x`      | Uncomment line
+`TAB`         | Move to next buffer
+`S-TAB`       | Move to previous buffer
+`C-w`      | Close current buffer (does not close the last)
+`CR`          | Highlight current word
+`C-p`      | Rotate forward in yank buffer
+`C-n`      | Rotate backward in yank buffer
+`s\<motion\>` | substitute
+`ss`          | substitute line
+`space-u`     | open the menu
+`C-space`  | ctrlspace menu
 
 To compile asynchronously use `:Make` for foreground compilation and `:Make!` for background compilation.
 
@@ -81,15 +81,15 @@ The leader key is `ctrl+a`.
 
 Keys        | Description
 ------------|------------
-ctrl+f      | Search for file
-n           | Next
-N           | Previous
-CR          | Copy selected text
-]           | Paste
-ctrl+,      | Rename pane
-ctrl+;      | Rename session
-ctrl+x      | Kill current pane
-ctrl+X      | Kill current session
-ctrl+Q      | Kill tmux server
-\|          | Split vertically
--           | Split horizontally
+`C-f`      | Search for file
+`n`           | Next
+`N`           | Previous
+`CR`          | Copy selected text
+`]`           | Paste
+`C-,`      | Rename pane
+`C-;`      | Rename session
+`C-x`      | Kill current pane
+`C-X`      | Kill current session
+`C-Q`      | Kill tmux server
+`\|`         | Split vertically
+`-`           | Split horizontally
