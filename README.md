@@ -91,5 +91,5 @@ Keys        | Description
 `C-x`       | Kill current pane
 `C-X`       | Kill current session
 `C-Q`       | Kill tmux server
-`\|`        | Split vertically
+`|`        | Split vertically
 `-`         | Split horizontally
