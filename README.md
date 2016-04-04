@@ -81,9 +81,12 @@ The leader key is `ctrl+a`.
 
 Keys        | Description
 ------------|------------
-`C-f`       | Search for file
-`n`         | Next
-`N`         | Previous
+`C-f`       | Simple file search
+`C-g`       | Jumping over git status files (best used after `git status` command)
+`C-u`       | Url search (http, ftp and git urls)
+`A-h`       | jumping over SHA-1 hashes (best used after `git log` command)
+`n`         | Next (when searching)
+`N`         | Previous (when searching)
 `CR`        | Copy selected text
 `]`         | Paste
 `C-,`       | Rename pane
