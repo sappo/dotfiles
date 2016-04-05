@@ -178,6 +178,11 @@ if neobundle#tap('vim-easyclip')
   let g:EasyClipEnableBlackHoleRedirect = 0
   let g:EasyClipUsePasteToggleDefaults = 0
   let g:EasyClipUseSubstituteDefaults = 1
+
+  " Disable easyclip pastetoggle override
+  let g:EasyClipUseGlobalPasteToggle = 0
+  " Paste mode paste in insert mode
+  imap <c-v> <plug>EasyClipInsertModePaste
   endfunction
   call neobundle#untap()
 endif
