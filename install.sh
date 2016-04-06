@@ -24,7 +24,7 @@ function install_symlink
 {
     if [ ! -e $HOME/$2 ]; then
         cd $HOME
-        ln -s "$(relpath "$PWD" "$1")"/$2
+        ln -s "$(relpath "$PWD" "$1")"/$2 $3
         cd -
         echo "Installed symlink for $2";
     else
@@ -48,14 +48,16 @@ do
             install_symlink $PWD .gitconfig
             ;;
         "bashrc")
-            install_symlink $PWD .bash_profile
+            install_symlink $PWD .bashrc
+            install_symlink $PWD liquidprompt/liquidprompt .liquidprompt
+            install_symlink $PWD .liquidpromptrc
             ;;
         "all")
             install_symlink $PWD .tmux.conf
             install_symlink $PWD .tmuxline
             install_symlink $PWD .vimrc
             install_symlink $PWD .gitconfig
-            install_symlink $PWD .bash_profile
+            install_symlink $PWD .bashrc
             break
             ;;
         "quit")
