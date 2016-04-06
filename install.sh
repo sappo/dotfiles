@@ -38,6 +38,9 @@ select opt in "${options[@]}"
 do
     case $opt in
         "tmux")
+            if [ ! -e $HOME/.tmux/plugins/tmp ]; then
+                git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+            fi
             install_symlink $PWD .tmux.conf
             install_symlink $PWD .tmuxline
             ;;
@@ -48,6 +51,7 @@ do
             install_symlink $PWD .gitconfig
             ;;
         "bashrc")
+            git submodlue init
             install_symlink $PWD .bashrc
             install_symlink $PWD liquidprompt/liquidprompt .liquidprompt
             install_symlink $PWD .liquidpromptrc
