@@ -1,9 +1,7 @@
+# Upgrade xterm session to use colors.
+# This will make tmux display the correct colors.
 if [ "$TERM" = "xterm" ]; then
     export TERM=xterm-256color
-fi
-if [ "$TERM" = "screen" -o "$TERM" = "screen-256color" ]; then
-    export TERM=screen-256color
-    unset TERMCAP
 fi
 
 case $TERM in
@@ -18,6 +16,7 @@ case $TERM in
         ;;
 esac
 
+# Load system bash configurations
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc   # --> Read /etc/bashrc, if present.
 fi
@@ -51,6 +50,7 @@ function noproxy()
 
 # copy a stream in the X clipboard, e.g. "cat file | xcopy"
 alias xcopy="xclip -i -selection clipboard"
+# downgrade terminal to xterm in case the remote does not support colors
 alias ssh='TERM=xterm ssh'
 
 ###########
@@ -76,9 +76,13 @@ HISTTIMEFORMAT='%F %T '
 
 # Use liquidprompt only if in an interactive shell
 if [[ $- == *i* ]]; then
-    # Super nice prompt
+    ## Super nice prompt
     source ~/.liquidpromptrc
     source ~/.liquidprompt
 fi
+
+###########
+# Exports #
+###########
 
 export PATH=/home/ksapper/Workspace/esp-open-sdk/xtensa-lx106-elf/bin:$PATH
