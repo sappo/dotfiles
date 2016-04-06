@@ -51,10 +51,10 @@ do
             install_symlink $PWD .gitconfig
             ;;
         "bashrc")
-            git submodlue init
             install_symlink $PWD .bashrc
-            install_symlink $PWD liquidprompt/liquidprompt .liquidprompt
             install_symlink $PWD .liquidpromptrc
+            git submodule update --init --recursive
+            install_symlink $PWD liquidprompt/liquidprompt .liquidprompt
             ;;
         "all")
             install_symlink $PWD .tmux.conf
