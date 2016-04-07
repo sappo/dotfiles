@@ -1,20 +1,17 @@
 # Upgrade xterm session to use colors.
 # This will make tmux display the correct colors.
 if [ "$TERM" = "xterm" ]; then
-    export TERM=xterm-256color
+    if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+        export TERM=xterm-256color
+    elif [ -e /usr/share/terminfo/x/xterm-color ]; then
+        export TERM=xterm-color
+    fi
 fi
-
-case $TERM in
-    xterm*|rxvt)
-        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}\007"'
-        export PROMPT_COMMAND
-        ;;
-    screen)
-      TITLE=$(hostname -s)
-      PROMPT_COMMAND='/bin/echo -ne "\033k${TITLE}\033\\"'
-      export PROMPT_COMMAND
-        ;;
-esac
+if [ "$TERM" = "screen" ]; then
+    if [ -e /usr/share/terminfo/s/screen-256color ]; then
+        export TERM=screen-256color
+    fi
+fi
 
 # Load system bash configurations
 if [ -f /etc/bashrc ]; then
