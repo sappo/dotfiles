@@ -65,6 +65,10 @@ You can stage or revert an individual hunk when your cursor is in it:
 * stage the hunk with \<Leader\>hs or
 * revert it with \<Leader\>hr.
 
+Here is a graphical cheat sheet with the default vim keybindings and my custom ones. Just print it and place it under your keyboard ;)
+
+![vim graphical cheat sheet](https://rawgit.com/sappo/dotfiles/master/vim_cheat_sheet.svg)
+
 ## tmux.conf
 
 This is my tmux.conf. To get started you'll need to install the Tmux Plugin Manager:
