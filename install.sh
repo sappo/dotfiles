@@ -57,11 +57,17 @@ do
             install_symlink $PWD liquidprompt/liquidprompt .liquidprompt
             ;;
         "all")
+            if [ ! -e $HOME/.tmux/plugins/tmp ]; then
+                git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+            fi
             install_symlink $PWD .tmux.conf
             install_symlink $PWD .tmuxline
             install_symlink $PWD .vimrc
             install_symlink $PWD .gitconfig
             install_symlink $PWD .bashrc
+            install_symlink $PWD .liquidpromptrc
+            git submodule update --init --recursive
+            install_symlink $PWD liquidprompt/liquidprompt .liquidprompt
             break
             ;;
         "quit")
