@@ -50,6 +50,7 @@ alias xcopy="xclip -i -selection clipboard"
 # downgrade terminal to xterm in case the remote does not support colors
 alias ssh='TERM=xterm ssh'
 alias ls='ls --color'
+alias ll='ls --color -la'
 
 ###########
 # History #
