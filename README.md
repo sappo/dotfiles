@@ -11,8 +11,6 @@ To update the plugins enter `:NeoBundleUpdate`.
 
 Leader keybindings is (',')
 
-Other useful keybindings
-
 To open a menu with useful commands press `ctrl + u` to close the menu press `q`.
 
 Keys          | Description
