@@ -84,25 +84,26 @@ fi
 # Exports #
 ###########
 
-export PATH=/home/ksapper/Workspace/esp-open-sdk/xtensa-lx106-elf/bin:$PATH
+if [ -f ~/.bash_exports ]; then
+    . ~/.bash_exports
+fi
 
 ##########
 # Checks #
 ##########
 
-#  Check if there are updates for the dofiles
+#  Check if there are updates for the dofiles on a tracked master branch
 cd $(dirname $(readlink -e ~/.bashrc))
-git fetch
-#  Check origin for changes
-if [[ $(git remote show) == *"origin" ]]; then
-    if [ ! $(git rev-parse HEAD) == $(git rev-parse origin/master) ]; then
-        echo $(git rev-list HEAD...@{u} --count)" new updates available for dotfiles from origin/master!"
-    fi
-fi
-#  Check upstream for changes
-if [[ $(git remote show) == *"upstream" ]]; then
-    if [ ! $(git rev-parse HEAD) == $(git rev-parse upstream/master --quite) ]; then
-        echo $(git rev-list HEAD...@{u} --count)" new updates available for dotfiles from upstream/master!"
-    fi
-fi
+git fetch --all 2>&1 >/dev/null
+for remote in $(git remote show);
+do
+    for branch in $(git branch --all --list);
+    do
+        if [[ $branch == *"${remote}/HEAD" ]]; then # true if tracking
+            if [[ ! $(git rev-parse HEAD) == $(git rev-parse $remote/master) ]]; then
+                echo $(git rev-list HEAD...$remote/master --count)" new updates available for dotfiles from ${remote}/master!"
+            fi
+        fi
+    done
+done
 cd - 2>&1 >/dev/null
