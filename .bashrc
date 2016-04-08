@@ -81,8 +81,8 @@ HISTTIMEFORMAT='%F %T '
 # Use liquidprompt only if in an interactive shell
 if [[ $- == *i* ]]; then
     ## Super nice prompt
-    source ~/.liquidpromptrc
-    source ~/.liquidprompt
+    . ~/.liquidpromptrc
+    . ~/.liquidprompt
 fi
 
 ###########
