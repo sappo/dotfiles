@@ -144,6 +144,6 @@ LP_ENABLE_SSH_COLORS=0
 LP_DISABLED_VCS_PATH=""
 
 # Override default from ./liquidprompt/liquid.theme
-LP_MARK_STASH="☰"
+LP_MARK_STASH="☰ "
 
 # vim: set et sts=4 sw=4 tw=120 ft=sh:
