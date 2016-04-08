@@ -32,6 +32,12 @@ Keys          | Description
 `space-u`     | open the menu
 `C-space`     | ctrlspace menu
 
+#### Vim Cheat Sheet
+
+Here is a graphical cheat sheet with the default vim keybindings and my custom ones. Just print it and place it under your keyboard ;)
+
+![vim graphical cheat sheet](https://rawgit.com/sappo/dotfiles/master/vim_cheat_sheet.svg)
+
 To compile asynchronously use `:Make` for foreground compilation and `:Make!` for background compilation.
 
 #### GitGutter Bindings
@@ -44,10 +50,6 @@ You can jump between hunks:
 You can stage or revert an individual hunk when your cursor is in it:
 * stage the hunk with \<Leader\>hs or
 * revert it with \<Leader\>hr.
-
-Here is a graphical cheat sheet with the default vim keybindings and my custom ones. Just print it and place it under your keyboard ;)
-
-![vim graphical cheat sheet](https://rawgit.com/sappo/dotfiles/master/vim_cheat_sheet.svg)
 
 ## tmux.conf
 
