@@ -85,3 +85,24 @@ fi
 ###########
 
 export PATH=/home/ksapper/Workspace/esp-open-sdk/xtensa-lx106-elf/bin:$PATH
+
+##########
+# Checks #
+##########
+
+#  Check if there are updates for the dofiles
+cd $(dirname $(readlink -e ~/.bashrc))
+git fetch
+#  Check origin for changes
+if [[ $(git remote show) == *"origin" ]]; then
+    if [ ! $(git rev-parse HEAD) == $(git rev-parse origin/master) ]; then
+        echo $(git rev-list HEAD...@{u} --count)" new updates available for dotfiles from origin/master!"
+    fi
+fi
+#  Check upstream for changes
+if [[ $(git remote show) == *"upstream" ]]; then
+    if [ ! $(git rev-parse HEAD) == $(git rev-parse upstream/master --quite) ]; then
+        echo $(git rev-list HEAD...@{u} --count)" new updates available for dotfiles from upstream/master!"
+    fi
+fi
+cd - 2>&1 >/dev/null
