@@ -9,34 +9,14 @@ To update the plugins enter `:NeoBundleUpdate`.
 
 ### Keybindings
 
-Leader keybindings (',')
+Leader keybindings is (',')
 
-Keys      | Description
-----------|------------
-`2`       | Show Yanks
-`6`       | Toogle numbers (relative\|absolut)
-`7`       | Toogle numbers (on\|off)
-`8`       | Toogle spell language (en\|de)
-`9`       | Toggle spell check (on\|off)
-`0`       | Enter writers mode
-`s`       | Switch between header and source
-`r`       | Replace the current word
-`k`       | Jump to a tag
-
-Other keybindings
+Other useful keybindings
 
 To open a menu with useful commands press `ctrl + u` to close the menu press `q`.
 
 Keys          | Description
 ------------  |------------
-`F2`          | Nerdtree
-`F3`          | Tagbar
-`F4`          | vimshell
-`F5`          | Split horizontally
-`F6`          | Split vertically
-`F7`          | Toggle GitGutter
-`F8`          | Toggle paste mode
-`F9`          | Toggle undo list
 `C-LEFT`, `C-RIGHT`, `C-DOWN`, `C-UP` or `C-l`, `C-h`, `C-k`, `C-j` | Move between panes
 `A-LEFT`, `A-RIGHT`, `A-DOWN`, `A-UP` or `A-l`, `A-h`, `A-k`, `A-j` | Resize panes
 `C-c`         | Comment line
