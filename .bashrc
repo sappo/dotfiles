@@ -1,16 +1,21 @@
 # Upgrade xterm session to use colors.
 # This will make tmux display the correct colors.
+TERMINFO_LOCATIONS=(${HOME}/.terminfo /etc/terminfo /lib/terminfo /usr/share/terminfo)
 if [ "$TERM" = "xterm" ]; then
-    if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-        export TERM=xterm-256color
-    elif [ -e /usr/share/terminfo/x/xterm-color ]; then
-        export TERM=xterm-color
-    fi
+    for terminfo in ${TERMINFO_LOCATIONS[@]}; do
+        if [ -e $terminfo/x/xterm-256color ]; then
+            export TERM=xterm-256color
+        elif [ -e $terminfo/x/xterm-color ]; then
+            export TERM=xterm-color
+        fi
+    done
 fi
 if [ "$TERM" = "screen" ]; then
-    if [ -e /usr/share/terminfo/s/screen-256color ]; then
-        export TERM=screen-256color
-    fi
+    for terminfo in ${TERMINFO_LOCATIONS[@]}; do
+        if [ -e $terminfo/s/screen-256color ]; then
+            export TERM=screen-256color
+        fi
+    done
 fi
 
 # Load system bash configurations
