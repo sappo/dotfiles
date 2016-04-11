@@ -67,9 +67,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="355.08516"
-     inkscape:cy="544.45697"
+     inkscape:zoom="0.5"
+     inkscape:cx="2606.0132"
+     inkscape:cy="2199.9525"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -3095,7 +3095,7 @@
          sodipodi:role="line"
          x="2789.3052"
          y="-401.47443"
-         id="tspan4319">split ←</tspan></text>
+         id="tspan4319">buf. ←</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:30px;font-style:normal;font-weight:bold;text-align:center;line-height:100%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
@@ -3110,7 +3110,7 @@
          sodipodi:role="line"
          x="2964.572"
          y="-402.4151"
-         id="tspan4333">split ←</tspan></text>
+         id="tspan4333">buf. ←</tspan></text>
     <rect
        y="-87.909729"
        x="2747.8147"
@@ -3596,12 +3596,12 @@
        sodipodi:linespacing="100%"><tspan
          sodipodi:role="line"
          id="tspan34345"
-         x="3159.2114"
+         x="3159.6509"
          y="-431.47443">resize </tspan><tspan
          sodipodi:role="line"
          x="3154.436"
          y="-401.47443"
-         id="tspan4327">split↓</tspan></text>
+         id="tspan4327">buf.↓</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:30px;font-style:normal;font-weight:bold;text-align:center;line-height:100%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
@@ -3614,9 +3614,9 @@
          x="3330.6255"
          y="-429.50739">move to</tspan><tspan
          sodipodi:role="line"
-         x="3335.4009"
+         x="3335.8403"
          y="-399.50739"
-         id="tspan4325">split ↓ </tspan></text>
+         id="tspan4325">buf. ↓ </tspan></text>
     <rect
        y="-87.909729"
        x="3113.8684"
@@ -4162,7 +4162,7 @@
          sodipodi:role="line"
          x="3523.6023"
          y="-401.47443"
-         id="tspan4323">split ↑</tspan></text>
+         id="tspan4323">buf. ↑</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:30px;font-style:normal;font-weight:bold;text-align:center;line-height:100%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
@@ -4706,7 +4706,7 @@
          x="3887.3047"
          y="-401.47443"
          id="tspan4315"
-         style="font-size:30px;font-weight:bold;-inkscape-font-specification:Sans Bold">split →</tspan></text>
+         style="font-size:30px;font-weight:bold;-inkscape-font-specification:Sans Bold">buf. →</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:32px;font-style:normal;font-weight:bold;line-height:100%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
