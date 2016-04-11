@@ -30,13 +30,14 @@ fi
 # Networking #
 ##############
 
+#  To set a proxy add the file ~/.bash_proxy and insert your proxy url
+
 function proxy()
 {
-    proxy_url="$(~/proxy.sh)"
+    proxy_url="$(head -n 1 ~/.bash_proxy)"
     export  http_proxy="$proxy_url"
     export https_proxy="$proxy_url"
     export   ftp_proxy="$proxy_url"
-    echo ${proxy_url##*@}
 }
 
 function noproxy()
@@ -45,6 +46,13 @@ function noproxy()
     export https_proxy=""
     export ftp_proxy=""
 }
+
+if [ -f ~/.bash_proxy ]; then
+    proxy
+else
+    noproxy
+fi
+
 
 ###########
 # Aliases #
