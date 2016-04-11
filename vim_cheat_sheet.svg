@@ -2,6 +2,7 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -18,6 +19,38 @@
    sodipodi:docname="vim_cheat_sheet.svg">
   <defs
      id="defs4">
+    <linearGradient
+       id="linearGradient6767"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#333333;stop-opacity:1;"
+         offset="0"
+         id="stop6769" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient6761"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#333333;stop-opacity:1;"
+         offset="0"
+         id="stop6763" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient6755"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#333333;stop-opacity:1;"
+         offset="0"
+         id="stop6757" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient5315"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#ca3030;stop-opacity:1;"
+         offset="0"
+         id="stop5317" />
+    </linearGradient>
     <inkscape:path-effect
        effect="bend_path"
        id="path-effect5098"
@@ -26,6 +59,14 @@
        prop_scale="1"
        scale_y_rel="false"
        vertical="false" />
+    <filter
+       inkscape:collect="always"
+       id="filter6969">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.349413"
+         id="feGaussianBlur6971" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -34,9 +75,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.32"
-     inkscape:cx="4399.4592"
-     inkscape:cy="517.44593"
+     inkscape:zoom="0.5"
+     inkscape:cx="355.07857"
+     inkscape:cy="2545.3882"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -178,7 +219,7 @@
        height="810.85614" />
     <g
        id="g6688"
-       transform="translate(-49.28235,-951.40796)">
+       transform="translate(-42.29967,-930.17809)">
       <rect
          y="537.72314"
          x="418.11044"
@@ -7968,7 +8009,7 @@
          id="tspan5103-5"
          x="2060.0222"
          y="848.21484"
-         style="font-size:60px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold">:%s/xy/g (replace 'x' by 'y' filewide),</tspan><tspan
+         style="font-size:60px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold">:%s/x/y/g (replace 'x' by 'y' filewide),</tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="923.21484"
@@ -8197,5 +8238,24 @@
          x="4400.5073"
          y="-903.85791"
          style="fill:#ff0000;fill-opacity:1">7</tspan></text>
+    <rect
+       style="fill:#fffe6b;fill-opacity:0;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;filter:url(#filter6969)"
+       id="rect4365"
+       width="411.83374"
+       height="527.93146"
+       x="343.97202"
+       y="-528.45502" />
+    <text
+       xml:space="preserve"
+       style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="449.20972"
+       y="-485.89996"
+       id="text5137"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5139"
+         x="449.20972"
+         y="-485.89996"
+         style="font-weight:bold;-inkscape-font-specification:Sans Bold">key legend</tspan></text>
   </g>
 </svg>
