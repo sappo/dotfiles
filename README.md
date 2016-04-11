@@ -13,30 +13,13 @@ Leader keybindings is (',')
 
 To open a menu with useful commands press `ctrl + u` to close the menu press `q`.
 
-Keys          | Description
-------------  |------------
-`C-LEFT`, `C-RIGHT`, `C-DOWN`, `C-UP` or `C-l`, `C-h`, `C-k`, `C-j` | Move between panes
-`A-LEFT`, `A-RIGHT`, `A-DOWN`, `A-UP` or `A-l`, `A-h`, `A-k`, `A-j` | Resize panes
-`C-c`         | Comment line
-`C-x`         | Uncomment line
-`TAB`         | Move to next buffer
-`S-TAB`       | Move to previous buffer
-`C-w`         | Close current buffer (does not close the last)
-`CR`          | Highlight current word
-`C-p`         | Rotate forward in yank buffer
-`C-n`         | Rotate backward in yank buffer
-`s\<motion\>` | substitute
-`ss`          | substitute line
-`space-u`     | open the menu
-`C-space`     | ctrlspace menu
+To compile asynchronously use `:Make` for foreground compilation and `:Make!` for background compilation.
 
 #### Vim Cheat Sheet
 
-Here is a graphical cheat sheet with the default vim keybindings and my custom ones. Just print it and place it under your keyboard ;)
+Here is a graphical cheat sheet with the default vim keybindings and my custom ones in german keyboard layout. Just print it and place it under your keyboard ;)
 
 ![vim graphical cheat sheet](https://rawgit.com/sappo/dotfiles/master/vim_cheat_sheet.svg)
-
-To compile asynchronously use `:Make` for foreground compilation and `:Make!` for background compilation.
 
 #### GitGutter Bindings
 https://github.com/airblade/vim-gitgutter
