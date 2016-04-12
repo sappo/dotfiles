@@ -1,3 +1,15 @@
+# Load system bash configurations
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc   # --> Read /etc/bashrc, if present.
+fi
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+##########
+# Colors #
+##########
+
 # Upgrade xterm session to use colors.
 # This will make tmux display the correct colors.
 TERMINFO_LOCATIONS=(${HOME}/.terminfo /etc/terminfo /lib/terminfo /usr/share/terminfo)
@@ -18,13 +30,20 @@ if [ "$TERM" = "screen" ]; then
     done
 fi
 
-# Load system bash configurations
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc   # --> Read /etc/bashrc, if present.
-fi
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
+# GNU ls supports colors!
+# See dircolors to customize colors
+export LS_OPTS='--color=auto'
+alias  ls='ls ${LS_OPTS}'
+alias  ll='ll ${LS_OPTS} -la'
+
+# Get color support for 'less'
+export LESSOPEN="| src-hilite-lesspipe.sh %s"
+export LESS="--RAW-CONTROL-CHARS"
+
+# Use colors for less, man, etc.
+[[ -f ~/.LESS_TERMCAP ]] && . ~/.LESS_TERMCAP
+
+export GREP_OPTIONS="--color=auto"
 
 ##############
 # Networking #
@@ -62,8 +81,6 @@ fi
 alias xcopy="xclip -i -selection clipboard"
 # downgrade terminal to xterm in case the remote does not support colors
 alias ssh='TERM=xterm ssh'
-alias ls='ls --color=auto'
-alias ll='ls --color=auto -la'
 
 ###########
 # History #
