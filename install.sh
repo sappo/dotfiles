@@ -1,5 +1,9 @@
 #!/bin/bash
 
+RED='\e[31m'
+GREEN='\e[32m'
+STD='\e[39m'
+
 # Prints out the relative path between to absolute paths. Trivial.
 #
 # Parameters:
@@ -20,8 +24,7 @@ relpath() {
     echo "$down${ref##$pos/}"
 }
 
-function install_symlink
-{
+install_symlink () {
     if [ -z "$3" ]; then
         LINK_NAME=$2
     else
@@ -46,12 +49,30 @@ install_tmux () {
     install_symlink $PWD .tmuxline
 }
 
+is_tmux_installed () {
+    if [ -e $HOME/.tmux.conf ] || [ -d $HOME/.tmux.conf ]; then
+        echo "installed"
+    fi
+}
+
 install_vim () {
     install_symlink $PWD .vimrc
 }
 
+is_vim_installed () {
+    if [ -e $HOME/.vimrc ] || [ -d $HOME/.vimrc ]; then
+        echo "installed"
+    fi
+}
+
 install_git () {
     install_symlink $PWD .gitconfig
+}
+
+is_git_installed () {
+    if [ -e $HOME/.gitconfig ] || [ -d $HOME/.gitconfig ]; then
+        echo "installed"
+    fi
 }
 
 install_bash () {
@@ -59,35 +80,66 @@ install_bash () {
     install_symlink $PWD .liquidpromptrc
     git submodule update --init --remote
     install_symlink $PWD liquidprompt/liquidprompt .liquidprompt
+    if ! type "source-highlight" >/dev/null 2>&1; then
+        if type "apt-get" >/dev/null 2>&1; then
+            echo "Insert your password to install source-highlight for less:"
+            sudo apt-get --assume-yes install source-highlight 2>&1 >/dev/null
+            echo "Installed source-highlight for less"
+        fi
+        if type "pacman" >/dev/null 2>&1; then
+            echo "Insert your password to install source-highlight for less:"
+            sudo pacman -S source-highlight 2>&1 >/dev/null
+            echo "Installed source-highlight for less"
+        fi
+    fi
 }
 
-PS3='Please choose which dotfiles to install: '
-options=("tmux" "vim" "git" "bashrc" "all" "quit")
-select opt in "${options[@]}"
+is_bash_installed () {
+    if [ -e $HOME/.bashrc ] && [ -e $HOME/.liquidpromptrc ]; then
+        echo "installed"
+    fi
+}
+
+while :
 do
-    case $opt in
-        "tmux")
-            install_tmux
-            ;;
-        "vim")
-            install_vim
-            ;;
-        "git")
-            install_git
-            ;;
-        "bashrc")
-            install_bash
-            ;;
-        "all")
-            install_tmux
-            install_git
-            install_vim
-            install_bash
-            break
-            ;;
-        "quit")
-            break
-            ;;
-        *) echo invalid option;;
+    clear
+    cat<<EOF
+    =====================================
+    Sappo's dotfile installer
+    -------------------------------------
+    Please enter which dotfile to install
+
+    all         (1)
+    bashrc      (2) - $(is_bash_installed)
+    gitconfig   (3) - $(is_git_installed)
+    vimrc       (4) - $(is_vim_installed)
+    tmux        (5) - $(is_tmux_installed)
+                (Q)uit
+    -------------------------------------
+EOF
+    read -n1 -s
+    case "$REPLY" in
+    "1")
+        install_tmux
+        install_git
+        install_vim
+        install_bash
+        ;;
+    "2")
+        install_bash
+        ;;
+    "3")
+        install_git
+        ;;
+    "4")
+        install_vim
+        ;;
+    "5")
+        install_tmux
+        ;;
+    "q")  exit                      ;;
+    "Q")  exit                      ;;
+     * )  echo -e "${RED}invalid option...${STD}";;
     esac
+    read -p "Press [Enter] key to continue..." fackEnterKey
 done
