@@ -34,7 +34,7 @@ fi
 # See dircolors to customize colors
 export LS_OPTS='--color=auto'
 alias  ls='ls ${LS_OPTS}'
-alias  ll='ll ${LS_OPTS} -la'
+alias  ll='ls ${LS_OPTS} -la'
 
 # Get color support for 'less'
 export LESSOPEN="| src-hilite-lesspipe.sh %s"
