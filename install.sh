@@ -78,6 +78,7 @@ is_git_installed () {
 install_bash () {
     install_symlink $PWD .bashrc
     install_symlink $PWD .liquidpromptrc
+    install_symlink $PWD .lesspipe.sh
     install_symlink $PWD .LESS_TERMCAP
     git submodule update --init --remote
     install_symlink $PWD liquidprompt/liquidprompt .liquidprompt
@@ -98,6 +99,7 @@ install_bash () {
 is_bash_installed () {
     if [ -e $HOME/.bashrc ] &&
        [ -e $HOME/.liquidpromptrc ] &&
+       [ -e $HOME/.lesspipe.sh ] &&
        [ -e $HOME/.LESS_TERMCAP ]; then
         echo "installed"
     fi
