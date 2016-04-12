@@ -37,7 +37,7 @@ alias  ls='ls ${LS_OPTS}'
 alias  ll='ls ${LS_OPTS} -la'
 
 # Get color support for 'less'
-export LESSOPEN="| src-hilite-lesspipe.sh %s"
+export LESSOPEN="|~/.lesspipe.sh %s"
 export LESS="--RAW-CONTROL-CHARS"
 
 # Use colors for less, man, etc.
