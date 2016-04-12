@@ -90,7 +90,7 @@ install_bash () {
         fi
         if type "pacman" >/dev/null 2>&1; then
             echo "Insert your password to install source-highlight for less:"
-            sudo pacman -S source-highlight 2>&1 >/dev/null
+            sudo pacman -S --noconfirm source-highlight 2>&1 >/dev/null
             echo "Installed source-highlight for less"
         fi
     fi
