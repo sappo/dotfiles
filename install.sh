@@ -35,9 +35,9 @@ install_symlink () {
         cd $HOME
         ln -s "$(relpath "$PWD" "$1")"/$2 $3
         cd -
-        echo "Installed symlink for $2";
+        echo "    Installed symlink for $2";
     else
-        echo "Symlink for $2 already exists";
+        echo "    Symlink for $2 already exists";
     fi
 }
 
@@ -51,7 +51,7 @@ install_tmux () {
 
 is_tmux_installed () {
     if [ -e $HOME/.tmux.conf ] || [ -d $HOME/.tmux.conf ]; then
-        echo "installed"
+        echo "     installed"
     fi
 }
 
@@ -61,17 +61,26 @@ install_vim () {
 
 is_vim_installed () {
     if [ -e $HOME/.vimrc ] || [ -d $HOME/.vimrc ]; then
-        echo "installed"
+        echo "    installed"
     fi
 }
 
 install_git () {
+    echo "    -------------------------------------"
+    echo "    Please enter your git user name (first"
+    echo "    and last name) and email address!"
+    echo
+    read -p "    Name: " gitname
+    read -p "    Email: " gitemail
+    echo "    -------------------------------------"
+    sed -i "s/\(name\ =\ \).*$/\1$gitname/g" .gitconfig
+    sed -i "s/\(email\ =\ \).*$/\1$gitemail/g" .gitconfig
     install_symlink $PWD .gitconfig
 }
 
 is_git_installed () {
     if [ -e $HOME/.gitconfig ] || [ -d $HOME/.gitconfig ]; then
-        echo "installed"
+        echo "    installed"
     fi
 }
 
@@ -84,14 +93,14 @@ install_bash () {
     install_symlink $PWD liquidprompt/liquidprompt .liquidprompt
     if ! type "source-highlight" >/dev/null 2>&1; then
         if type "apt-get" >/dev/null 2>&1; then
-            echo "Insert your password to install source-highlight for less:"
+            echo "    Insert your password to install source-highlight for less:"
             sudo apt-get --assume-yes install source-highlight 2>&1 >/dev/null
-            echo "Installed source-highlight for less"
+            echo "    Installed source-highlight for less"
         fi
         if type "pacman" >/dev/null 2>&1; then
-            echo "Insert your password to install source-highlight for less:"
+            echo "    Insert your password to install source-highlight for less:"
             sudo pacman -S --noconfirm source-highlight 2>&1 >/dev/null
-            echo "Installed source-highlight for less"
+            echo "    Installed source-highlight for less"
         fi
     fi
 }
@@ -101,7 +110,7 @@ is_bash_installed () {
        [ -e $HOME/.liquidpromptrc ] &&
        [ -e $HOME/.lesspipe.sh ] &&
        [ -e $HOME/.LESS_TERMCAP ]; then
-        echo "installed"
+        echo "    installed"
     fi
 }
 
@@ -144,7 +153,8 @@ EOF
         ;;
     "q")  exit                      ;;
     "Q")  exit                      ;;
-     * )  echo -e "${RED}invalid option...${STD}";;
+     * )  echo -e "    ${RED}invalid option...${STD}";;
     esac
-    read -p "Press [Enter] key to continue..." fackEnterKey
+    echo
+    read -p "     Press [Enter] key to continue..." fackEnterKey
 done
