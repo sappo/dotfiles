@@ -1,8 +1,10 @@
 #!/bin/bash
 
-RED='\e[31m'
-GREEN='\e[32m'
-STD='\e[39m'
+BLUE=$(tput setaf 4)
+RED=$(tput setaf 1)
+YELLOW=$(tput setaf 3)
+GREEN=$(tput setaf 2)
+STD=$(tput sgr0)
 
 # Prints out the relative path between to absolute paths. Trivial.
 #
@@ -35,9 +37,9 @@ install_symlink () {
         cd $HOME
         ln -s "$(relpath "$PWD" "$1")"/$2 $3
         cd -
-        echo "    Installed symlink for $2";
+        echo "    ${GREEN}Installed symlink for $2${STD}";
     else
-        echo "    Symlink for $2 already exists";
+        echo "    ${YELLOW}Symlink for $2 already exists${STD}";
     fi
 }
 
@@ -51,7 +53,7 @@ install_tmux () {
 
 is_tmux_installed () {
     if [ -e $HOME/.tmux.conf ] || [ -d $HOME/.tmux.conf ]; then
-        echo "     installed"
+        echo "installed"
     fi
 }
 
@@ -61,26 +63,27 @@ install_vim () {
 
 is_vim_installed () {
     if [ -e $HOME/.vimrc ] || [ -d $HOME/.vimrc ]; then
-        echo "    installed"
+        echo "installed"
     fi
 }
 
 install_git () {
-    echo "    -------------------------------------"
-    echo "    Please enter your git user name (first"
-    echo "    and last name) and email address!"
     echo
-    read -p "    Name: " gitname
-    read -p "    Email: " gitemail
-    echo "    -------------------------------------"
+    echo "    Please enter your git user name and"
+    echo "    email address!"
+    echo
+    read -p "    ${BLUE}Name:${STD} " gitname
+    read -p "    ${BLUE}Email:${STD} " gitemail
+    echo
     sed -i "s/\(name\ =\ \).*$/\1$gitname/g" .gitconfig
     sed -i "s/\(email\ =\ \).*$/\1$gitemail/g" .gitconfig
+    echo "    Replaced git name and email in .gitconfig"
     install_symlink $PWD .gitconfig
 }
 
 is_git_installed () {
     if [ -e $HOME/.gitconfig ] || [ -d $HOME/.gitconfig ]; then
-        echo "    installed"
+        echo "installed"
     fi
 }
 
@@ -110,7 +113,7 @@ is_bash_installed () {
        [ -e $HOME/.liquidpromptrc ] &&
        [ -e $HOME/.lesspipe.sh ] &&
        [ -e $HOME/.LESS_TERMCAP ]; then
-        echo "    installed"
+        echo "installed"
     fi
 }
 
@@ -123,12 +126,12 @@ do
     -------------------------------------
     Please enter which dotfile to install
 
-    all         (1)
-    bashrc      (2) - $(is_bash_installed)
-    gitconfig   (3) - $(is_git_installed)
-    vimrc       (4) - $(is_vim_installed)
-    tmux        (5) - $(is_tmux_installed)
-                (Q)uit
+    all         ${BLUE}(1)${STD}
+    bashrc      ${BLUE}(2)${STD} - ${GREEN}$(is_bash_installed)${STD}
+    gitconfig   ${BLUE}(3)${STD} - ${GREEN}$(is_git_installed)${STD}
+    vimrc       ${BLUE}(4)${STD} - ${GREEN}$(is_vim_installed)${STD}
+    tmux        ${BLUE}(5)${STD} - ${GREEN}$(is_tmux_installed)${STD}
+                ${BLUE}(Q)uit${STD}
     -------------------------------------
 EOF
     read -n1 -s
@@ -153,8 +156,8 @@ EOF
         ;;
     "q")  exit                      ;;
     "Q")  exit                      ;;
-     * )  echo -e "    ${RED}invalid option...${STD}";;
+     * )  echo -e "    ${RED}Invalid option...${STD}";;
     esac
     echo
-    read -p "     Press [Enter] key to continue..." fackEnterKey
+    read -p "    Press ${BLUE}[Enter]${STD} key to continue..." fackEnterKey
 done
