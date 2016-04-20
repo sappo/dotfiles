@@ -35,6 +35,7 @@ fi
 export LS_OPTS='--color=auto'
 alias  ls='ls ${LS_OPTS}'
 alias  ll='ls ${LS_OPTS} -la'
+alias  grep='grep ${LS_OPTS}'
 
 # Get color support for 'less'
 export LESSOPEN="|~/.lesspipe.sh %s"
@@ -42,8 +43,6 @@ export LESS="--RAW-CONTROL-CHARS"
 
 # Use colors for less, man, etc.
 [[ -f ~/.LESS_TERMCAP ]] && . ~/.LESS_TERMCAP
-
-export GREP_OPTIONS="--color=auto"
 
 ##############
 # Networking #
