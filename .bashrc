@@ -17,8 +17,10 @@ if [ "$TERM" = "xterm" ]; then
     for terminfo in ${TERMINFO_LOCATIONS[@]}; do
         if [ -e $terminfo/x/xterm-256color ]; then
             export TERM=xterm-256color
+            break
         elif [ -e $terminfo/x/xterm-color ]; then
             export TERM=xterm-color
+            break
         fi
     done
 fi
