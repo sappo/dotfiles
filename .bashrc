@@ -32,12 +32,16 @@ if [ "$TERM" = "screen" ]; then
     done
 fi
 
-# GNU ls supports colors!
-# See dircolors to customize colors
-export LS_OPTS='--color=auto'
-alias  ls='ls ${LS_OPTS}'
-alias  ll='ls ${LS_OPTS} -la'
-alias  grep='grep ${LS_OPTS}'
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias ll='ls -la'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
 
 # Get color support for 'less'
 export LESSOPEN="|~/.lesspipe.sh %s"
