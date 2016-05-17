@@ -135,7 +135,14 @@ is_git_installed () {
 }
 
 install_bash () {
-    install_symlink $PWD .bashrc
+    if [ -e $HOME/.bashrc ] && [ ! -h $HOME/.bashrc ]; then
+        if ask "You already have a .bashrc! Do you like to replace it?" Y; then
+            rm ~/.bashrc
+            install_symlink $PWD .bashrc
+        fi
+    else
+        install_symlink $PWD .bashrc
+    fi
     install_symlink $PWD .liquidpromptrc
     install_symlink $PWD .lesspipe.sh
     install_symlink $PWD .LESS_TERMCAP
