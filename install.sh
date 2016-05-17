@@ -6,6 +6,46 @@ YELLOW=$(tput setaf 3)
 GREEN=$(tput setaf 2)
 STD=$(tput sgr0)
 
+# This is a general-purpose function to ask Yes/No questions in Bash, either
+# with or without a default answer. It keeps repeating the question until it
+# gets a valid answer.
+
+ask() {
+    # http://djm.me/ask
+    while true; do
+
+        if [ "${2:-}" = "Y" ]; then
+            prompt="Y/n"
+            default=Y
+        elif [ "${2:-}" = "N" ]; then
+            prompt="y/N"
+            default=N
+        else
+            prompt="y/n"
+            default=
+        fi
+
+        # Ask the question (not using "read -p" as it uses stderr not stdout)
+        echo
+        echo -n "    $1 [$prompt] "
+
+        # Read the answer (use /dev/tty in case stdin is redirected from somewhere else)
+        read REPLY </dev/tty
+
+        # Default?
+        if [ -z "$REPLY" ]; then
+            REPLY=$default
+        fi
+
+        # Check if the reply is valid
+        case "$REPLY" in
+            Y*|y*) return 0 ;;
+            N*|n*) return 1 ;;
+        esac
+
+    done
+}
+
 # Prints out the relative path between to absolute paths. Trivial.
 #
 # Parameters:
@@ -68,16 +108,23 @@ is_vim_installed () {
 }
 
 install_git () {
-    echo
-    echo "    Please enter your git user name and"
-    echo "    email address!"
-    echo
-    read -p "    ${BLUE}Name:${STD} " gitname
-    read -p "    ${BLUE}Email:${STD} " gitemail
-    echo
-    sed -i "s/\(name\ =\ \).*$/\1$gitname/g" .gitconfig
-    sed -i "s/\(email\ =\ \).*$/\1$gitemail/g" .gitconfig
-    echo "    Replaced git name and email in .gitconfig"
+    CHANGE_SETTINGS=0
+    if [[ -z $is_git_installed ]]; then
+        if ! ask "Do you like to change your git settings?" N; then
+            CHANGE_SETTINGS=1
+        fi
+    fi
+    if [[ $CHANGE_SETTINGS -eq 0 ]]; then
+        echo
+        echo "    Please enter your git user name and email address!"
+        echo
+        read -p "    ${BLUE}Name:${STD} " gitname
+        read -p "    ${BLUE}Email:${STD} " gitemail
+        echo
+        sed -i "s/\(name\ =\ \).*$/\1$gitname/g" .gitconfig
+        sed -i "s/\(email\ =\ \).*$/\1$gitemail/g" .gitconfig
+        echo "    Replaced git name and email in .gitconfig"
+    fi
     install_symlink $PWD .gitconfig
 }
 
@@ -94,16 +141,18 @@ install_bash () {
     install_symlink $PWD .LESS_TERMCAP
     git submodule update --init --remote
     install_symlink $PWD liquidprompt/liquidprompt .liquidprompt
-    if ! type "source-highlight" >/dev/null 2>&1; then
-        if type "apt-get" >/dev/null 2>&1; then
-            echo "    Insert your password to install source-highlight for less:"
-            sudo apt-get --assume-yes install source-highlight 2>&1 >/dev/null
-            echo "    Installed source-highlight for less"
-        fi
-        if type "pacman" >/dev/null 2>&1; then
-            echo "    Insert your password to install source-highlight for less:"
-            sudo pacman -S --noconfirm source-highlight 2>&1 >/dev/null
-            echo "    Installed source-highlight for less"
+    if ask "Do you like to install source highlighting in less and grep? [requires sudo]" Y; then
+        if ! type "source-highlight" >/dev/null 2>&1; then
+            if type "apt-get" >/dev/null 2>&1; then
+                echo "    Insert your password to install source-highlight for less:"
+                sudo apt-get --assume-yes install source-highlight 2>&1 >/dev/null
+                echo "    Installed source-highlight for less"
+            fi
+            if type "pacman" >/dev/null 2>&1; then
+                echo "    Insert your password to install source-highlight for less:"
+                sudo pacman -S --noconfirm source-highlight 2>&1 >/dev/null
+                echo "    Installed source-highlight for less"
+            fi
         fi
     fi
 }
