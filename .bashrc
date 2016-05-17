@@ -87,6 +87,10 @@ alias xcopy="xclip -i -selection clipboard"
 # downgrade terminal to xterm in case the remote does not support colors
 alias ssh='TERM=xterm ssh'
 
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
 ###########
 # History #
 ###########
