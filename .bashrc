@@ -134,6 +134,7 @@ fi
 #  Check if there are updates for the dofiles on a tracked master branch
 #  Only check once after each reboot
 if [ ! -f /tmp/bashrc_check ]; then
+    echo Checking for dotfiles updates ...
     cd $(dirname $(readlink -e ~/.bashrc))
     timeout 3 git fetch --all 2>&1 >/dev/null
     for remote in $(git remote show);
