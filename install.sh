@@ -137,7 +137,8 @@ is_git_installed () {
 install_bash () {
     if [ -e $HOME/.bashrc ] && [ ! -h $HOME/.bashrc ]; then
         if ask "You already have a .bashrc! Do you like to replace it?" Y; then
-            rm ~/.bashrc
+            mv $HOME/.bashrc $HOME/.bashrc.bak
+            echo "    Renamed existing .bashrc to .bashrc.bak"
             install_symlink $PWD .bashrc
         fi
     else
@@ -193,10 +194,10 @@ EOF
     read -n1 -s
     case "$REPLY" in
     "1")
-        install_tmux
+        install_bash
         install_git
         install_vim
-        install_bash
+        install_tmux
         ;;
     "2")
         install_bash
