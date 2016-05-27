@@ -1,6 +1,12 @@
 # dotfiles
 Collection of my dotfiles for linux
 
+## Install
+
+There is an install script at the root of the project directory which will symlink all dotfiles that you desire to the correct places.
+
+    install.sh
+
 ## .vimrc
 
 This is my vimrc it is completely self managed and automatically installs the plugin manager NeoBundle and all plugins. Only prerequisite is that you have `git` installed on your system. If you like to use autocompletion make sure you're vim has python and lua enabled. For Ubuntu install `vim-nox` if you're running on a headless server and `vim-gnome` on a desktop to enable clipboard support.
