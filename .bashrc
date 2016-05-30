@@ -123,6 +123,10 @@ fi
 # Exports #
 ###########
 
+# Set default EDITOR
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
 if [ -f ~/.bash_exports ]; then
     . ~/.bash_exports
 fi
