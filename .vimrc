@@ -697,8 +697,7 @@ NeoBundleLazy 'vim-scripts/LargeFile'
 NeoBundle 'ntpeters/vim-better-whitespace'
 if neobundle#tap('vim-better-whitespace')
   function! neobundle#hooks.on_source(bundle)
-    autocmd BufWritePre <buffer> StripWhitespace
-    let g:better_whitespace_filetypes_blacklist=['<filetype1>', '<filetype2>', '<etc>']
+    autocmd BufWritePre * StripWhitespace
   endfunction
   call neobundle#untap()
 endif
