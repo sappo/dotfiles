@@ -751,7 +751,7 @@ autocmd FileType java setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 
 " C/C++
 autocmd FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-autocmd FileType cpp setlocal tabstop=3 softtabstop=3 shiftwidth=3 expandtab
+autocmd FileType cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 " vim
 " ---
