@@ -558,11 +558,14 @@ NeoBundle 'airblade/vim-gitgutter'
 if neobundle#tap('vim-gitgutter')
   function! neobundle#hooks.on_source(bundle)
     " Disabled by default
-    let g:gitgutter_enabled = 0
+    let g:gitgutter_enabled = 1
     let g:gitgutter_signs = 1
-    let g:gitgutter_highlight_lines = 1
+    let g:gitgutter_highlight_lines = 0
     " Don't show git diff is there are too many changes
     let g:gitgutter_max_signs = 500  " default value
+    " Update gitgutter more often
+    let g:gitgutter_realtime = 1000
+    let g:gitgutter_eager = 1000
   endfunction
   call neobundle#untap()
 endif
