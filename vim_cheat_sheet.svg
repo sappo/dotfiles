@@ -67,9 +67,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="2084.9263"
-     inkscape:cy="279.44098"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="1860.3166"
+     inkscape:cy="2369.7561"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -2054,33 +2054,39 @@
        style="fill:#fffe6b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <rect
        y="-457.03711"
-       x="1978.6808"
+       x="1978.6809"
        height="64.572609"
        width="156.87363"
        id="rect33501"
-       style="fill:#ededed;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+       style="fill:#fffe6b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <text
        xml:space="preserve"
-       style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="2014.8126"
-       y="-412.82111"
+       style="font-size:32px;font-style:normal;font-weight:normal;text-align:start;line-height:100%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="1987.4614"
+       y="-435.24298"
        id="text33503"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="100%"><tspan
          sodipodi:role="line"
-         id="tspan33505"
-         x="2014.8126"
-         y="-412.82111">Alt+f</tspan></text>
+         x="1987.4614"
+         y="-435.24298"
+         style="font-weight:bold;text-align:start;line-height:100%;text-anchor:start;-inkscape-font-specification:Sans Bold"
+         id="tspan4308">move</tspan><tspan
+         sodipodi:role="line"
+         x="1987.4614"
+         y="-403.24298"
+         style="font-weight:bold;text-align:start;line-height:100%;text-anchor:start;-inkscape-font-specification:Sans Bold"
+         id="tspan5115">range ↓</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:32px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
-       x="2167.061"
-       y="-419.1944"
+       x="2171.186"
+       y="-416.61627"
        id="text33507"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan33509"
-         x="2167.061"
-         y="-419.1944">page ↓</tspan></text>
+         x="2171.186"
+         y="-416.61627">page ↓</tspan></text>
     <rect
        y="-87.909729"
        x="2015.7076"
@@ -2707,18 +2713,7 @@
        height="64.572609"
        width="156.87363"
        id="rect33837"
-       style="fill:#ededed;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-    <text
-       xml:space="preserve"
-       style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="2464.0603"
-       y="63.390381"
-       id="text33839"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan33841"
-         x="2464.0603"
-         y="63.390381">Alt+b</tspan></text>
+       style="fill:#fffe6b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <text
        xml:space="preserve"
        style="font-size:32px;font-style:normal;font-weight:bold;line-height:100%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
@@ -7856,5 +7851,22 @@
            y="-1616.9501"
            style="font-size:84px">F9</tspan></text>
     </g>
+    <text
+       xml:space="preserve"
+       style="font-size:32px;font-style:normal;font-weight:bold;line-height:100%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       x="2436.709"
+       y="40.968494"
+       id="text33843-9"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         x="2436.709"
+         y="40.968494"
+         id="tspan5094-6"
+         style="font-weight:bold;line-height:100%;-inkscape-font-specification:Sans Bold">move</tspan><tspan
+         sodipodi:role="line"
+         x="2436.709"
+         y="72.968491"
+         style="font-weight:bold;line-height:100%;-inkscape-font-specification:Sans Bold"
+         id="tspan5113">range ↑</tspan></text>
   </g>
 </svg>

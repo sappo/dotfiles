@@ -863,13 +863,20 @@ nmap <c-s> :w<CR>
 vmap <c-s> <Esc><c-s>gv
 imap <c-s> <Esc><c-s>
 
+" Bubble single lines
+nmap <a-b> ddkP
+nmap <a-f> ddp
+" Bubble multiple lines
+vmap <a-b> xkP`[V`]
+vmap <a-f> xp`[V`]
+
 " F-key Bindings
 nnoremap <silent> <F2> :NERDTreeToggle<CR>
 nnoremap <silent> <F3> :TagbarToggle<CR>
 nnoremap <silent> <F4> :VimShellPop<CR>
 nmap <F5> :split<CR>
 nmap <F6> :vsplit<CR>
-nnoremap <F7> :GitGutterToggle<cr>
+nnoremap <F7> :GitGutterLineHighlightsToggle<cr>
 set pastetoggle=<F8>
 nnoremap <F9> :UndotreeToggle<cr>
 
@@ -1032,5 +1039,5 @@ if exists("+undofile")
   set undodir+=~/.vim/undo//
   set undofile
   set undolevels=50
-
 endif
+
