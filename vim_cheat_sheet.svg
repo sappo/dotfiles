@@ -67,9 +67,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="1860.3166"
-     inkscape:cy="2369.7561"
+     inkscape:zoom="0.1767767"
+     inkscape:cx="2940.7851"
+     inkscape:cy="1509.4776"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -91,7 +91,11 @@
      borderlayer="false"
      width="1052.36px"
      inkscape:bbox-paths="false"
-     inkscape:snap-global="true" />
+     inkscape:snap-global="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4308" />
+  </sodipodi:namedview>
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -7706,20 +7710,25 @@
       <text
          sodipodi:linespacing="125%"
          id="text5789-9"
-         y="-1560.7732"
-         x="3075.9634"
+         y="-1609.0281"
+         x="3098.6055"
          style="font-size:32px;font-style:normal;font-weight:bold;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
          xml:space="preserve"><tspan
            id="tspan5795-5"
            style="font-size:40px;font-weight:bold;-inkscape-font-specification:Sans Bold"
-           y="-1560.7732"
-           x="3075.9634"
+           y="-1609.0281"
+           x="3098.6055"
            sodipodi:role="line">toggle</tspan><tspan
            id="tspan7854"
            style="font-size:40px;font-weight:bold;-inkscape-font-specification:Sans Bold"
-           y="-1510.7732"
-           x="3075.9634"
-           sodipodi:role="line">GitGutter</tspan></text>
+           y="-1559.0281"
+           x="3098.6055"
+           sodipodi:role="line">GitGutter</tspan><tspan
+           style="font-size:40px;font-weight:bold;-inkscape-font-specification:Sans Bold"
+           y="-1509.0281"
+           x="3098.6055"
+           sodipodi:role="line"
+           id="tspan5079">highlighting</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
@@ -7868,5 +7877,30 @@
          y="72.968491"
          style="font-weight:bold;line-height:100%;-inkscape-font-specification:Sans Bold"
          id="tspan5113">range ↑</tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#a0a0a0;stroke-width:7.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4306"
+       width="942.87244"
+       height="218.99969"
+       x="4662.6782"
+       y="124.34408"
+       ry="45.985291" />
+    <text
+       xml:space="preserve"
+       style="font-size:32px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#5f5f5f;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       x="4681.3896"
+       y="214.7836"
+       id="text5093"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5097"
+         x="4681.3896"
+         y="214.7836"
+         style="font-size:60px;fill:#5f5f5f;fill-opacity:1">Vim Graphical Cheat Sheet</tspan><tspan
+         sodipodi:role="line"
+         x="4681.3896"
+         y="289.7836"
+         id="tspan5105"
+         style="font-size:60px;fill:#5f5f5f;fill-opacity:1">by sappo (german layout)</tspan></text>
   </g>
 </svg>
