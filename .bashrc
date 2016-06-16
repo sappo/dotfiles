@@ -135,12 +135,19 @@ fi
 # Checks #
 ##########
 
+command_exists ()
+{
+    hash "$1" 2> /dev/null;
+}
+
 # OpenPGP applet support for YubiKey NEO
-if [ ! -f /tmp/gpg-agent.env ]; then
-    killall gpg-agent;
-    eval $(gpg-agent --daemon --enable-ssh-support > /tmp/gpg-agent.env);
+if [ $(command_exists gpg-agent) ]; then
+    if [ ! -f /tmp/gpg-agent.env ]; then
+        killall gpg-agent;
+        eval $(gpg-agent --daemon --enable-ssh-support > /tmp/gpg-agent.env);
+    fi
+    . /tmp/gpg-agent.env
 fi
-. /tmp/gpg-agent.env
 
 GPG_TTY=$(tty)
 export GPG_TTY
