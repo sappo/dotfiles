@@ -646,14 +646,6 @@ endif
 "call neobundle#untap()
 "endif
 
-NeoBundle 'edkolev/promptline.vim'
-if neobundle#tap('promptline.vim')
-  function! neobundle#hooks.on_source(bundle)
-    let g:promptline_theme = 'papercolor'
-  endfunction
-  call neobundle#untap()
-endif
-
 NeoBundle 'NLKNguyen/papercolor-theme'
 if neobundle#tap('papercolor-theme')
   function! neobundle#hooks.on_source(bundle)
