@@ -773,12 +773,16 @@ autocmd FileType json setlocal syntax=javascript
 
 autocmd BufRead,BufNewFile *.adoc,*.asciidoc set syntax=asciidoc
 autocmd BufRead,BufNewFile README.txt set syntax=markdown
-autocmd BufRead,BufNewFile *.gsl set syntax=c
 
 " Goyo
 " ----
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+" GSL
+" ---
+autocmd BufRead,BufNewFile *.gsl set syntax=c
+
 endif
 
 " ==============================================================================
