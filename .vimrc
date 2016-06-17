@@ -536,6 +536,7 @@ if neobundle#tap('vim-fugitive')
     noremap <silent> <leader>gd :Gdiff<cr>
     noremap <silent> <leader>gg :Ggrep
     noremap <silent> <leader>gl :Glog<cr>
+    noremap <silent> <leader>gr :Gwrite<cr>
     noremap <silent> <leader>gs :Gstatus<cr>
 
     " Unite menu [[[
@@ -550,6 +551,7 @@ if neobundle#tap('vim-fugitive')
         \['Modify'],
         \['git commit      (fugitive)', 'normal ,gc', ',gc'],
         \['git merge       (fugitive)', 'normal ,gm', ',gm'],
+        \['git write       (fugitive)', 'normal ,gr', ',gr'],
         \['Help'],
         \['vim help        (fugitive)', 'help fugitive'],
     \])
