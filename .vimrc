@@ -127,33 +127,6 @@ if neobundle#tap('vim-gutentags')
   call neobundle#untap()
 endif
 
-"NeoBundle 'vim-scripts/DfrankUtil'
-"NeoBundle 'vim-scripts/vimprj'
-"NeoBundle 'vim-scripts/indexer.tar.gz'
-"if neobundle#tap('indexer.tar.gz')
-  "function! neobundle#hooks.on_source(bundle)
-
-  "endfunction
-  "call neobundle#untap()
-"endif
-
-"NeoBundle 'ludovicchabant/vim-gutentags'
-"if neobundle#tap('indexer.tar.gz')
-  "function! neobundle#hooks.on_source(bundle)
-  "set statusline+=%{gutentags#statusline('[Generating...]')}
-  "endfunction
-  "call neobundle#untap()
-"endif
-
-"NeoBundle 'brookhong/cscope.vim'
-"if neobundle#tap('cscope.vim')
-  "function! neobundle#hooks.on_source(bundle)
-    "nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
-    "nnoremap <leader>l :call ToggleLocationList()<CR>
-  "endfunction
-  "call neobundle#untap()
-"endif
-
 " }}}
 
 " Manipulation {{{
