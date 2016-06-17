@@ -84,6 +84,9 @@ if neobundle#tap('neocomplete.vim')
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+    " Refresh cache
+    autocmd BufRead,BufNewFile * :NeoCompleteTagMakeCache
   endfunction
   call neobundle#untap()
 endif
