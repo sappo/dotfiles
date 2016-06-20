@@ -157,18 +157,22 @@ export GPG_TTY
 if [ ! -f /tmp/bashrc_check ]; then
     echo Checking for dotfiles updates ...
     cd $(dirname $(readlink -e ~/.bashrc))
-    timeout 3 git fetch --all 2>&1 >/dev/null
-    for remote in $(git remote show);
-    do
-        for branch in $(git branch --all --list);
+    timeout 5s git fetch --all 2>&1 >/dev/null
+    if [ $? = 0 ]; then
+        for remote in $(git remote show);
         do
-            if [[ $branch == *"${remote}/HEAD" ]]; then # true if tracking
-                if [[ ! $(git rev-parse HEAD) == $(git rev-parse $remote/master) ]]; then
-                    echo $(git rev-list HEAD...$remote/master --count)" new updates available for dotfiles from ${remote}/master!"
+            for branch in $(git branch --all --list);
+            do
+                if [[ $branch == *"${remote}/HEAD" ]]; then # true if tracking
+                    if [[ ! $(git rev-parse HEAD) == $(git rev-parse $remote/master) ]]; then
+                        echo $(git rev-list HEAD...$remote/master --count)" new updates available for dotfiles from ${remote}/master!"
+                    fi
                 fi
-            fi
+            done
         done
-    done
-    touch /tmp/bashrc_check
+        touch /tmp/bashrc_check
+    else
+        echo Timeout! Try again later.
+    fi
     cd - 2>&1 >/dev/null
 fi
