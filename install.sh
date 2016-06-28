@@ -74,8 +74,8 @@ install_symlink () {
     fi
 
     if [ ! -e $HOME/$LINK_NAME ] && [ ! -d $HOME/$LINK_NAME ]; then
-        cd $HOME
-        ln -s "$(relpath "$PWD" "$1")"/$2 $3
+        cd $(dirname $HOME/$LINK_NAME)
+        ln -s "$(relpath "$PWD" "$1")"/$2 $(basename $3)
         cd -
         echo "    ${GREEN}Installed symlink for $2${STD}";
     else
@@ -134,6 +134,32 @@ is_git_installed () {
     fi
 }
 
+install_gpg () {
+    # Disable gnome-keyring ssh-agent
+    if [[ $(gconftool-2 --get /apps/gnome-keyring/daemon-components/ssh) != "false" ]]; then
+        gconftool-2 --type bool --set /apps/gnome-keyring/daemon-components/ssh false
+    fi
+    # Disable X11 gpg-agent by removing its startup script
+    sudo mv /etc/X11/Xsession.d/90gpg-agent .
+
+    if ask "You already have a gpg config! Do you like to replace it?" Y; then
+        rm $HOME/.gnupg/gpg.conf
+        rm $HOME/.gnupg/gpg-agent.conf
+        rm $HOME/.gnupg/scdaemon.conf
+    fi
+    install_symlink $PWD gpg.conf .gnupg/gpg.conf
+    install_symlink $PWD gpg-agent.conf .gnupg/gpg-agent.conf
+    install_symlink $PWD scdaemon.conf .gnupg/scdaemon.conf
+}
+
+is_gpg_installed () {
+    if [ -h $HOME/.gnupg/gpg.conf ] &&
+       [ -h $HOME/.gnupg/gpg-agent.conf ] &&
+       [ -h $HOME/.gnupg/scdaemon.conf ]; then
+        echo "installed"
+    fi
+}
+
 install_bash () {
     if [ -e $HOME/.bashrc ] && [ ! -h $HOME/.bashrc ]; then
         if ask "You already have a .bashrc! Do you like to replace it?" Y; then
@@ -186,8 +212,9 @@ do
     all         ${BLUE}(1)${STD}
     bashrc      ${BLUE}(2)${STD} - ${GREEN}$(is_bash_installed)${STD}
     gitconfig   ${BLUE}(3)${STD} - ${GREEN}$(is_git_installed)${STD}
-    vimrc       ${BLUE}(4)${STD} - ${GREEN}$(is_vim_installed)${STD}
-    tmux        ${BLUE}(5)${STD} - ${GREEN}$(is_tmux_installed)${STD}
+    gpg         ${BLUE}(4)${STD} - ${GREEN}$(is_gpg_installed)${STD}
+    vimrc       ${BLUE}(5)${STD} - ${GREEN}$(is_vim_installed)${STD}
+    tmux        ${BLUE}(6)${STD} - ${GREEN}$(is_tmux_installed)${STD}
                 ${BLUE}(Q)uit${STD}
     -------------------------------------
 EOF
@@ -206,9 +233,12 @@ EOF
         install_git
         ;;
     "4")
-        install_vim
+        install_gpg
         ;;
     "5")
+        install_vim
+        ;;
+    "6")
         install_tmux
         ;;
     "q")  exit                      ;;
