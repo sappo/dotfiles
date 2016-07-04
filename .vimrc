@@ -42,7 +42,7 @@ filetype plugin indent on     " Required!
 NeoBundle 'benekastah/neomake'
 if neobundle#tap('neomake')
   function! neobundle#hooks.on_source(bundle)
-    autocmd! BufWritePost * Neomake
+    autocmd! BufNewFile,BufWritePost * Neomake
     let g:neomake_airline = 1
   endfunction
   call neobundle#untap()
