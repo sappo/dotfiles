@@ -687,6 +687,9 @@ if neobundle#tap('goyo.vim')
   function! neobundle#hooks.on_source(bundle)
     let g:goyo_width=90
     let g:goyo_height=90
+
+    autocmd! User GoyoEnter nested call <SID>goyo_enter()
+    autocmd! User GoyoLeave nested call <SID>goyo_leave()
   endfunction
   call neobundle#untap()
 endif
@@ -740,7 +743,7 @@ NeoBundleCheck
 
 " Set augroup
 augroup MyAutoCmd
-autocmd!
+  autocmd!
 augroup END
 
 " Redraw since vim gets corrupt for no reason
@@ -784,11 +787,6 @@ autocmd FileType json setlocal syntax=javascript
 
 autocmd BufRead,BufNewFile *.adoc,*.asciidoc set syntax=asciidoc
 autocmd BufRead,BufNewFile README.txt set syntax=markdown
-
-" Goyo
-" ----
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " GSL
 " ---
@@ -844,7 +842,7 @@ function! s:goyo_enter()
   set noshowmode
   set noshowcmd
   set scrolloff=999
-  NeoCompleteDisable
+  NeoCompleteLock
 endfunction
 
 function! s:goyo_leave()
@@ -852,7 +850,7 @@ function! s:goyo_leave()
   set showmode
   set showcmd
   set scrolloff=5
-  NeoCompleteEnable
+  NeoCompleteUnlock
 endfunction
 
 " ==============================================================================
