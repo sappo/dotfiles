@@ -131,7 +131,7 @@ if neobundle#tap('neosnippet-snippets')
     smap <C-k>     <Plug>(neosnippet_expand_or_jump)
     xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-    " SuperTab like snippets behavior.
+    " SuperTab like snippets' behavior.
     imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
     smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
@@ -270,7 +270,7 @@ if neobundle#tap('unite.vim')
     endif
 
   function! s:register_quickmenu(name, description, candidate_precursors) " {{{
-    " find the length of longest name
+    " find the length of the longest name
     let max_length = max(map(filter(
           \ deepcopy(a:candidate_precursors),
           \ printf('v:val[0] != "%s"', '-'),
@@ -725,6 +725,37 @@ if neobundle#tap('vim-zenroom2')
   call neobundle#untap()
 endif
 
+NeoBundle 'kana/vim-operator-user'
+NeoBundle 'rhysd/vim-grammarous'
+if neobundle#tap('vim-grammarous')
+  function! neobundle#hooks.on_source(bundle)
+    let g:grammarous#jar_url = "https://www.languagetool.org/download/LanguageTool-3.4.zip"
+    let g:grammarous#use_vim_spelllang = 1
+    let g:grammarous#default_comments_only_filetypes = {
+                \ '*' : 1,
+                \ 'help' : 0, 'markdown' : 0, 'tex' : 0, 'txt' : 0,
+                \ }
+
+    let g:grammarous#hooks = {}
+    function! g:grammarous#hooks.on_check(errs)
+        nmap <buffer><C-n> <Plug>(grammarous-move-to-next-error)
+        nmap <buffer><C-p> <Plug>(grammarous-move-to-previous-error)
+        nmap <buffer><C-f> <Plug>(grammarous-fixit)
+        nmap <buffer><C-r> <Plug>(grammarous-remove-error)
+        nmap <buffer><C-x> <Plug>(grammarous-reset)
+    endfunction
+
+    function! g:grammarous#hooks.on_reset(errs)
+        nunmap <buffer><C-n>
+        nunmap <buffer><C-p>
+        nunmap <buffer><C-f>
+        nunmap <buffer><C-r>
+        nunmap <buffer><C-x>
+    endfunction
+  endfunction
+  call neobundle#untap()
+endif
+
 " }}}
 
 " Optimization {{{
@@ -1067,7 +1098,7 @@ set directory+=~/.vim/swap//
 set directory+=~/tmp//
 set directory+=.
 
-" viminfo stores the the state of your previous editing session
+" viminfo stores the state of your previous editing session
 set viminfo+=n~/.vim/viminfo
 
 if exists("+undofile")
