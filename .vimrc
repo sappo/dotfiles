@@ -591,6 +591,30 @@ if neobundle#tap('vim-gitgutter')
   call neobundle#untap()
 endif
 
+" A Vim plugin for more pleasant editing on commit messages
+NeoBundle 'rhysd/committia.vim'
+if neobundle#tap('committia.vim')
+  function! neobundle#hooks.on_source(bundle)
+    let g:committia_hooks = {}
+    function! g:committia_hooks.edit_open(info)
+        " Additional settings
+        setlocal spell
+
+        " If no commit message, start with insert mode
+        if a:info.vcs ==# 'git' && getline(1) ==# ''
+            startinsert
+        end
+
+        " Scroll the diff window from insert mode
+        " Map <C-n> and <C-p>
+        imap <buffer><C-n> <Plug>(committia-scroll-diff-down-half)
+        imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
+
+    endfunction
+  endfunction
+  call neobundle#untap()
+endif
+
 NeoBundle 'mbbill/undotree'
 if neobundle#tap('tagbar')
   function! neobundle#hooks.on_source(bundle)
