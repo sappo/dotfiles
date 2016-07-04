@@ -347,17 +347,12 @@ if neobundle#tap('unite.vim')
     " Neobundle Menu {{{
 
     call s:register_quickmenu('NeoBundle', 'Install/Update/Manage plugins            ⚷ [space]n', [
-        \['NeoBundle commands'],
-        \['NeoBundle check', 'Unite -no-empty output:NeoBundleCheck'],
-        \['NeoBundle clean', 'NeoBundleClean'],
-        \['NeoBundle direct edit', 'NeoBundleDirectEdit'],
-        \['NeoBundle docs', 'Unite output:NeoBundleDocs'],
-        \['NeoBundle install', 'Unite neobundle/install'],
-        \['NeoBundle lazy', 'Unite neobundle/lazy'],
-        \['NeoBundle list', 'Unite output:NeoBundleList'],
+        \['NeoBundle'],
         \['NeoBundle log', 'Unite neobundle/log'],
         \['NeoBundle search', 'Unite neobundle/search'],
         \['NeoBundle update', 'Unite neobundle/update'],
+        \['Help'],
+        \['NeoBundle docs', 'help NeoBundle'],
     \])
 
     exe 'nnoremap <silent>[menu]n :Unite -silent -winheight='.(len(g:unite_source_menu_menus.NeoBundle.candidates) + 2).' menu:NeoBundle<CR>'
@@ -370,9 +365,8 @@ if neobundle#tap('unite.vim')
         \['Buffers', 'Unite buffer'],
         \['Close current window', 'close', '[shift]w'],
         \['Location list', 'Unite location_list'],
-        \['New horizontal window', 'split'],
-        \['New vertical window', 'vsplit'],
-        \['Quickfix', 'Unite quickfix'],
+        \['New horizontal window', 'split', 'F5'],
+        \['New vertical window', 'vsplit', 'F6'],
         \['Tabs', 'Unite tab'],
         \['Toggle quickfix window', 'normal ,ll', ',ll'],
         \['Windows', 'Unite window'],
@@ -403,6 +397,7 @@ if neobundle#tap('unite.vim')
     " Key Guide {{{
 
     call s:register_quickmenu('Keyguide', 'Key bindings explained                    ⚷ [space]k', [
+        \['Keyguide'],
         \['Leader key mappings', 'normal ,fml', ',fml'],
     \])
 
@@ -572,7 +567,7 @@ if neobundle#tap('vim-fugitive')
         \['vim help        (fugitive)', 'help fugitive'],
     \])
 
-    exe 'nnoremap <silent>[menu]g :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Git.candidates) + 2).' menu:Git<CR>'
+    exe 'nnoremap <silent>[menu]g :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Git.candidates) + 3).' menu:Git<CR>'
     " ]]]
 
   endfunction
