@@ -143,6 +143,18 @@ if neobundle#tap('neosnippet-snippets')
   call neobundle#untap()
 endif
 
+NeoBundle 'rhysd/github-complete.vim'
+if neobundle#tap('github-complete.vim')
+  function! neobundle#hooks.on_source(bundle)
+    " Disable overwriting 'omnifunc'
+    let g:github_complete_enable_omni_completion = 0
+    " <C-x><C-x> invokes completions of github-complete.vim
+    autocmd FileType markdown,gitcommit
+    \ imap <C-x><C-x> <Plug>(github-complete-manual-completion)
+  endfunction
+  call neobundle#untap()
+endif
+
 NeoBundle 'ludovicchabant/vim-gutentags'
 if neobundle#tap('vim-gutentags')
   function! neobundle#hooks.on_source(bundle)
