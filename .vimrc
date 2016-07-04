@@ -65,6 +65,37 @@ if neobundle#tap('neocomplete.vim')
     " Set minimum syntax keyword length.
     let g:neocomplete#sources#syntax#min_keyword_length = 3
     let g:neocomplete#loock_buffer_name_pattern = '\*ku\*'
+    " Larger cache limit so all tag files are read into cache
+    let g:neocomplete#sources#tags#cache_limit_size = 5000000
+    let g:neocomplete#data_directory = expand('~/.vim/neocomplete')
+
+    " filetype text
+    if !exists('g:neocomplete#text_mode_filetypes')
+        let g:neocomplete#text_mode_filetypes = {}
+    endif
+    let g:neocomplete#text_mode_filetypes = {
+                \ 'nothing': 1,
+                \ 'rst': 1,
+                \ 'markdown': 1,
+                \ 'gitrebase': 1,
+                \ 'gitcommit': 1,
+                \ 'vcs-commit': 1,
+                \ 'hybrid': 1,
+                \ 'text': 1,
+                \ 'shd': 0,
+                \ 'help': 1,
+                \ 'changelog': 0,
+                \ 'php': '',
+                \ 'vim': 1,
+                \ 'tex': 1,
+                \ }
+
+    if !exists('g:neocomplete#delimiter_patterns')
+      let g:neocomplete#delimiter_patterns= {}
+    endif
+    let g:neocomplete#delimiter_patterns.vim = ['#']
+    let g:neocomplete#delimiter_patterns.cpp = ['::']
+    let g:neocomplete#delimiter_patterns.c = ['.', '->']
 
     " Recommended key-mappings.
     " <CR>: close popup and save indent.
@@ -85,8 +116,8 @@ if neobundle#tap('neocomplete.vim')
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-    " Refresh cache
-    autocmd BufRead,BufNewFile * :NeoCompleteTagMakeCache
+    " Disable automatic completion in gitcommit
+    autocmd FileType gitcommit NeoCompleteLock
   endfunction
   call neobundle#untap()
 endif
