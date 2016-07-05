@@ -153,12 +153,12 @@ fi
 GPG_TTY=$(tty)
 export GPG_TTY
 
-#  Check if there are updates for the dofiles on a tracked master branch
-#  Only check once after each reboot
+#  Check if there are updates for the dotfiles on a tracked master branch
+#  Only check once after each reboot, for performance reasons!
 if [ ! -f /tmp/bashrc_check ]; then
     echo Checking for dotfiles updates ...
     cd $(dirname $(readlink -e ~/.bashrc))
-    timeout 5s git fetch --all 2>&1 >/dev/null
+    timeout 5s git fetch -quiet --all
     if [ $? = 0 ]; then
         for remote in $(git remote show);
         do
