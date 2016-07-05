@@ -79,7 +79,6 @@ if neobundle#tap('neocomplete.vim')
                 \ 'markdown': 1,
                 \ 'gitrebase': 1,
                 \ 'gitcommit': 1,
-                \ 'vcs-commit': 1,
                 \ 'hybrid': 1,
                 \ 'text': 1,
                 \ 'shd': 0,
@@ -729,11 +728,13 @@ NeoBundle 'kana/vim-operator-user'
 NeoBundle 'rhysd/vim-grammarous'
 if neobundle#tap('vim-grammarous')
   function! neobundle#hooks.on_source(bundle)
-    let g:grammarous#jar_url = "https://www.languagetool.org/download/LanguageTool-3.4.zip"
     let g:grammarous#use_vim_spelllang = 1
     let g:grammarous#default_comments_only_filetypes = {
                 \ '*' : 1,
-                \ 'help' : 0, 'markdown' : 0, 'tex' : 0, 'txt' : 0,
+                \ 'help' : 0,
+                \ 'markdown' : 0,
+                \ 'tex' : 0,
+                \ 'text' : 0,
                 \ }
 
     let g:grammarous#hooks = {}
