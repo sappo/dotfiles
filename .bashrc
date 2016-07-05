@@ -54,17 +54,18 @@ export LESS="--RAW-CONTROL-CHARS"
 # Networking #
 ##############
 
-#  To set a proxy add the file ~/.bash_proxy and insert your proxy url
+#  To set a my_proxy permanently add the file ~/.bash_proxy and insert your
+#  proxy url.
 
-function proxy()
+function my_proxy()
 {
-    proxy_url="$(head -n 1 ~/.bash_proxy)"
+    proxy_url=$1
     export  http_proxy="$proxy_url"
     export https_proxy="$proxy_url"
     export   ftp_proxy="$proxy_url"
 }
 
-function noproxy()
+function my_noproxy()
 {
     export http_proxy=""
     export https_proxy=""
@@ -72,9 +73,9 @@ function noproxy()
 }
 
 if [ -f ~/.bash_proxy ]; then
-    proxy
+    my_proxy $(head -n 1 ~/.bash_proxy)
 else
-    noproxy
+    my_noproxy
 fi
 
 
