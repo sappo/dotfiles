@@ -350,6 +350,7 @@ if neobundle#tap('unite.vim')
 
     call s:register_quickmenu('NeoBundle', 'Install/Update/Manage plugins            ⚷ [space]n', [
         \['NeoBundle'],
+        \['NeoBundle garbage collection', 'NeoBundleGC'],
         \['NeoBundle log', 'Unite neobundle/log'],
         \['NeoBundle search', 'Unite neobundle/search'],
         \['NeoBundle update', 'Unite neobundle/update'],
