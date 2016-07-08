@@ -813,7 +813,9 @@ if has("autocmd")
 autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
 autocmd FileType gitcommit setlocal spell
 autocmd FileType gitrebase nnoremap <buffer> S :Cycle<CR>
-autocmd FileType git,gitcommit,gitrebase,markdown,tex,text,tx setlocal formatoptions+=a textwidth=80
+autocmd FileType git,gitcommit,gitrebase setlocal formatoptions+=a textwidth=72
+autocmd FileType markdown,tex,text setlocal formatoptions+=a textwidth=80
+autocmd FileType java,c,cpp,go,python,vim,make,html,xhtml,xml,ruby setlocal formatoptions+=c textwidth=80
 
 autocmd FileType html,xhtml,xml,htmldjango,jinja.html,jinja,eruby,mako setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 
@@ -827,7 +829,7 @@ autocmd FileType go setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
 autocmd FileType java setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 
 " C/C++
-autocmd FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab formatoptions+=c textwidth=80
+autocmd FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 autocmd FileType cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 " vim
