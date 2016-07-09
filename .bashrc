@@ -158,7 +158,7 @@ export GPG_TTY
 if [ ! -f /tmp/bashrc_check ]; then
     echo Checking for dotfiles updates ...
     cd $(dirname $(readlink -e ~/.bashrc))
-    timeout 5s git fetch -quiet --all
+    timeout 5s git fetch --quiet --all
     if [ $? = 0 ]; then
         for remote in $(git remote show);
         do
