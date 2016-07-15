@@ -712,21 +712,37 @@ endif
 NeoBundle 'junegunn/goyo.vim'
 if neobundle#tap('goyo.vim')
   function! neobundle#hooks.on_source(bundle)
-    let g:goyo_width=90
-    let g:goyo_height=90
+    let g:goyo_height=95
+    let g:goyo_width=85
 
     autocmd! User GoyoEnter nested call <SID>goyo_enter()
     autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+    function! s:goyo_enter()
+      silent !tmux set status off
+      silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+      call clearmatches()
+      set noshowmode
+      set noshowcmd
+      set scrolloff=999
+      NeoCompleteLock
+    endfunction
+
+    function! s:goyo_leave()
+      silent !tmux set status on
+      silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+      set showmode
+      set showcmd
+      set scrolloff=5
+      NeoCompleteUnlock
+    endfunction
+
   endfunction
   call neobundle#untap()
 endif
 
+" Markdown highlighting in goyo
 NeoBundle 'amix/vim-zenroom2'
-if neobundle#tap('vim-zenroom2')
-  function! neobundle#hooks.on_source(bundle)
-  endfunction
-  call neobundle#untap()
-endif
 
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'rhysd/vim-grammarous'
@@ -813,8 +829,9 @@ if has("autocmd")
 autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
 autocmd FileType gitcommit setlocal spell
 autocmd FileType gitrebase nnoremap <buffer> S :Cycle<CR>
-autocmd FileType git,gitcommit,gitrebase setlocal formatoptions+=a textwidth=72
-autocmd FileType markdown,tex,text setlocal formatoptions+=a textwidth=80
+autocmd FileType git,gitcommit,gitrebase setlocal formatoptions+=a textwidth=72 nocindent
+autocmd FileType markdown,tex,text setlocal formatoptions+=a textwidth=80 nocindent autoindent
+autocmd FileType markdown setlocal formatoptions+=wn formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*[-*+]\\s\\+
 autocmd FileType java,c,cpp,go,python,vim,make,html,xhtml,xml,ruby setlocal formatoptions+=c textwidth=80
 
 autocmd FileType html,xhtml,xml,htmldjango,jinja.html,jinja,eruby,mako setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
@@ -898,22 +915,6 @@ function! SpellCheckToggle()
   else
     echo 'spell checking is disabled.'
   endif
-endfunction
-
-function! s:goyo_enter()
-  silent !tmux set status off
-  set noshowmode
-  set noshowcmd
-  set scrolloff=999
-  NeoCompleteLock
-endfunction
-
-function! s:goyo_leave()
-  silent !tmux set status on
-  set showmode
-  set showcmd
-  set scrolloff=5
-  NeoCompleteUnlock
 endfunction
 
 " ==============================================================================
@@ -1005,7 +1006,7 @@ nnoremap <silent> <expr> <CR> Highlighting()
 call matchadd('ColorColumn', '\%81v', 100)
 autocmd VimEnter * autocmd WinEnter * let w:colorcolumn=1
 autocmd VimEnter * let w:colorcolumn=1
-autocmd WinEnter * if !exists('w:colorcolumn') | call matchadd('ColorColumn', '\%81v', 100) | endif
+autocmd WinEnter * if !exists('w:colorcolumn') | call matchadd('ColorColumn', '\%'.&tw+1.'v', 100) | endif
 
 " For wrapped lines
 imap <silent> <Down> <C-o>gj
