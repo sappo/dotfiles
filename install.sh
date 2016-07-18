@@ -99,10 +99,12 @@ is_tmux_installed () {
 
 install_vim () {
     install_symlink $PWD .vimrc
+    install_symlink $PWD .ycm_extra_conf.py .vim/.ycm_extra_conf.py
 }
 
 is_vim_installed () {
-    if [ -e $HOME/.vimrc ] || [ -d $HOME/.vimrc ]; then
+    if ( [ -e $HOME/.vimrc ] || [ -d $HOME/.vimrc ] ) &&
+       [ -h $HOME/.vim/.ycm_extra_conf.py ]; then
         echo "installed"
     fi
 }

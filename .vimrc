@@ -39,7 +39,10 @@ filetype plugin indent on     " Required!
 " Syntax {{{
 " ==========
 
-NeoBundle 'benekastah/neomake'
+let ycm_conf=expand('compile_commands.json')
+if !filereadable(ycm_conf)
+  NeoBundle 'benekastah/neomake'
+endif
 if neobundle#tap('neomake')
   function! neobundle#hooks.on_source(bundle)
     autocmd! BufNewFile,BufWritePost * Neomake
@@ -52,27 +55,34 @@ endif
 
 " Completion {{{
 " ==============
-let ycm_conf=expand('.ycm_extra_conf.py')
+NeoBundle 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 if filereadable(ycm_conf)
-  NeoBundle 'rdnetto/YCM-Generator', { 'branch': 'stable' }
   NeoBundle 'Valloric/YouCompleteMe'
-  let g:ycm_collect_identifiers_from_tags_files = 1
-  let g:ycm_seed_identifiers_with_syntax = 1
-  let g:ycm_autoclose_preview_window_after_insertion = 1
+  if neobundle#tap('YouCompleteMe')
+    function! neobundle#hooks.on_source(bundle)
+      let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+      let g:ycm_collect_identifiers_from_tags_files = 1
+      let g:ycm_seed_identifiers_with_syntax = 1
+      let g:ycm_autoclose_preview_window_after_insertion = 1
+    endfunction
+    call neobundle#untap()
+  endif
 
   NeoBundle 'SirVer/ultisnips'
-
   " Snippets are separated from the engine. Add this if you want them:
   NeoBundle 'honza/vim-snippets'
+  if neobundle#tap('ultisnips')
+    function! neobundle#hooks.on_source(bundle)
+      " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+      let g:UltiSnipsExpandTrigger="<c-k>"
+      let g:UltiSnipsJumpForwardTrigger="<tab>"
+      let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-  " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-  let g:UltiSnipsExpandTrigger="<c-k>"
-  let g:UltiSnipsJumpForwardTrigger="<tab>"
-  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-  " If you want :UltiSnipsEdit to split your window.
-  let g:UltiSnipsEditSplit="vertical"
-
+      " If you want :UltiSnipsEdit to split your window.
+      let g:UltiSnipsEditSplit="vertical"
+    endfunction
+    call neobundle#untap()
+  endif
 else
   NeoBundle 'Shougo/neocomplete.vim'
   if neobundle#tap('neocomplete.vim')
