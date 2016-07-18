@@ -511,12 +511,6 @@ NeoBundle 'Shougo/vimproc.vim', {
     \     'unix' : 'gmake',
     \    },
     \ }
-if neobundle#tap('vimproc.vim')
-  function! neobundle#hooks.on_source(bundle)
-
-  endfunction
-  call neobundle#untap()
-endif
 
 " Vim plugin that brings the shell to vim
 NeoBundle 'Shougo/vimshell.vim'
