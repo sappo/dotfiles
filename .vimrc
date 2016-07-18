@@ -231,6 +231,12 @@ if neobundle#tap('vim-easyclip')
   let g:EasyClipUsePasteToggleDefaults = 0
   let g:EasyClipUseSubstituteDefaults = 1
 
+  " Redirect to blackhole instead of clipboard
+  nnoremap x "_x
+  nnoremap X "_X
+  vnoremap x "_x
+  vnoremap X "_X
+
   " Disable easyclip pastetoggle override
   let g:EasyClipUseGlobalPasteToggle = 0
   " Paste mode paste in insert mode
