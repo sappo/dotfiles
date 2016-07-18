@@ -480,6 +480,9 @@ if neobundle#tap('a.vim')
   call neobundle#untap()
 endif
 
+" Extends f, F, t and T mappings for more convenience. Repeat! Repeat!
+NeoBundle 'rhysd/clever-f.vim'
+
 " }}}
 
 " Browsing {{{
