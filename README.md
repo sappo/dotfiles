@@ -3,13 +3,19 @@ Collection of my dotfiles for linux
 
 ## Install
 
-There is an install script at the root of the project directory which will symlink all dotfiles that you desire to the correct places.
+There is an install script at the root of the project directory which will
+symlink all dotfiles that you desire to the correct places.
 
     install.sh
 
 ## .vimrc
 
-This is my vimrc it is completely self managed and automatically installs the plugin manager NeoBundle and all plugins. Only prerequisite is that you have `git` installed on your system. If you like to use autocompletion make sure you're vim has python and lua enabled. For Ubuntu install `vim-nox` if you're running on a headless server and `vim-gnome` on a desktop to enable clipboard support.
+This is my vimrc it is completely self managed and automatically installs the
+plugin manager NeoBundle and all plugins. Only prerequisite is that you have
+`git` installed on your system. If you like to use autocompletion make sure
+your vim has python and lua enabled. For Ubuntu install `vim-nox` if you're
+running onyour a headless server and `vim-gnome` on a desktop to enable
+clipboard support.
 
 To update the plugins enter `:NeoBundleUpdate`.
 
@@ -17,13 +23,17 @@ To update the plugins enter `:NeoBundleUpdate`.
 
 Leader keybindings is (',')
 
-To open a menu with useful commands press `ctrl + u` to close the menu press `q`.
+To open a menu with useful commands press `ctrl + u` to close the menu press
+`q`.
 
-To compile asynchronously use `:Make` for foreground compilation and `:Make!` for background compilation.
+To compile asynchronously use `:Make` for foreground compilation and `:Make!`
+for background compilation.
 
 #### Vim Cheat Sheet
 
-Here is a graphical cheat sheet with the default vim keybindings and my custom ones in german keyboard layout. Just print it and place it under your keyboard ;)
+Here is a graphical cheat sheet with the default vim keybindings and my custom
+ones in german keyboard layout. Just print it and place it under your keyboard
+;)
 
 ![vim graphical cheat sheet](https://rawgit.com/sappo/dotfiles/master/vim_cheat_sheet.svg)
 
@@ -40,13 +50,15 @@ You can stage or revert an individual hunk when your cursor is in it:
 
 ## tmux.conf
 
-This is my tmux.conf. To get started you'll need to install the Tmux Plugin Manager:
+This is my tmux.conf. To get started you'll need to install the Tmux Plugin
+Manager:
 
 ```
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
-After you started tmux press `ctrl+a I` to install all plugins. To update the plugings press `ctrl+a U`.
+After you started tmux press `ctrl+a I` to install all plugins. To update the
+plugings press `ctrl+a U`.
 
 ### Keybindings
 
@@ -67,5 +79,5 @@ Keys        | Description
 `C-x`       | Kill current pane
 `C-X`       | Kill current session
 `C-Q`       | Kill tmux server
-`|`        | Split vertically
+`|`         | Split vertically
 `-`         | Split horizontally
