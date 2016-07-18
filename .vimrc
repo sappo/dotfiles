@@ -255,6 +255,25 @@ if neobundle#tap('vim-multiple-cursors')
   call neobundle#untap()
 endif
 
+NeoBundle 'kana/vim-textobj-user'
+" Adds new text object block `ib` and `ab`
+NeoBundle 'rhysd/vim-textobj-anyblock'
+
+NeoBundle 'kana/vim-operator-user'
+NeoBundle 'rhysd/vim-operator-surround'
+if neobundle#tap('vim-operator-surround')
+  function! neobundle#hooks.on_source(bundle)
+    " operator mappings
+    map <silent>sa <Plug>(operator-surround-append)
+    map <silent>sd <Plug>(operator-surround-delete)
+    map <silent>sr <Plug>(operator-surround-replace)
+
+    " if you use vim-textobj-anyblock
+    nmap <silent>sdb <Plug>(operator-surround-delete)<Plug>(textobj-anyblock-a)
+    nmap <silent>srb <Plug>(operator-surround-replace)<Plug>(textobj-anyblock-a)
+  endfunction
+  call neobundle#untap()
+endif
 " }}}
 
 " Searching {{{
