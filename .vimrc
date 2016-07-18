@@ -727,6 +727,8 @@ if neobundle#tap('goyo.vim')
       set scrolloff=999
       if exists(':NeoCompleteLock') == 2
         exe 'NeoCompleteLock'
+      else
+        let g:ycm_auto_trigger=0
       endif
     endfunction
 
@@ -738,6 +740,8 @@ if neobundle#tap('goyo.vim')
       set scrolloff=5
       if exists(':NeoCompleteUnlock') == 2
         exe 'NeoCompleteUnlock'
+      else
+        let g:ycm_auto_trigger=1
       endif
     endfunction
 
