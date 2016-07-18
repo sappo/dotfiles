@@ -725,7 +725,9 @@ if neobundle#tap('goyo.vim')
       set noshowmode
       set noshowcmd
       set scrolloff=999
-      NeoCompleteLock
+      if exists(':NeoCompleteLock') == 2
+        exe 'NeoCompleteLock'
+      endif
     endfunction
 
     function! s:goyo_leave()
@@ -734,7 +736,9 @@ if neobundle#tap('goyo.vim')
       set showmode
       set showcmd
       set scrolloff=5
-      NeoCompleteUnlock
+      if exists(':NeoCompleteUnlock') == 2
+        exe 'NeoCompleteUnlock'
+      endif
     endfunction
 
   endfunction
