@@ -252,6 +252,8 @@ if neobundle#tap('vim-multiple-cursors')
     function! Multiple_cursors_before()
       if exists(':NeoCompleteLock')==2
         exe 'NeoCompleteLock'
+      else
+        let g:ycm_auto_trigger=0
       endif
     endfunction
 
@@ -259,6 +261,8 @@ if neobundle#tap('vim-multiple-cursors')
     function! Multiple_cursors_after()
       if exists(':NeoCompleteUnlock')==2
         exe 'NeoCompleteUnlock'
+      else
+        let g:ycm_auto_trigger=1
       endif
     endfunction
   endfunction
