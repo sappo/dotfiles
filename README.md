@@ -35,7 +35,7 @@ Here is a graphical cheat sheet with the default vim keybindings and my custom
 ones in german keyboard layout. Just print it and place it under your keyboard
 ;)
 
-![vim graphical cheat sheet](https://sappo/dotfiles/master/vim_cheat_sheet.png)
+![vim graphical cheat sheet](https://github.com/sappo/dotfiles/blob/master/vim_cheat_sheet.png)
 
 #### GitGutter Bindings
 https://github.com/airblade/vim-gitgutter
