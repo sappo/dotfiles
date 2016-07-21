@@ -745,6 +745,7 @@ if neobundle#tap('goyo.vim')
     function! s:goyo_enter()
       silent !tmux set status off
       silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+      silent !wmctrl -r :ACTIVE: -b toggle,fullscreen
       call clearmatches()
       set noshowmode
       set noshowcmd
@@ -759,6 +760,7 @@ if neobundle#tap('goyo.vim')
     function! s:goyo_leave()
       silent !tmux set status on
       silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+      silent !wmctrl -r :ACTIVE: -b toggle,fullscreen
       set showmode
       set showcmd
       set scrolloff=5
