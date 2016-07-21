@@ -79,6 +79,15 @@ else
 fi
 
 
+#########
+# Paths #
+#########
+
+# user space haskell tools
+if [ -d ~/.cabal ]; then
+    PATH=$HOME/.cabal/bin:$PATH
+fi
+
 ###########
 # Aliases #
 ###########
