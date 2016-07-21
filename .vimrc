@@ -731,7 +731,9 @@ endif
 " Writing {{{
 " ==============================
 
-NeoBundleLazy 'junegunn/goyo.vim'
+NeoBundleLazy 'junegunn/goyo.vim', {
+      \ 'depends': 'amix/vim-zenroom2',
+      \ }
 if neobundle#tap('goyo.vim')
   function! neobundle#hooks.on_source(bundle)
     let g:goyo_height=95
@@ -772,7 +774,7 @@ if neobundle#tap('goyo.vim')
 endif
 
 " Markdown highlighting in goyo
-NeoBundle 'amix/vim-zenroom2'
+NeoBundleLazy 'amix/vim-zenroom2'
 
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'rhysd/vim-grammarous'
