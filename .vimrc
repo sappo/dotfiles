@@ -154,7 +154,7 @@ else
   endif
 endif
 
-NeoBundle 'rhysd/github-complete.vim'
+NeoBundleLazy 'rhysd/github-complete.vim', {'autoload': {'filetypes': ['markdown', 'gitcommit'],},}
 if neobundle#tap('github-complete.vim')
   function! neobundle#hooks.on_source(bundle)
     " Disable overwriting 'omnifunc'
@@ -289,8 +289,8 @@ if neobundle#tap('vim-operator-surround')
     map <silent>sr <Plug>(operator-surround-replace)
 
     " if you use vim-textobj-anyblock
-    nmap <silent>sdb <Plug>(operator-surround-delete)<Plug>(textobj-anyblock-a)
-    nmap <silent>srb <Plug>(operator-surround-replace)<Plug>(textobj-anyblock-a)
+    nmap <silent>sdd <Plug>(operator-surround-delete)<Plug>(textobj-anyblock-a)
+    nmap <silent>srr <Plug>(operator-surround-replace)<Plug>(textobj-anyblock-a)
   endfunction
   call neobundle#untap()
 endif
@@ -492,14 +492,6 @@ if neobundle#tap('incsearch-fuzzy.vim')
   call neobundle#untap()
 endif
 
-NeoBundle 'vim-scripts/a.vim'
-if neobundle#tap('a.vim')
-  function! neobundle#hooks.on_source(bundle)
-
-  endfunction
-  call neobundle#untap()
-endif
-
 " Extends f, F, t and T mappings for more convenience. Repeat! Repeat!
 NeoBundle 'rhysd/clever-f.vim'
 
@@ -509,7 +501,7 @@ NeoBundle 'rhysd/clever-f.vim'
 " ============
 
 " The NERD tree allows you to explore your filesystem.
-NeoBundle 'scrooloose/nerdtree'
+NeoBundleLazy 'scrooloose/nerdtree'
 if neobundle#tap('nerdtree')
   function! neobundle#hooks.on_source(bundle)
     let g:NERDTreeDirArrows = 1
@@ -521,7 +513,7 @@ if neobundle#tap('nerdtree')
 endif
 
 " Vim plugin that displays tags in a window, ordered by class etc.
-NeoBundle 'majutsushi/tagbar'
+NeoBundleLazy 'majutsushi/tagbar'
 if neobundle#tap('tagbar')
   function! neobundle#hooks.on_source(bundle)
     let g:tagbar_width = 30
@@ -538,12 +530,15 @@ if neobundle#tap('tagbar')
   call neobundle#untap()
 endif
 
+" Switch between header and source
+NeoBundle 'vim-scripts/a.vim'
+
 " }}}
 
 " Shell {{{
 " ==============================
 
-" Vim plugin required by vimshell
+" Vim plugin required for async execution required by a couple of plugins
 NeoBundle 'Shougo/vimproc.vim', {
     \ 'build' : {
     \     'windows' : 'tools\\update-dll-mingw',
@@ -555,7 +550,7 @@ NeoBundle 'Shougo/vimproc.vim', {
     \ }
 
 " Vim plugin that brings the shell to vim
-NeoBundle 'Shougo/vimshell.vim'
+NeoBundleLazy 'Shougo/vimshell.vim'
 if neobundle#tap('vimshell.vim')
   function! neobundle#hooks.on_source(bundle)
     let g:vimshell_enable_smart_case   = 1
@@ -666,16 +661,7 @@ if neobundle#tap('committia.vim')
   call neobundle#untap()
 endif
 
-NeoBundle 'mbbill/undotree'
-if neobundle#tap('tagbar')
-  function! neobundle#hooks.on_source(bundle)
-    if has("persistent_undo")
-      set undodir=~/.vim_undodir/
-      set undofile
-    endif
-  endfunction
-  call neobundle#untap()
-endif
+NeoBundleLazy 'mbbill/undotree'
 
 " }}}
 
@@ -745,7 +731,7 @@ endif
 " Writing {{{
 " ==============================
 
-NeoBundle 'junegunn/goyo.vim'
+NeoBundleLazy 'junegunn/goyo.vim'
 if neobundle#tap('goyo.vim')
   function! neobundle#hooks.on_source(bundle)
     let g:goyo_height=95
