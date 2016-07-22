@@ -864,7 +864,7 @@ if has("autocmd")
 autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
 autocmd FileType gitcommit setlocal spell
 autocmd FileType gitrebase nnoremap <buffer> S :Cycle<CR>
-autocmd FileType git,gitcommit,gitrebase setlocal formatoptions+=a textwidth=72 nocindent
+autocmd FileType git,gitcommit,gitrebase setlocal formatoptions+=a textwidth=68 nocindent
 autocmd FileType markdown,text setlocal formatoptions+=a textwidth=80 nocindent autoindent
 autocmd FileType markdown setlocal formatoptions+=wn formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*[-*+]\\s\\+
 autocmd FileType java,c,cpp,go,python,vim,make,html,xhtml,xml,ruby setlocal formatoptions+=c textwidth=80

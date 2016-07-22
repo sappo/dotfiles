@@ -51,6 +51,7 @@ endif
 
 " Completion {{{
 " ==============
+
 call dein#add('rdnetto/YCM-Generator', { 'branch': 'stable' })
 if filereadable(ycm_conf)
   call dein#add('Valloric/YouCompleteMe')
@@ -396,19 +397,17 @@ if dein#tap('unite.vim')
     endfunction " }}}
   endfunction " }}}
 
-    " Neobundle Menu {{{
+    " Dein Menu {{{
 
-    call s:register_quickmenu('NeoBundle', 'Install/Update/Manage plugins            ⚷ [space]n', [
-        \['NeoBundle'],
-        \['NeoBundle garbage collection', 'NeoBundleGC'],
-        \['NeoBundle log', 'Unite neobundle/log'],
-        \['NeoBundle search', 'Unite neobundle/search'],
-        \['NeoBundle update', 'Unite neobundle/update'],
+    call s:register_quickmenu('Dein', 'Install/Update/Manage plugins                 ⚷ [space]d', [
+        \['Dein'],
+        \['Dein log', 'Unite dein/log'],
+        \['Dein update', 'call dein#update() | Unite dein/log'],
         \['Help'],
-        \['NeoBundle docs', 'help NeoBundle'],
+        \['Dein docs', 'help dein'],
     \])
 
-    exe 'nnoremap <silent>[menu]n :Unite -silent -winheight='.(len(g:unite_source_menu_menus.NeoBundle.candidates) + 2).' menu:NeoBundle<CR>'
+    exe 'nnoremap <silent>[menu]d :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Dein.candidates) + 2).' menu:Dein<CR>'
 
     " }}}
 
@@ -656,7 +655,7 @@ call dein#add('mbbill/undotree', {'lazy': 1})
 " Look & Feel + nice Buffers {{{
 " ==============================
 
-"NeoBundleFetch 'powerline/fonts', { 'build' : 'sh install.sh' }
+call dein#add('powerline/fonts', {'build': './install.sh', 'rtp': ''})
 let font_otf=expand('~/.local/share/fonts/Sauce Code Powerline Medium.otf')
 if filereadable(font_otf)
   silent !gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Source Code Pro for Powerline Medium 11"
@@ -767,7 +766,7 @@ call dein#add('amix/vim-zenroom2', {'lazy': 1})
 
 call dein#add('kana/vim-operator-user')
 call dein#add('rhysd/vim-grammarous', {
-    \ 'on_cmd': 'GrammarousCheck'
+    \ 'on_cmd': 'GrammarousCheck',
     \ 'on_map': '<Plug>(grammarous-reset)'
     \ })
 if dein#tap('vim-grammarous')
@@ -861,7 +860,7 @@ if has("autocmd")
 autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
 autocmd FileType gitcommit setlocal spell
 autocmd FileType gitrebase nnoremap <buffer> S :Cycle<CR>
-autocmd FileType git,gitcommit,gitrebase setlocal formatoptions+=a textwidth=72 nocindent
+autocmd FileType git,gitcommit,gitrebase setlocal formatoptions+=a textwidth=68 nocindent
 autocmd FileType markdown,text setlocal formatoptions+=a textwidth=80 nocindent autoindent
 autocmd FileType markdown setlocal formatoptions+=wn formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*[-*+]\\s\\+
 autocmd FileType java,c,cpp,go,python,vim,make,html,xhtml,xml,ruby setlocal formatoptions+=c textwidth=80
