@@ -1,0 +1,1163 @@
+if has('vim_starting')
+  if &compatible
+    set nocompatible               " Be iMproved
+  endif
+  set runtimepath^=~/.vim/bundle/repos/github.com/Shougo/dein.vim
+else
+  " Call on_source hook when reloading .vimrc.
+  call dein#call_hook('on_source')
+endif
+
+" Map leader and localleader key to comma
+let mapleader = ","
+let g:mapleader = ","
+let maplocalleader = ","
+let g:maplocalleader = ","
+
+" ==============================================================================
+" Bundles
+" ==============================================================================
+
+" Setup Dein
+let dein_readme=expand('~/.vim/bundle/repos/github.com/Shougo/dein.vim/README.md')
+if !filereadable(dein_readme)
+  echo "Installing dein.vim."
+  echo ""
+  silent !mkdir -p ~/.vim/bundle/repos/github.com/Shougo/dein.vim
+  silent !git clone https://github.com/Shougo/dein.vim ~/.vim/bundle/repos/github.com/Shougo/dein.vim
+endif
+
+" Required:
+call dein#begin(expand('~/.vim/bundle'))
+" Let Dein manage Dein
+call dein#add(expand('~/.vim/bundle/repos/github.com/Shougo/dein.vim'))
+
+" Syntax {{{
+" ==========
+
+let ycm_conf=expand('compile_commands.json')
+if !filereadable(ycm_conf)
+  call dein#add('benekastah/neomake')
+endif
+if dein#tap('neomake')
+  function! s:neomake_on_source() abort
+    autocmd! BufNewFile,BufWritePost * Neomake
+    let g:neomake_airline = 1
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:neomake_on_source'))
+endif
+
+" }}}
+
+" Completion {{{
+" ==============
+call dein#add('rdnetto/YCM-Generator', { 'branch': 'stable' })
+if filereadable(ycm_conf)
+  call dein#add('Valloric/YouCompleteMe')
+  if dein#tap('YouCompleteMe')
+    function! s:ycm_on_source() abort
+      let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+      let g:ycm_collect_identifiers_from_tags_files = 1
+      let g:ycm_seed_identifiers_with_syntax = 1
+      let g:ycm_autoclose_preview_window_after_insertion = 1
+    endfunction
+    call dein#set_hook(g:dein#name, 'hook_source', function('s:ycm_on_source'))
+  endif
+
+  call dein#add('SirVer/ultisnips')
+  " Snippets are separated from the engine. Add this if you want them:
+  call dein#add('honza/vim-snippets')
+  if dein#tap('ultisnips')
+    function! s:ultisnips_on_source() abort
+      " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+      let g:UltiSnipsExpandTrigger="<c-k>"
+      let g:UltiSnipsJumpForwardTrigger="<tab>"
+      let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+      " If you want :UltiSnipsEdit to split your window.
+      let g:UltiSnipsEditSplit="vertical"
+    endfunction
+    call dein#set_hook(g:dein#name, 'hook_source', function('s:ultisnips_on_source'))
+  endif
+else
+  call dein#add('Shougo/neocomplete.vim')
+  if dein#tap('neocomplete.vim')
+    function! s:neocomplete_on_source() abort
+      " Disable AutoComplPop.
+      let g:acp_enableAtStartup = 0
+      " Use neocomplete.
+      let g:neocomplete#enable_at_startup = 1
+      " Use smartcase.
+      let g:neocomplete#enable_smart_case = 1
+      " Set minimum syntax keyword length.
+      let g:neocomplete#sources#syntax#min_keyword_length = 3
+      let g:neocomplete#loock_buffer_name_pattern = '\*ku\*'
+      " Larger cache limit so all tag files are read into cache
+      let g:neocomplete#sources#tags#cache_limit_size = 5000000
+      let g:neocomplete#data_directory = expand('~/.vim/neocomplete')
+      set completeopt-=preview
+
+      " Enable heavy omni completion.
+      if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+      endif
+      let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+
+      " Recommended key-mappings.
+      " <CR>: close popup and save indent.
+      inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+      function! s:my_cr_function()
+        return neocomplete#close_popup() . "\<CR>"
+        " For no inserting <CR> key.
+        " return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+      endfunction
+      " <C-h>, <BS>: close popup and delete backword char.
+      inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+      inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+
+      " Enable omni completion.
+      autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+      autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+      autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+      autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+      autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+      " Disable automatic completion in gitcommit
+      autocmd FileType gitcommit NeoCompleteLock
+    endfunction
+    call dein#set_hook(g:dein#name, 'hook_source', function('s:neocomplete_on_source'))
+  endif
+
+  call dein#add('Shougo/neosnippet')
+  call dein#add('Shougo/neosnippet-snippets')
+  if dein#tap('neosnippet-snippets')
+    function! s:neosnippet_on_source() abort
+      " Plugin key-mappings.
+      imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+      smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+      xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+      " SuperTab like snippets' behavior.
+      imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+      smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+      " For conceal markers.
+      if has('conceal')
+        set conceallevel=2 concealcursor=niv
+      endif
+    endfunction
+    call dein#set_hook(g:dein#name, 'hook_source', function('s:neosnippet_on_source'))
+  endif
+endif
+
+if dein#tap('github-complete.vim')
+  function! s:on_source() abort
+    " Disable overwriting 'omnifunc'
+    let g:github_complete_enable_omni_completion = 0
+    " <C-x><C-x> invokes completions of github-complete.vim
+    autocmd FileType markdown,gitcommit
+    \ imap <C-x><C-x> <Plug>(github-complete-manual-completion)
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:on_source'))
+endif
+
+call dein#add('ludovicchabant/vim-gutentags')
+if dein#tap('vim-gutentags')
+  function! s:gutentags_on_source() abort
+    let g:gutentags_cache_dir = '~/.vim/gutentags'
+    let g:gutentags_project_info = get(g:, 'gutentags_project_info', [])
+    call add(g:gutentags_project_info, {'type': 'C', 'file': 'configure.ac'})
+    call add(g:gutentags_project_info, {'type': 'C', 'file': 'CMakeLists.txt'})
+    let g:gutentags_ctags_executable_C = 'ctags --fields=+l'
+
+    let g:gutentags_enabled_dirs = ['~/workspace', '/mnt/data/workspace']
+    let g:gutentags_enabled_user_func = 'CheckEnabledDirs'
+    function! CheckEnabledDirs(file)
+        let file_path = fnamemodify(a:file, ':p:h')
+
+        for enabled_dir in g:gutentags_enabled_dirs
+            let enabled_path = fnamemodify(enabled_dir, ':p:h')
+            if match(file_path, enabled_path) == 0
+                return 1
+            endif
+        endfor
+
+        return 0
+    endfunction
+
+    " Load all tagfiles generated by gutentags
+    for tagfile in split(globpath('~/.vim/gutentags', '*'))
+      let &tags .= ',' . tagfile
+    endfor
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:gutentags_on_source'))
+endif
+
+" }}}
+
+" Manipulation {{{
+" ============
+
+call dein#add('aklt/vim-simple_comments')
+if dein#tap('vim-simple_comments')
+  function! s:simple_comments_on_source() abort
+    let g:simple_comments_Comment = '<c-c>'
+    let g:simple_comments_Remove = '<c-x>'
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:simple_comments_on_source'))
+endif
+
+call dein#add('tpope/vim-repeat')
+call dein#add('svermeulen/vim-easyclip')
+if dein#tap('vim-easyclip')
+  function! s:easyclip_on_source() abort
+  " Make vim use the system register for copy and paste
+  set clipboard=unnamedplus
+
+  let g:EasyClipYankHistorySize = 7
+  let g:EasyClipShareYanks = 1
+  let g:EasyClipShareYanksDirectory = '$HOME'
+  let g:EasyClipShareYanksFile = '.vim/.easyclip'
+
+  let g:EasyClipUseYankDefaults = 1
+  let g:EasyClipUseCutDefaults = 0
+  let g:EasyClipUsePasteDefaults = 1
+  let g:EasyClipEnableBlackHoleRedirect = 0
+  let g:EasyClipUsePasteToggleDefaults = 0
+  let g:EasyClipUseSubstituteDefaults = 1
+
+  " Redirect to blackhole instead of clipboard
+  nnoremap x "_x
+  nnoremap X "_X
+  vnoremap x "_x
+  vnoremap X "_X
+
+  " Disable easyclip pastetoggle override
+  let g:EasyClipUseGlobalPasteToggle = 0
+  " Paste mode paste in insert mode
+  imap <c-v> <plug>EasyClipInsertModePaste
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:easyclip_on_source'))
+endif
+
+call dein#add('terryma/vim-multiple-cursors')
+if dein#tap('vim-multiple-cursors')
+  function! s:multiple_cursors_on_source() abort
+    let g:multi_cursor_use_default_mapping=0
+    let g:multi_cursor_next_key='<c-d>'
+    let g:multi_cursor_prev_key=''
+    let g:multi_cursor_skip_key=''
+    let g:multi_cursor_quit_key='<Esc>'
+
+    " Called once right before you start selecting multiple cursors
+    function! Multiple_cursors_before()
+      if exists(':NeoCompleteLock')==2
+        exe 'NeoCompleteLock'
+      else
+        let g:ycm_auto_trigger=0
+      endif
+    endfunction
+
+    " Called once only when the multiple selection is canceled (default <Esc>)
+    function! Multiple_cursors_after()
+      if exists(':NeoCompleteUnlock')==2
+        exe 'NeoCompleteUnlock'
+      else
+        let g:ycm_auto_trigger=1
+      endif
+    endfunction
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:multiple_cursors_on_source'))
+endif
+
+call dein#add('kana/vim-textobj-user')
+" Adds new text object block `ib` and `ab`
+call dein#add('rhysd/vim-textobj-anyblock')
+
+call dein#add('kana/vim-operator-user')
+call dein#add('rhysd/vim-operator-surround')
+if dein#tap('vim-operator-surround')
+  function! s:operator_surround_on_source() abort
+    " operator mappings
+    map <silent>sa <Plug>(operator-surround-append)
+    map <silent>sd <Plug>(operator-surround-delete)
+    map <silent>sr <Plug>(operator-surround-replace)
+
+    " if you use vim-textobj-anyblock
+    nmap <silent>sdd <Plug>(operator-surround-delete)<Plug>(textobj-anyblock-a)
+    nmap <silent>srr <Plug>(operator-surround-replace)<Plug>(textobj-anyblock-a)
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:operator_surround_on_source'))
+endif
+" }}}
+
+" Searching {{{
+" ============
+
+call dein#add('Shougo/unite.vim')
+if dein#tap('unite.vim')
+  function! s:unite_on_source() abort
+    " Map space to the prefix for Unite
+    nnoremap [unite] <Nop>
+    nmap <space> [unite]
+
+    nnoremap [menu] <Nop>
+    "nmap <LocalLeader> [menu]
+    nmap [unite] [menu]
+    nnoremap <silent>[menu]u :Unite -silent -winheight=12 menu<CR>
+
+    " Like ctrlp.vim settings.
+    call unite#custom#profile('default', 'context', {
+    \   'start_insert': 0,
+    \   'direction': 'botright',
+    \   'marked-icon': '✓'
+    \ })
+
+    let g:unite_prompt = '>>> '
+    let g:unite_marked_icon = '✗'
+
+    " Initialize Unite's global list of menus
+    if !exists('g:unite_source_menu_menus')
+        let g:unite_source_menu_menus = {}
+    endif
+
+  function! s:register_quickmenu(name, description, candidate_precursors) " {{{
+    " find the length of the longest name
+    let max_length = max(map(filter(
+          \ deepcopy(a:candidate_precursors),
+          \ printf('v:val[0] != "%s"', '-'),
+          \), 'len(v:val[0])'))
+    " create candidates
+    let candidates = []
+    for precursor in a:candidate_precursors
+      if len(precursor) == 1
+        " Separator
+        call add(candidates, [
+              \ precursor[0],
+              \ '',
+              \])
+      elseif len(precursor) == 2
+        " Action (short)
+        call add(candidates, [
+              \ printf(
+              \   printf("▷ %%-%ds", max_length),
+              \   precursor[0]
+              \ ),
+              \ precursor[1],
+              \])
+      elseif len(precursor) == 3
+        " Action
+        call add(candidates, [
+              \ printf(
+              \   printf("▷ %%-%ds    ⚷ %%s", max_length),
+              \   precursor[0], precursor[2]
+              \ ),
+              \ precursor[1],
+              \])
+      endif
+    endfor
+    let separator_length = max(map(
+          \ deepcopy(candidates),
+          \ 'len(v:val[0])',
+          \))
+    if separator_length % 2 != 0
+      let separator_length += 1
+    endif
+    " register to 'g:unite_source_menu_menus'
+    let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
+    let g:unite_source_menu_menus[a:name] = {}
+    let g:unite_source_menu_menus[a:name].description = a:description
+    let g:unite_source_menu_menus[a:name].candidates = deepcopy(candidates)
+    call reverse(g:unite_source_menu_menus[a:name].candidates)
+    let g:unite_source_menu_menus[a:name].separator_length = max(map(
+          \ deepcopy(candidates),
+          \ 'len(v:val[0])',
+          \))
+
+    function! g:unite_source_menu_menus[a:name].map(key, value) abort " {{{
+      if empty(a:value[1])
+        if empty(a:value[0])
+          let word = repeat('-', self.separator_length)
+        else
+          let length = self.separator_length - (len(a:value[0]) + 3)
+          let word = printf('- %s %s', a:value[0], repeat('-', length))
+        endif
+        return {
+              \ 'word': word,
+              \ 'kind': 'common', 'is_dummy': 1,
+              \}
+      else
+        return {
+              \ 'word': a:value[0],
+              \ 'kind': 'command',
+              \ 'action__command': a:value[1],
+              \}
+      endif
+    endfunction " }}}
+  endfunction " }}}
+
+    " Neobundle Menu {{{
+
+    call s:register_quickmenu('NeoBundle', 'Install/Update/Manage plugins            ⚷ [space]n', [
+        \['NeoBundle'],
+        \['NeoBundle garbage collection', 'NeoBundleGC'],
+        \['NeoBundle log', 'Unite neobundle/log'],
+        \['NeoBundle search', 'Unite neobundle/search'],
+        \['NeoBundle update', 'Unite neobundle/update'],
+        \['Help'],
+        \['NeoBundle docs', 'help NeoBundle'],
+    \])
+
+    exe 'nnoremap <silent>[menu]n :Unite -silent -winheight='.(len(g:unite_source_menu_menus.NeoBundle.candidates) + 2).' menu:NeoBundle<CR>'
+
+    " }}}
+
+    " Buffers, tabs and windows operations Menu {{{
+
+    call s:register_quickmenu('Navigation', 'Navigate by buffers, tabs & windows     ⚷ [space]b', [
+        \['Buffers', 'Unite buffer'],
+        \['Close current window', 'close', '[shift]w'],
+        \['Location list', 'Unite location_list'],
+        \['New horizontal window', 'split', 'F5'],
+        \['New vertical window', 'vsplit', 'F6'],
+        \['Tabs', 'Unite tab'],
+        \['Toggle quickfix window', 'normal ,ll', ',ll'],
+        \['Windows', 'Unite window'],
+    \])
+
+    exe 'nnoremap <silent>[menu]b :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Navigation.candidates) + 2).' menu:Navigation<CR>'
+
+    " }}}
+
+    " File's operations {{{
+
+    call s:register_quickmenu('Files', 'Files & dirs                                 ⚷ [space]f', [
+        \['Change working directory', 'Unite -default-action=lcd directory'],
+        \['Grep in files', 'normal [unite]/', '[space]/'],
+        \['Print current working directory', 'Unite -winheight=3 output:pwd'],
+        \['Save as root', 'exe "write !sudo tee % >/dev/null"'],
+        \['Search directory recursively', 'Unite -start-insert file_rec/async', '[space][space]'],
+    \])
+
+    exe 'nnoremap <silent>[menu]f :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Files.candidates) + 2).' menu:Files<CR>'
+
+    " }}}
+
+    " Key Guide {{{
+
+    call s:register_quickmenu('Keyguide', 'Key bindings explained                    ⚷ [space]k', [
+        \['Keyguide'],
+        \['Leader key mappings', 'normal ,fml', ',fml'],
+    \])
+
+    exe 'nnoremap <silent>[menu]k :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Keyguide.candidates) + 2).' menu:Keyguide<CR>'
+
+    " }}}
+
+    " Search for files
+    call unite#filters#matcher_default#use(['matcher_fuzzy'])
+    nnoremap <silent> [unite]<space> :<C-u>Unite -start-insert file_rec/async:!<CR>
+
+    " Search in files
+    let g:unite_source_grep_max_candidates = 200
+    nnoremap <silent> [unite]/ :Unite grep:.<cr>
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:unite_on_source'))
+endif
+
+call dein#add('haya14busa/vim-debugger')
+call dein#add('haya14busa/incsearch.vim')
+if dein#tap('incsearch.vim')
+  function! s:incsearch_on_source() abort
+    map /  <Plug>(incsearch-forward)
+
+    let g:incsearch#auto_nohlsearch = 1
+    map n  <Plug>(incsearch-nohl-n)
+    map N  <Plug>(incsearch-nohl-N)
+    map *  <Plug>(incsearch-nohl-*)
+    map #  <Plug>(incsearch-nohl-#)
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:incsearch_on_source'))
+endif
+
+call dein#add('haya14busa/incsearch-fuzzy.vim')
+if dein#tap('incsearch-fuzzy.vim')
+  function! s:incsearch_fuzzy_on_source() abort
+    map z/ <Plug>(incsearch-fuzzy-/)
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:incsearch_fuzzy_on_source'))
+endif
+
+" Extends f, F, t and T mappings for more convenience. Repeat! Repeat!
+call dein#add('rhysd/clever-f.vim')
+
+" }}}
+
+" Browsing {{{
+" ============
+
+" The NERD tree allows you to explore your filesystem.
+call dein#add('scrooloose/nerdtree', {'lazy': 1})
+if dein#tap('nerdtree')
+  function! s:nerdtree_on_source() abort
+    let g:NERDTreeDirArrows = 1
+    let g:NERDTreeDirArrowExpandable = '▸'
+    let g:NERDTreeDirArrowCollapsible = '▾'
+    let g:NERDTreeShowBookmarks=1
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:nerdtree_on_source'))
+endif
+
+" Vim plugin that displays tags in a window, ordered by class etc.
+call dein#add('majutsushi/tagbar', {'lazy': 1})
+if dein#tap('tagbar')
+  function! s:tagbar_on_source() abort
+    let g:tagbar_width = 30
+    let g:tagbar_foldlevel = 1
+    let g:tagbar_type_rst = {
+        \ 'ctagstype': 'rst',
+        \ 'kinds': [ 'r:references', 'h:headers' ],
+        \ 'sort': 0,
+        \ 'sro': '..',
+        \ 'kind2scope': { 'h': 'header' },
+        \ 'scope2kind': { 'header': 'h' }
+        \ }
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:tagbar_on_source'))
+endif
+
+" Switch between header and source
+call dein#add('vim-scripts/a.vim')
+
+" }}}
+
+" Shell {{{
+" ==============================
+
+" Vim plugin required for async execution required by a couple of plugins
+call dein#add('Shougo/vimproc.vim', {'build': 'make'})
+
+" Vim plugin that brings the shell to vim
+call dein#add('Shougo/vimshell.vim', {'lazy': 1})
+if dein#tap('vimshell.vim')
+  function! s:vimshell_on_source() abort
+    let g:vimshell_enable_smart_case   = 1
+    let g:vimshell_temporary_directory = "~/tmp/vimshell"
+    let g:vimshell_split_command = ''
+    let g:vimshell_enable_transient_user_prompt = 1
+    let g:vimshell_force_overwrite_statusline = 1
+
+    let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+    let g:vimshell_right_prompt = '"[" . getcwd() . "]"'
+
+    if has('win32') || has('win64')
+      " Display user name on Windows.
+      let g:vimshell_prompt = $USERNAME."% "
+    else
+      " Display user name on Linux.
+      let g:vimshell_prompt = $USER."% "
+    endif
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:vimshell_on_source'))
+endif
+
+call dein#add('tpope/vim-dispatch')
+
+" }}}
+
+" Version Control {{{
+" ==============================
+
+" Vim git integration
+call dein#add('tpope/vim-fugitive')
+if dein#tap('vim-fugitive')
+  function! s:fugitive_on_source() abort
+    " Fugitive reference
+    noremap <silent> <leader>g? :map <leader>g<cr>
+    " Fugitive mapping
+    noremap <silent> <leader>gb :Gblame<cr>
+    noremap <silent> <leader>gw :Gbrowse<cr>
+    noremap <silent> <leader>gc :Gcommit<cr>
+    noremap <silent> <leader>gd :Gdiff<cr>
+    noremap <silent> <leader>gg :Ggrep
+    noremap <silent> <leader>gl :Glog<cr>
+    noremap <silent> <leader>gr :Gwrite<cr>
+    noremap <silent> <leader>gs :Gstatus<cr>
+
+    " Unite menu [[[
+    call s:register_quickmenu('Git', 'Admin git repositories                         ⚷ [space]g', [
+        \['View'],
+        \['git blame       (fugitive)', 'normal ,gb', ',gb'],
+        \['git browse      (fugitive)', 'normal ,gw', ',gw'],
+        \['git diff        (fugitive)', 'normal ,gd', ',gd'],
+        \['git grep        (fugitive)', 'normal ,gg', ',gg'],
+        \['git log         (fugitive)', 'normal ,gl', ',gl'],
+        \['git status      (fugitive)', 'normal ,gs', ',gs'],
+        \['Modify'],
+        \['git commit      (fugitive)', 'normal ,gc', ',gc'],
+        \['git merge       (fugitive)', 'normal ,gm', ',gm'],
+        \['git write       (fugitive)', 'normal ,gr', ',gr'],
+        \['Help'],
+        \['vim help        (fugitive)', 'help fugitive'],
+    \])
+
+    exe 'nnoremap <silent>[menu]g :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Git.candidates) + 2).' menu:Git<CR>'
+    " ]]]
+
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:fugitive_on_source'))
+endif
+
+" Show git diffs in the gutter
+call dein#add('airblade/vim-gitgutter')
+if dein#tap('vim-gitgutter')
+  function! s:gitgutter_on_source() abort
+    " Disabled by default
+    let g:gitgutter_enabled = 1
+    let g:gitgutter_signs = 1
+    let g:gitgutter_highlight_lines = 0
+    " Don't show git diff is there are too many changes
+    let g:gitgutter_max_signs = 500  " default value
+    " Update gitgutter more often
+    let g:gitgutter_realtime = 1000
+    let g:gitgutter_eager = 1000
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:gitgutter_on_source'))
+endif
+
+" A Vim plugin for more pleasant editing on commit messages
+call dein#add('rhysd/committia.vim')
+if dein#tap('committia.vim')
+  function! s:committia_on_source() abort
+    let g:committia_hooks = {}
+    function! g:committia_hooks.edit_open(info)
+        " Additional settings
+        setlocal spell
+
+        " If no commit message, start with insert mode
+        if a:info.vcs ==# 'git' && getline(1) ==# ''
+            startinsert
+        end
+
+        " Scroll the diff window from insert mode
+        imap <buffer><C-f> <Plug>(committia-scroll-diff-down-page)
+        imap <buffer><C-b> <Plug>(committia-scroll-diff-up-page)
+        imap <buffer><C-d> <Plug>(committia-scroll-diff-down-half)
+        imap <buffer><C-u> <Plug>(committia-scroll-diff-up-half)
+    endfunction
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:committia_on_source'))
+endif
+
+call dein#add('mbbill/undotree', {'lazy': 1})
+
+" }}}
+
+" Look & Feel + nice Buffers {{{
+" ==============================
+
+"NeoBundleFetch 'powerline/fonts', { 'build' : 'sh install.sh' }
+let font_otf=expand('~/.local/share/fonts/Sauce Code Powerline Medium.otf')
+if filereadable(font_otf)
+  silent !gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Source Code Pro for Powerline Medium 11"
+  let g:airline_powerline_fonts = 1
+endif
+
+call dein#add('vim-airline/vim-airline-themes')
+call dein#add('vim-airline/vim-airline')
+if dein#tap('vim-airline')
+  function! s:airline_on_source() abort
+    set laststatus=2
+    " Don't show seperators
+    let g:airline#extensions#hunks#enabled=0
+    " Disable tagbar integration as it might slows vim down
+    let g:airline#extensions#tagbar#enabled = 0
+
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#fnamemod = ':t'
+
+    " This allows buffers to be hidden if you've modified a buffer.
+    " This is almost a must if you wish to use buffers in this way.
+    set hidden
+    " Move to the next buffer
+    nmap <tab> :bnext<CR>
+    " Move to the previous buffer
+    nmap <s-tab> :bprev<CR>
+    " Close the current buffer and move to the previous one
+    nmap <s-w> :bp <BAR> bd #<CR>
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:airline_on_source'))
+endif
+
+"call dein#add('edkolev/tmuxline.vim'
+"if dein#tap('tmuxline.vim')
+"function! s:on_source() abort
+  "let g:tmuxline_preset = {
+    "\'a'    : '#S',
+    "\'win'  : '#I #W',
+    "\'cwin' : '#I #W',
+    "\'x'    : ['%a', '%D'],
+    "\'y'    : '%R',
+    "\'z'    : '#H'}
+  "let g:tmuxline_powerline_separators = 1
+"endfunction
+"call dein#set_hook(g:dein#name, 'hook_source', function('s:on_source'))
+"endif
+
+call dein#add('NLKNguyen/papercolor-theme')
+if dein#tap('papercolor-theme')
+  function! s:papercolor_on_source() abort
+    set t_Co=256
+    colorscheme PaperColor
+    let g:airline_theme='papercolor'
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:papercolor_on_source'))
+endif
+
+" }}}
+
+" Writing {{{
+" ==============================
+
+call dein#add('junegunn/goyo.vim', {
+      \ 'depends': 'vim-zenroom2',
+      \ 'lazy': 1,
+      \ })
+if dein#tap('goyo.vim')
+  function! s:goyo_on_source() abort
+    let g:goyo_height=95
+    let g:goyo_width=85
+
+    autocmd! User GoyoEnter nested call <SID>goyo_enter()
+    autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+    function! s:goyo_enter()
+      silent !tmux set status off
+      silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+      call clearmatches()
+      set noshowmode
+      set noshowcmd
+      set scrolloff=999
+      if exists(':NeoCompleteLock') == 2
+        exe 'NeoCompleteLock'
+      else
+        let g:ycm_auto_trigger=0
+      endif
+    endfunction
+
+    function! s:goyo_leave()
+      silent !tmux set status on
+      silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+      set showmode
+      set showcmd
+      set scrolloff=5
+      if exists(':NeoCompleteUnlock') == 2
+        exe 'NeoCompleteUnlock'
+      else
+        let g:ycm_auto_trigger=1
+      endif
+    endfunction
+
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:goyo_on_source'))
+endif
+
+" Markdown highlighting in goyo
+call dein#add('amix/vim-zenroom2', {'lazy': 1})
+
+call dein#add('kana/vim-operator-user')
+call dein#add('rhysd/vim-grammarous', {
+    \ 'on_cmd': 'GrammarousCheck'
+    \ 'on_map': '<Plug>(grammarous-reset)'
+    \ })
+if dein#tap('vim-grammarous')
+  function! s:grammarous_on_source() abort
+    let g:grammarous#use_vim_spelllang = 1
+    let g:grammarous#default_comments_only_filetypes = {
+                \ '*' : 1,
+                \ 'help' : 0,
+                \ 'markdown' : 0,
+                \ 'tex' : 0,
+                \ 'text' : 0,
+                \ }
+    nmap <leader>g <Plug>(operator-grammarous)
+
+    let g:grammarous#hooks = {}
+    function! g:grammarous#hooks.on_check(errs)
+        nmap <buffer><C-n> <Plug>(grammarous-move-to-next-error)
+        nmap <buffer><C-p> <Plug>(grammarous-move-to-previous-error)
+        nmap <buffer><C-f> <Plug>(grammarous-fixit)
+        nmap <buffer><C-r> <Plug>(grammarous-remove-error)
+        nmap <buffer><C-x> <Plug>(grammarous-reset)
+    endfunction
+
+    function! g:grammarous#hooks.on_reset(errs)
+        nunmap <buffer><C-n>
+        nunmap <buffer><C-p>
+        nunmap <buffer><C-f>
+        nunmap <buffer><C-r>
+        nunmap <buffer><C-x>
+    endfunction
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:grammarous_on_source'))
+endif
+
+" }}}
+
+" Optimization {{{
+" ==============================
+
+" Disable plugins for LargeFile
+call dein#add('vim-scripts/LargeFile', {'lazy': 1})
+"
+" Find and eliminate trailing whitespaces
+call dein#add('ntpeters/vim-better-whitespace')
+if dein#tap('vim-better-whitespace')
+  function! s:better_whitespaces_on_source() abort
+    autocmd BufWritePre * StripWhitespace
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:better_whitespaces_on_source'))
+endif
+
+" }}}
+
+" Help {{{
+" ==============================
+call dein#add('mattn/webapi-vim')
+
+call dein#add('ktonga/vim-follow-my-lead')
+if dein#tap('vim-follow-my-lead')
+  function! s:fml_on_source() abort
+    let g:fml_all_sources = 1
+  endfunction
+  call dein#set_hook(g:dein#name, 'hook_source', function('s:fml_on_source'))
+endif
+
+" }}}
+
+call dein#end()
+
+if dein#check_install()
+  call dein#install()
+endif
+
+call dein#call_hook('source')
+
+filetype plugin indent on     " Required!
+
+" ==============================================================================
+" Autocommands
+" ==============================================================================
+
+" Set augroup
+augroup MyAutoCmd
+  autocmd!
+augroup END
+
+" Redraw since vim gets corrupt for no reason
+au FocusGained * redraw! " redraw screen on focus
+
+if has("autocmd")
+autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
+autocmd FileType gitcommit setlocal spell
+autocmd FileType gitrebase nnoremap <buffer> S :Cycle<CR>
+autocmd FileType git,gitcommit,gitrebase setlocal formatoptions+=a textwidth=72 nocindent
+autocmd FileType markdown,text setlocal formatoptions+=a textwidth=80 nocindent autoindent
+autocmd FileType markdown setlocal formatoptions+=wn formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*[-*+]\\s\\+
+autocmd FileType java,c,cpp,go,python,vim,make,html,xhtml,xml,ruby setlocal formatoptions+=c textwidth=80
+
+autocmd FileType html,xhtml,xml,htmldjango,jinja.html,jinja,eruby,mako setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+
+" go support
+" ----------
+autocmd BufNewFile,BufRead *.go setlocal ft=go
+autocmd FileType go setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
+
+" Java
+" ----
+autocmd FileType java setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+
+" C/C++
+autocmd FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+autocmd FileType cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
+" vim
+" ---
+autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
+
+" make support
+" ------------
+autocmd FileType make setlocal noexpandtab
+
+" cmake support
+" -------------
+autocmd BufNewFile,BufRead CMakeLists.txt setlocal ft=cmake
+
+" Json
+" ----
+autocmd FileType json setlocal syntax=javascript
+
+autocmd BufRead,BufNewFile *.adoc,*.asciidoc set syntax=asciidoc
+autocmd BufRead,BufNewFile README.txt set syntax=markdown
+
+" GSL
+" ---
+autocmd BufRead,BufNewFile *.gsl set syntax=c
+
+endif
+
+" ==============================================================================
+" Functions
+" ==============================================================================
+
+function! NumberRelativeToggle()
+  if(&relativenumber == 0 && &number == 0)
+    echo "Line numbers not enables, use <leader>7 or :set number / :set relativenumber to enable"
+  elseif(&relativenumber == 1)
+    set norelativenumber
+  else
+    set relativenumber
+  endif
+endfunc
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber
+  endif
+  if(&number == 1)
+    set nonumber
+  else
+    set number
+  endif
+endfunc
+
+function! SpellLangToggle()
+  if(&spelllang == 'en_us')
+    set spelllang=de_de
+  else
+    set spelllang=en_us
+  endif
+  echo 'spellang is now:' &spelllang
+endfunction
+
+function! SpellCheckToggle()
+  setlocal spell!
+  if(&spell == 1)
+    echo 'spell checking is enabled.'
+  else
+    echo 'spell checking is disabled.'
+  endif
+endfunction
+
+" ==============================================================================
+" Keymappings
+" ==============================================================================
+
+" Show the Yank Buffer
+nnoremap <silent> <leader>2 :Yanks<cr>
+" Toggle numbers (relative|absolute)
+nnoremap <silent> <leader>6 :call NumberRelativeToggle()<CR>
+" Toggle number (on|off)
+nnoremap <silent> <leader>7 :call NumberToggle()<CR>
+" Toggle spell language (en|de)
+nnoremap <silent> <leader>8 :call SpellLangToggle()<CR>
+" Toggle spell check (on|off)
+nnoremap <silent> <leader>9 :call SpellCheckToggle()<CR>
+" Enter writers mode
+nnoremap <silent> <leader>0 :Goyo<cr>
+" Switch between header and source file
+nnoremap <silent> <leader>s :A<cr>
+
+
+" Use CTRL-S for saving, also in Insert mode
+nmap <c-s> :w<CR>
+vmap <c-s> <Esc><c-s>gv
+imap <c-s> <Esc><c-s>
+
+" Bubble single lines
+nmap <a-b> ddkP
+nmap <a-f> ddp
+" Bubble multiple lines
+vmap <a-b> xkP`[V`]
+vmap <a-f> xp`[V`]
+
+" F-key Bindings
+nnoremap <silent> <F2> :NERDTreeToggle<CR>
+nnoremap <silent> <F3> :TagbarToggle<CR>
+nnoremap <silent> <F4> :VimShellPop<CR>
+nmap <F5> :split<CR>
+nmap <F6> :vsplit<CR>
+nnoremap <F7> :GitGutterLineHighlightsToggle<cr>
+set pastetoggle=<F8>
+nnoremap <F9> :UndotreeToggle<cr>
+
+" Spliting window"
+set splitbelow
+set splitright
+nmap <c-Left> <c-W><c-h>
+nmap <c-Right> <c-W><c-l>
+nmap <c-Down> <c-W><c-j>
+nmap <c-Up> <c-W><c-k>
+nmap <c-h> <c-W><c-h>
+nmap <c-l> <c-W><c-l>
+nmap <c-j> <c-W><c-j>
+nmap <c-k> <c-W><c-k>
+
+" Resize window"
+nmap <a-Left> <c-w><c-<>
+nmap <a-Right> <c-w><c->>
+nmap <a-Down> <c-w><c-->
+nmap <a-Up> <c-w><c-+>
+nmap <a-h> <c-w><c-<>
+nmap <a-l> <c-w><c->>
+nmap <a-j> <c-w><c-->
+nmap <a-k> <c-w><c-+>
+
+" Prepare a substitute command using the current word or the selected text"
+nnoremap <leader>r yiw:%s/\<<C-r>"\>/<C-r>"/g<Left><Left><Left>
+vnoremap <leader>r y:%s/\<<C-r>"\>/<C-r>"/g<Left><Left><Left>
+
+" Jump to a ctag
+nnoremap <leader>k yiw:ta <C-r>"<Left><Left><Left><cr>
+vnoremap <leader>k yiw:ta <C-r>"<Left><Left><Left><cr>
+
+" Highlight current word with enter"
+let g:highlighting = 0
+function! Highlighting()
+  if g:highlighting == 1 && @/ =~ '^\\<'.expand('<cword>').'\\>$'
+    let g:highlighting = 0
+    return ":silent nohlsearch\<CR>"
+  endif
+  let @/ = '\<'.expand('<cword>').'\>'
+  let g:highlighting = 1
+  return ":silent set hlsearch\<CR>"
+endfunction
+nnoremap <silent> <expr> <CR> Highlighting()
+
+" Highlight if a line goes above 80 chars
+call matchadd('ColorColumn', '\%81v', 100)
+autocmd VimEnter * autocmd WinEnter * let w:colorcolumn=1
+autocmd VimEnter * let w:colorcolumn=1
+autocmd WinEnter * if !exists('w:colorcolumn') | call matchadd('ColorColumn', '\%'.&tw+1.'v', 100) | endif
+
+" For wrapped lines
+imap <silent> <Down> <C-o>gj
+imap <silent> <Up> <C-o>gk
+nmap <silent> <Down> gj
+nmap <silent> <Up> gk
+noremap <buffer> <silent> k gk
+noremap <buffer> <silent> j gj
+noremap <buffer> <silent> 0 g0
+noremap <buffer> <silent> $ g$
+
+" ==============================================================================
+" Settings and Defaults
+" ==============================================================================
+
+set term=screen-256color
+set encoding=utf-8
+set fileencoding=utf-8
+set backspace=2 " make backspace work like most other apps
+set tabstop=4 "tab width in spaces
+set shiftwidth=4 "shitwidth in spaces
+set cmdheight=1
+set expandtab "convert tabs into spaces
+set cindent
+set number "show line numbers
+set hlsearch
+set incsearch " incremental searching
+set diffopt+=vertical " split vimdiff vertical
+set wrap
+set linebreak
+syntax enable
+
+" Make Vim recognize XTerm escape sequences for Page and Arrow
+" keys combined with modifiers such as Shift, Control, and Alt.
+" See http://www.reddit.com/r/vim/comments/1a29vk/_/c8tze8p
+if &term =~ '^screen'
+" Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
+execute "set t_kP=\e[5;*~"
+execute "set t_kN=\e[6;*~"
+" Arrow keys http://unix.stackexchange.com/a/34723
+execute "set <xUp>=\e[1;*A"
+execute "set <xDown>=\e[1;*B"
+execute "set <xRight>=\e[1;*C"
+execute "set <xLeft>=\e[1;*D"
+endif
+
+" Cursor settings. This makes terminal vim sooo much nicer!
+" Tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
+if exists('$TMUX')
+let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+" Mouse enabled for scrolling, selection, and cursor movement
+set mouse=a
+
+" Alt-letter will now be recognised by vi in a terminal as well as by gvim. The
+" timeout settings are used to work around the ambiguity with escape sequences.
+" Esc and j sent within 50ms will be mapped to <A-j>, greater than 50ms will
+" count as separate keys. That should be enough time to distinguish between Meta
+" encoding and hitting two keys.
+let c='a'
+while c <= 'z'
+  exec "set <A-".c.">=\e".c
+  exec "imap \e".c." <A-".c.">"
+  let c = nr2char(1+char2nr(c))
+endw
+set timeout ttimeoutlen=50
+
+" ==============================================================================
+" Backup, Swap and Undo
+" ==============================================================================
+
+" Save your backups to a less annoying place than the current directory.
+" If you have .vim-backup in the current directory, it'll use that.
+" Otherwise it saves it to ~/.vim/backup or . if all else fails.
+if isdirectory($HOME . '/.vim/backup') == 0
+  :silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
+endif
+set backupdir-=.
+set backupdir+=.
+set backupdir-=~/
+set backupdir^=~/.vim/backup/
+set backupdir^=./.vim-backup/
+set backup
+
+" Save your swp files to a less annoying place than the current directory.
+" If you have .vim-swap in the current directory, it'll use that.
+" Otherwise it saves it to ~/.vim/swap, ~/tmp or .
+if isdirectory($HOME . '/.vim/swap') == 0
+  :silent !mkdir -p ~/.vim/swap >/dev/null 2>&1
+endif
+set directory=./.vim-swap//
+set directory+=~/.vim/swap//
+set directory+=~/tmp//
+set directory+=.
+
+" viminfo stores the state of your previous editing session
+set viminfo+=n~/.vim/viminfo
+
+if exists("+undofile")
+  " undofile - This allows you to use undos after exiting and restarting
+  " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
+  " :help undo-persistence
+  if isdirectory($HOME . '/.vim/undo') == 0
+    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+  endif
+  set undodir=./.vim-undo//
+  set undodir+=~/.vim/undo//
+  set undofile
+  set undolevels=50
+endif
+
+function! Grritnow()
+  let req = "language=en-US&text=a simple test\nA second row"
+  let res = webapi#http#post('http://localhost:8081/v2/check', req)
+  let obj = webapi#json#decode(res.content)
+  echo obj.matches[0]
+endfunction
+
