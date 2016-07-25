@@ -209,7 +209,7 @@ if dein#tap('vim-simple_comments')
 endif
 
 call dein#add('tpope/vim-repeat')
-call dein#add('svermeulen/vim-easyclip')
+call dein#add('svermeulen/vim-easyclip', {'depends': 'vim-repeat'})
 if dein#tap('vim-easyclip')
   function! s:easyclip_on_source() abort
   " Make vim use the system register for copy and paste
@@ -496,7 +496,7 @@ call dein#add('rhysd/clever-f.vim')
 " ============
 
 " The NERD tree allows you to explore your filesystem.
-call dein#add('scrooloose/nerdtree', {'lazy': 1})
+call dein#add('scrooloose/nerdtree')
 if dein#tap('nerdtree')
   function! s:nerdtree_on_source() abort
     let g:NERDTreeDirArrows = 1
@@ -508,7 +508,7 @@ if dein#tap('nerdtree')
 endif
 
 " Vim plugin that displays tags in a window, ordered by class etc.
-call dein#add('majutsushi/tagbar', {'lazy': 1})
+call dein#add('majutsushi/tagbar')
 if dein#tap('tagbar')
   function! s:tagbar_on_source() abort
     let g:tagbar_width = 30
@@ -537,7 +537,7 @@ call dein#add('vim-scripts/a.vim')
 call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 
 " Vim plugin that brings the shell to vim
-call dein#add('Shougo/vimshell.vim', {'lazy': 1})
+call dein#add('Shougo/vimshell.vim')
 if dein#tap('vimshell.vim')
   function! s:vimshell_on_source() abort
     let g:vimshell_enable_smart_case   = 1
@@ -648,7 +648,7 @@ if dein#tap('committia.vim')
   call dein#set_hook(g:dein#name, 'hook_source', function('s:committia_on_source'))
 endif
 
-call dein#add('mbbill/undotree', {'lazy': 1})
+call dein#add('mbbill/undotree')
 
 " }}}
 
@@ -663,7 +663,7 @@ if filereadable(font_otf)
 endif
 
 call dein#add('vim-airline/vim-airline-themes')
-call dein#add('vim-airline/vim-airline')
+call dein#add('vim-airline/vim-airline', {'depends': 'papercolor-theme'})
 if dein#tap('vim-airline')
   function! s:airline_on_source() abort
     set laststatus=2
@@ -718,10 +718,7 @@ endif
 " Writing {{{
 " ==============================
 
-call dein#add('junegunn/goyo.vim', {
-      \ 'depends': 'vim-zenroom2',
-      \ 'lazy': 1,
-      \ })
+call dein#add('junegunn/goyo.vim', {'depends': 'vim-zenroom2'})
 if dein#tap('goyo.vim')
   function! s:goyo_on_source() abort
     let g:goyo_height=95
@@ -762,13 +759,10 @@ if dein#tap('goyo.vim')
 endif
 
 " Markdown highlighting in goyo
-call dein#add('amix/vim-zenroom2', {'lazy': 1})
+call dein#add('amix/vim-zenroom2')
 
 call dein#add('kana/vim-operator-user')
-call dein#add('rhysd/vim-grammarous', {
-    \ 'on_cmd': 'GrammarousCheck',
-    \ 'on_map': '<Plug>(grammarous-reset)'
-    \ })
+call dein#add('rhysd/vim-grammarous')
 if dein#tap('vim-grammarous')
   function! s:grammarous_on_source() abort
     let g:grammarous#use_vim_spelllang = 1
@@ -807,7 +801,7 @@ endif
 " ==============================
 
 " Disable plugins for LargeFile
-call dein#add('vim-scripts/LargeFile', {'lazy': 1})
+call dein#add('vim-scripts/LargeFile')
 "
 " Find and eliminate trailing whitespaces
 call dein#add('ntpeters/vim-better-whitespace')
