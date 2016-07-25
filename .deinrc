@@ -32,6 +32,18 @@ call dein#begin(expand('~/.vim/bundle'))
 " Let Dein manage Dein
 call dein#add(expand('~/.vim/bundle/repos/github.com/Shougo/dein.vim'))
 
+" Dein {{{
+" ==========
+
+let g:dein#enable_notification = 1
+command! DeinUpdate  call s:dein_update()
+function! s:dein_update()
+  call dein#update()
+  Unite dein/log:
+endfunction
+
+" }}}
+
 " Syntax {{{
 " ==========
 
@@ -398,11 +410,12 @@ if dein#tap('unite.vim')
   endfunction " }}}
 
     " Dein Menu {{{
-
     call s:register_quickmenu('Dein', 'Install/Update/Manage plugins                 ⚷ [space]d', [
         \['Dein'],
-        \['Dein log', 'Unite dein/log'],
-        \['Dein update', 'call dein#update() | Unite dein/log'],
+        \['Dein check clean', 'call dein#check_clean()'],
+        \['Dein clean', 'call map(dein#check_clean(), "delete(v:val, ''rf'')")'],
+        \['Dein log', 'Unite dein/log:'],
+        \['Dein update', 'DeinUpdate'],
         \['Help'],
         \['Dein docs', 'help dein'],
     \])
@@ -537,7 +550,7 @@ call dein#add('vim-scripts/a.vim')
 call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 
 " Vim plugin that brings the shell to vim
-call dein#add('Shougo/vimshell.vim')
+call dein#add('Shougo/vimshell.vim', {'depends': 'vimproc'})
 if dein#tap('vimshell.vim')
   function! s:vimshell_on_source() abort
     let g:vimshell_enable_smart_case   = 1
