@@ -672,6 +672,9 @@ call dein#add('powerline/fonts', {'build': './install.sh', 'rtp': ''})
 let font_otf=expand('~/.local/share/fonts/Sauce Code Powerline Medium.otf')
 if filereadable(font_otf)
   silent !gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Source Code Pro for Powerline Medium 11"
+  if has('gui_running')
+    set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 11
+  endif
   let g:airline_powerline_fonts = 1
 endif
 
@@ -871,6 +874,9 @@ autocmd FileType git,gitcommit,gitrebase setlocal formatoptions+=a textwidth=68 
 autocmd FileType markdown,text setlocal formatoptions+=a textwidth=80 nocindent autoindent
 autocmd FileType markdown setlocal formatoptions+=wn formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*[-*+]\\s\\+
 autocmd FileType java,c,cpp,go,python,vim,make,html,xhtml,xml,ruby setlocal formatoptions+=c textwidth=80
+if has("gui_running")
+  autocmd FileType text set lines=90 columns=90
+endif
 
 autocmd FileType html,xhtml,xml,htmldjango,jinja.html,jinja,eruby,mako setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 
@@ -903,8 +909,11 @@ autocmd BufNewFile,BufRead CMakeLists.txt setlocal ft=cmake
 " ----
 autocmd FileType json setlocal syntax=javascript
 
+" Text
+" ----
 autocmd BufRead,BufNewFile *.adoc,*.asciidoc set syntax=asciidoc
 autocmd BufRead,BufNewFile README.txt set syntax=markdown
+autocmd BufRead,BufNewFile *.tmp set filetype=text
 
 " GSL
 " ---
@@ -1076,6 +1085,13 @@ set diffopt+=vertical " split vimdiff vertical
 set wrap
 set linebreak
 syntax enable
+
+if has('gui_running')
+  set guioptions-=m  "remove menu bar
+  set guioptions-=T  "remove toolbar
+  set guioptions-=r  "remove right-hand scroll bar
+  set guioptions-=L  "remove left-hand scroll bar
+endif
 
 " Make Vim recognize XTerm escape sequences for Page and Arrow
 " keys combined with modifiers such as Shift, Control, and Alt.
