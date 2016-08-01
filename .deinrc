@@ -36,6 +36,7 @@ call dein#add(expand('~/.vim/bundle/repos/github.com/Shougo/dein.vim'))
 " ==========
 
 let g:dein#enable_notification = 1
+let g:dein#install_process_timeout = 1200
 command! DeinUpdate  call s:dein_update()
 function! s:dein_update()
   call dein#update()
@@ -66,13 +67,17 @@ endif
 
 call dein#add('rdnetto/YCM-Generator', { 'branch': 'stable' })
 if filereadable(ycm_conf)
-  call dein#add('Valloric/YouCompleteMe')
+  call dein#add('Valloric/YouCompleteMe', {'build': './install.py --clang-completer'})
   if dein#tap('YouCompleteMe')
     function! s:ycm_on_source() abort
       let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
       let g:ycm_collect_identifiers_from_tags_files = 1
       let g:ycm_seed_identifiers_with_syntax = 1
       let g:ycm_autoclose_preview_window_after_insertion = 1
+
+      nnoremap <Leader>f :YcmCompleter FixIt <CR>
+      nnoremap <Leader>d :YcmCompleter GetDoc <CR>
+      nnoremap <Leader>t :YcmCompleter GetType <CR>
     endfunction
     call dein#set_hook(g:dein#name, 'hook_source', function('s:ycm_on_source'))
   endif
@@ -625,7 +630,7 @@ call dein#add('airblade/vim-gitgutter')
 if dein#tap('vim-gitgutter')
   function! s:gitgutter_on_source() abort
     " Disabled by default
-    let g:gitgutter_enabled = 1
+    let g:gitgutter_enabled = !has('gui_running')
     let g:gitgutter_signs = 1
     let g:gitgutter_highlight_lines = 0
     " Don't show git diff is there are too many changes
