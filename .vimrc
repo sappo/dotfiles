@@ -734,6 +734,7 @@ endif
 " Writing {{{
 " ==============================
 
+" Distraction free writing
 NeoBundleLazy 'junegunn/goyo.vim', {
       \ 'depends': 'amix/vim-zenroom2',
       \ }
@@ -815,6 +816,30 @@ if neobundle#tap('vim-grammarous')
   call neobundle#untap()
 endif
 
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'reedes/vim-pencil'
+if neobundle#tap('vim-pencil')
+  function! neobundle#hooks.on_source(bundle)
+    let g:pencil#wrapModeDefault = 'hard'   " default is 'hard'
+    let g:pencil#autoformat = 1      " 0=manual, 1=auto (def)
+    let g:pencil#textwidth = 74
+    let g:pencil#joinspaces = 0     " 0=one_space (def), 1=two_spaces
+
+    let g:pencil#conceallevel = 3     " 0=disable, 1=onechar, 2=hidechar, 3=hideall (def)
+    let g:pencil#concealcursor = 'c'  " n=normal, v=visual, i=insert, c=command (def)
+
+    let g:pencil#mode_indicators = {'hard': 'H', 'auto': 'A', 'soft': 'S', 'off': '',}
+    let g:airline_section_x = '%{PencilMode()}'
+
+    augroup pencil
+      autocmd!
+      autocmd FileType markdown,mkd,text call pencil#init()
+                                \ | setl fdl=4 fdo+=search tw=80
+    augroup END
+  endfunction
+  call neobundle#untap()
+endif
+
 " }}}
 
 " Optimization {{{
@@ -868,8 +893,8 @@ autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
 autocmd FileType gitcommit setlocal spell
 autocmd FileType gitrebase nnoremap <buffer> S :Cycle<CR>
 autocmd FileType git,gitcommit,gitrebase setlocal formatoptions+=a textwidth=68 nocindent
-autocmd FileType markdown,text setlocal formatoptions+=a textwidth=80 nocindent autoindent
-autocmd FileType markdown setlocal formatoptions+=wn formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*[-*+]\\s\\+
+"autocmd FileType markdown,text setlocal formatoptions+=a textwidth=80 nocindent autoindent
+"autocmd FileType markdown setlocal formatoptions+=wn formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*[-*+]\\s\\+
 autocmd FileType java,c,cpp,go,python,vim,make,html,xhtml,xml,ruby setlocal formatoptions+=c textwidth=80
 if has("gui_running")
   autocmd FileType text set lines=90 columns=90
