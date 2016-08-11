@@ -816,6 +816,14 @@ if neobundle#tap('vim-grammarous')
   call neobundle#untap()
 endif
 
+NeoBundle 'dhruvasagar/vim-table-mode'
+if neobundle#tap('vim-table-mode')
+  function! neobundle#hooks.on_source(bundle)
+    let g:table_mode_corner="|"
+  endfunction
+  call neobundle#untap()
+endif
+
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'reedes/vim-pencil'
 if neobundle#tap('vim-pencil')
@@ -836,6 +844,24 @@ if neobundle#tap('vim-pencil')
       autocmd FileType markdown,mkd,text call pencil#init()
                                 \ | setl fdl=4 fdo+=search tw=80
     augroup END
+
+    " Unite menu [[[
+    call s:register_quickmenu('Pencil', 'Writing tools for vim                       ⚷ [space]p', [
+        \['Commands'],
+        \['Pencil         initialize pencil with auto-detect for the current buffer', 'Pencil'],
+        \['PencilOff      removes navigation mappings and restores buffer to global settings', 'PencilOff'],
+        \['TogglePencil   if on, turns off; if off, initializes with auto-detect', 'PencilToggle'],
+        \['PencilSoft     initialize pencil with soft line wrap mode', 'PencilSoft'],
+        \['PencilHard     initialize pencil with hard line break mode (and Vim’s autoformat)', 'PencilHard'],
+        \['Automatic formatting'],
+        \['PFormat        allows autoformat to be enabled (if not blacklisted)', 'PFormat'],
+        \['PFormatOff     prevents autoformat from enabling (blacklist all)', 'PFormatOff'],
+        \['PFormatToggle  toggle to allow if off, etc.', 'PFormatToggle', ',pf'],
+    \])
+
+    exe 'nnoremap <silent>[menu]p :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Pencil.candidates) + 2).' menu:Pencil<CR>'
+    noremap <silent> <leader>pf :<C-u>PFormatToggle<CR>
+    " ]]]
   endfunction
   call neobundle#untap()
 endif
