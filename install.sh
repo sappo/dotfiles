@@ -98,7 +98,7 @@ is_tmux_installed () {
 }
 
 install_vim () {
-    install_symlink $PWD .deinrc .vimrc
+    install_symlink $PWD .vimrc
     install_symlink $PWD .ycm_extra_conf.py .vim/.ycm_extra_conf.py
 }
 
