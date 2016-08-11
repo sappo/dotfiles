@@ -64,20 +64,20 @@ plugings press `ctrl+a U`.
 
 The leader key is `ctrl+a`.
 
-Keys        | Description
-------------|------------
-`C-f`       | Simple file search
-`C-g`       | Jumping over git status files (best used after `git status` command)
-`C-u`       | Url search (http, ftp and git urls)
-`A-h`       | jumping over SHA-1 hashes (best used after `git log` command)
-`n`         | Next (when searching)
-`N`         | Previous (when searching)
-`CR`        | Copy selected text
-`]`         | Paste
-`C-,`       | Rename pane
-`C-;`       | Rename session
-`C-x`       | Kill current pane
-`C-X`       | Kill current session
-`C-Q`       | Kill tmux server
-`|`         | Split vertically
-`-`         | Split horizontally
+| Keys  | Description                                                          |
+|-------|----------------------------------------------------------------------|
+| `C-f` | Simple file search                                                   |
+| `C-g` | Jumping over git status files (best used after `git status` command) |
+| `C-u` | Url search (http, ftp and git urls)                                  |
+| `A-h` | jumping over SHA-1 hashes (best used after `git log` command)        |
+| `n`   | Next (when searching)                                                |
+| `N`   | Previous (when searching)                                            |
+| `CR`  | Copy selected text                                                   |
+| `]`   | Paste                                                                |
+| `C-,` | Rename pane                                                          |
+| `C-;` | Rename session                                                       |
+| `C-x` | Kill current pane                                                    |
+| `C-X` | Kill current session                                                 |
+| `C-Q` | Kill tmux server                                                     |
+| `|`   | Split vertically                                                     |
+| `-`   | Split horizontally                                                   |
