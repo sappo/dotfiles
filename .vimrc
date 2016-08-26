@@ -36,27 +36,12 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 filetype plugin indent on     " Required!
 
-" Syntax {{{
-" ==========
+" Syntax & Completion {{{
+" ==============
 
 let ycm_conf=expand('compile_commands.json')
-if !filereadable(ycm_conf)
-  NeoBundle 'benekastah/neomake'
-endif
-if neobundle#tap('neomake')
-  function! neobundle#hooks.on_source(bundle)
-    autocmd! BufNewFile,BufWritePost * Neomake
-    let g:neomake_airline = 1
-  endfunction
-  call neobundle#untap()
-endif
-
-" }}}
-
-" Completion {{{
-" ==============
-NeoBundle 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 if filereadable(ycm_conf)
+  " YCM is preferred when configuration is available as it works smoother
   NeoBundle 'Valloric/YouCompleteMe'
   if neobundle#tap('YouCompleteMe')
     function! neobundle#hooks.on_source(bundle)
@@ -84,6 +69,7 @@ if filereadable(ycm_conf)
     call neobundle#untap()
   endif
 else
+  " Use neocomplete as backup when YCM is not available
   NeoBundle 'Shougo/neocomplete.vim'
   if neobundle#tap('neocomplete.vim')
     function! neobundle#hooks.on_source(bundle)
@@ -152,6 +138,16 @@ else
     endfunction
     call neobundle#untap()
   endif
+
+  NeoBundle 'benekastah/neomake'
+  if neobundle#tap('neomake')
+    function! neobundle#hooks.on_source(bundle)
+      autocmd! BufNewFile,BufWritePost * Neomake
+      let g:neomake_airline = 1
+    endfunction
+    call neobundle#untap()
+  endif
+
 endif
 
 NeoBundleLazy 'rhysd/github-complete.vim', {'autoload': {'filetypes': ['markdown', 'gitcommit'],},}
