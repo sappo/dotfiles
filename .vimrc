@@ -83,7 +83,7 @@ else
       let g:neocomplete#sources#syntax#min_keyword_length = 3
       let g:neocomplete#loock_buffer_name_pattern = '\*ku\*'
       " Larger cache limit so all tag files are read into cache
-      let g:neocomplete#sources#tags#cache_limit_size = 5000000
+      let g:neocomplete#sources#tags#cache_limit_size = 1000000
       let g:neocomplete#data_directory = expand('~/.vim/neocomplete')
       set completeopt-=preview
 
@@ -165,11 +165,16 @@ endif
 NeoBundle 'ludovicchabant/vim-gutentags'
 if neobundle#tap('vim-gutentags')
   function! neobundle#hooks.on_source(bundle)
+    " Disable by default because it may generate unecessary large tags files
+    let g:gutentags_enabled = 0
+    " Only activate gutentags on the following filetypes
+    autocmd FileType c let g:gutentags_enabled = 1
+
     let g:gutentags_cache_dir = '~/.vim/gutentags'
     let g:gutentags_project_info = get(g:, 'gutentags_project_info', [])
     call add(g:gutentags_project_info, {'type': 'C', 'file': 'configure.ac'})
     call add(g:gutentags_project_info, {'type': 'C', 'file': 'CMakeLists.txt'})
-    let g:gutentags_ctags_executable_C = 'ctags --fields=+l'
+    let g:gutentags_ctags_executable_C = 'ctags --fields=+l --langmap=c:.c.h.inc --languages=c --extra=+q'
 
     let g:gutentags_enabled_dirs = ['~/workspace', '/mnt/data/workspace']
     let g:gutentags_enabled_user_func = 'CheckEnabledDirs'
