@@ -82,8 +82,6 @@ else
       " Set minimum syntax keyword length.
       let g:neocomplete#sources#syntax#min_keyword_length = 3
       let g:neocomplete#loock_buffer_name_pattern = '\*ku\*'
-      " Larger cache limit so all tag files are read into cache
-      let g:neocomplete#sources#tags#cache_limit_size = 1000000
       let g:neocomplete#data_directory = expand('~/.vim/neocomplete')
       set completeopt-=preview
 
@@ -106,14 +104,20 @@ else
       inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
       " Enable omni completion.
-      autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-      autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-      autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-      autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-      autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+      augroup neo_omni
+        autocmd!
+        autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+        autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+        autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+      augroup END
 
       " Disable automatic completion in gitcommit
-      autocmd FileType gitcommit NeoCompleteLock
+      augroup neo_lock
+        autocmd!
+        autocmd FileType gitcommit NeoCompleteLock
+      augroup END
     endfunction
     call neobundle#untap()
   endif
@@ -142,7 +146,10 @@ else
   NeoBundle 'benekastah/neomake'
   if neobundle#tap('neomake')
     function! neobundle#hooks.on_source(bundle)
-      autocmd! BufNewFile,BufWritePost * Neomake
+      augroup neomake
+        autocmd!
+        autocmd BufNewFile,BufWritePost * Neomake
+      augroup END
       let g:neomake_airline = 1
     endfunction
     call neobundle#untap()
@@ -156,7 +163,10 @@ if neobundle#tap('github-complete.vim')
     " Disable overwriting 'omnifunc'
     let g:github_complete_enable_omni_completion = 0
     " <C-x><C-x> invokes completions of github-complete.vim
-    autocmd FileType markdown,gitcommit
+    augroup gitcomplete
+      autocmd!
+      autocmd FileType markdown,gitcommit
+    augroup END
     \ imap <C-x><C-x> <Plug>(github-complete-manual-completion)
   endfunction
   call neobundle#untap()
@@ -168,7 +178,10 @@ if neobundle#tap('vim-gutentags')
     " Disable by default because it may generate unecessary large tags files
     let g:gutentags_enabled = 0
     " Only activate gutentags on the following filetypes
-    autocmd FileType c let g:gutentags_enabled = 1
+    augroup gutentags
+      autocmd!
+      autocmd FileType c let g:gutentags_enabled = 1
+    augroup END
 
     let g:gutentags_cache_dir = '~/.vim/gutentags'
     let g:gutentags_project_info = get(g:, 'gutentags_project_info', [])
@@ -176,7 +189,7 @@ if neobundle#tap('vim-gutentags')
     call add(g:gutentags_project_info, {'type': 'C', 'file': 'CMakeLists.txt'})
     let g:gutentags_ctags_executable_C = 'ctags --fields=+l --langmap=c:.c.h.inc --languages=c --extra=+q'
 
-    let g:gutentags_enabled_dirs = ['~/workspace', '/mnt/data/workspace']
+    let g:gutentags_enabled_dirs = ['~/workspace/zeromq', '/mnt/data/workspace/zeromq']
     let g:gutentags_enabled_user_func = 'CheckEnabledDirs'
     function! CheckEnabledDirs(file)
         let file_path = fnamemodify(a:file, ':p:h')
@@ -741,11 +754,14 @@ NeoBundleLazy 'junegunn/goyo.vim', {
       \ }
 if neobundle#tap('goyo.vim')
   function! neobundle#hooks.on_source(bundle)
-    let g:goyo_height=95
+    let g:goyo_height=97
     let g:goyo_width=85
 
-    autocmd! User GoyoEnter nested call <SID>goyo_enter()
-    autocmd! User GoyoLeave nested call <SID>goyo_leave()
+    augroup goyo
+      autocmd!
+      autocmd User GoyoEnter nested call <SID>goyo_enter()
+      autocmd User GoyoLeave nested call <SID>goyo_leave()
+    augroup END
 
     function! s:goyo_enter()
       silent !tmux set status off
@@ -879,7 +895,10 @@ NeoBundleLazy 'vim-scripts/LargeFile'
 NeoBundle 'ntpeters/vim-better-whitespace'
 if neobundle#tap('vim-better-whitespace')
   function! neobundle#hooks.on_source(bundle)
-    autocmd BufWritePre * StripWhitespace
+    augroup whitespaces
+      autocmd!
+      autocmd BufWritePre * StripWhitespace
+    augroup END
   endfunction
   call neobundle#untap()
 endif
@@ -1100,9 +1119,12 @@ nnoremap <silent> <expr> <CR> Highlighting()
 
 " Highlight if a line goes above 80 chars
 call matchadd('ColorColumn', '\%81v', 100)
-autocmd VimEnter * autocmd WinEnter * let w:colorcolumn=1
-autocmd VimEnter * let w:colorcolumn=1
-autocmd WinEnter * if !exists('w:colorcolumn') | call matchadd('ColorColumn', '\%'.&tw+1.'v', 100) | endif
+augroup colorcolumn
+  autocmd!
+  autocmd VimEnter * autocmd WinEnter * let w:colorcolumn=1
+  autocmd VimEnter * let w:colorcolumn=1
+  autocmd WinEnter * if !exists('w:colorcolumn') | call matchadd('ColorColumn', '\%'.&tw+1.'v', 100) | endif
+augroup END
 
 " For wrapped lines
 imap <silent> <Down> <C-o>gj
