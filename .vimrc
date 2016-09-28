@@ -311,7 +311,7 @@ endif
 " }}}
 
 " Searching {{{
-" ============
+" =============
 
 NeoBundle 'Shougo/unite.vim'
 if neobundle#tap('unite.vim')
@@ -508,6 +508,24 @@ endif
 
 " Extends f, F, t and T mappings for more convenience. Repeat! Repeat!
 NeoBundle 'rhysd/clever-f.vim'
+
+" }}}
+
+" Motion {{{
+" ==========
+
+NeoBundle 'rhysd/accelerated-jk'
+if neobundle#tap('accelerated-jk')
+  function! neobundle#hooks.on_source(bundle)
+    let g:accelerated_jk_acceleration_limit = 300
+
+    nmap <Down> <Plug>(accelerated_jk_gj)
+    nmap <Up> <Plug>(accelerated_jk_gk)
+    nmap j <Plug>(accelerated_jk_gj)
+    nmap k <Plug>(accelerated_jk_gk)
+  endfunction
+  call neobundle#untap()
+endif
 
 " }}}
 
@@ -1128,16 +1146,6 @@ augroup colorcolumn
   autocmd VimEnter * let w:colorcolumn=1
   autocmd WinEnter * if !exists('w:colorcolumn') | call matchadd('ColorColumn', '\%'.&tw+1.'v', 100) | endif
 augroup END
-
-" For wrapped lines
-imap <silent> <Down> <C-o>gj
-imap <silent> <Up> <C-o>gk
-nmap <silent> <Down> gj
-nmap <silent> <Up> gk
-noremap <buffer> <silent> k gk
-noremap <buffer> <silent> j gj
-noremap <buffer> <silent> 0 g0
-noremap <buffer> <silent> $ g$
 
 " ==============================================================================
 " Settings and Defaults
