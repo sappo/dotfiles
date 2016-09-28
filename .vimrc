@@ -630,6 +630,9 @@ if neobundle#tap('vim-fugitive')
 
     " Unite menu [[[
     call s:register_quickmenu('Git', 'Admin git repositories                         ⚷ [space]g', [
+        \['Browse'],
+        \['Agit      - gitk-like viewer   ', ':Agit'],
+        \['Agit file - same as Agit but for current file', ':AgitFile'],
         \['View'],
         \['git blame       (fugitive)', 'normal ,gb', ',gb'],
         \['git browse      (fugitive)', 'normal ,gw', ',gw'],
@@ -648,6 +651,17 @@ if neobundle#tap('vim-fugitive')
     exe 'nnoremap <silent>[menu]g :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Git.candidates) + 2).' menu:Git<CR>'
     " ]]]
 
+  endfunction
+  call neobundle#untap()
+endif
+
+" gitk-like repository viewer
+NeoBundle 'cohama/agit.vim'
+if neobundle#tap('agit.vim')
+  function! neobundle#hooks.on_source(bundle)
+    nmap <C-f> <Plug>(agit-scrolldown-diff)
+    nmap <C-b> <Plug>(agit-scrollup-diff)
+    nmap <C-x> <Plug>(agit-exit)
   endfunction
   call neobundle#untap()
 endif
