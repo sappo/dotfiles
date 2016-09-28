@@ -671,9 +671,10 @@ endif
 NeoBundle 'cohama/agit.vim'
 if neobundle#tap('agit.vim')
   function! neobundle#hooks.on_source(bundle)
-    nmap <C-f> <Plug>(agit-scrolldown-diff)
-    nmap <C-b> <Plug>(agit-scrollup-diff)
-    nmap <C-x> <Plug>(agit-exit)
+    " TODO: fixme!
+    "nmap <C-f> <Plug>(agit-scrolldown-diff)
+    "nmap <C-b> <Plug>(agit-scrollup-diff)
+    "nmap <C-x> <Plug>(agit-exit)
   endfunction
   call neobundle#untap()
 endif
