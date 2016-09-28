@@ -956,7 +956,7 @@ augroup filetypes
 
   " Gsl
   " ---
-  autocmd BufRead,BufNewFile *.gsl set syntax=c
+  autocmd BufRead,BufNewFile *.gsl setlocal syntax=c
 
   " Java
   " ----
@@ -976,11 +976,11 @@ augroup filetypes
 
   " Text
   " ----
-  autocmd BufRead,BufNewFile *.adoc,*.asciidoc set syntax=asciidoc
-  autocmd BufRead,BufNewFile README.txt set syntax=markdown
-  autocmd BufRead,BufNewFile *.tmp set filetype=text
+  autocmd BufRead,BufNewFile *.adoc,*.asciidoc setlocal syntax=asciidoc
+  autocmd BufRead,BufNewFile README.txt setlocal syntax=markdown
+  autocmd BufRead,BufNewFile *.tmp setlocal filetype=text
   if has("gui_running")
-    autocmd FileType text set lines=90 columns=90
+    autocmd FileType text setlocal lines=90 columns=90
   endif
 
   " Vim
