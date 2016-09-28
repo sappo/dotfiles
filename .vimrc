@@ -926,68 +926,71 @@ NeoBundleCheck
 " Autocommands
 " ==============================================================================
 
-" Set augroup
-augroup MyAutoCmd
+augroup screen
   autocmd!
+  " Redraw since vim gets corrupt for no reason
+  autocmd FocusGained * redraw! " redraw screen on focus
 augroup END
 
-" Redraw since vim gets corrupt for no reason
-au FocusGained * redraw! " redraw screen on focus
+augroup filetypes
+  autocmd!
+  " C/C++
+  autocmd FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab formatoptions+=c textwidth=80
+  autocmd FileType cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab formatoptions+=c textwidth=80
 
-if has("autocmd")
-autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
-autocmd FileType gitcommit setlocal spell
-autocmd FileType gitrebase nnoremap <buffer> S :Cycle<CR>
-autocmd FileType git,gitcommit,gitrebase setlocal formatoptions+=a textwidth=68 nocindent
-"autocmd FileType markdown,text setlocal formatoptions+=a textwidth=80 nocindent autoindent
-"autocmd FileType markdown setlocal formatoptions+=wn formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*[-*+]\\s\\+
-autocmd FileType java,c,cpp,go,python,vim,make,html,xhtml,xml,ruby setlocal formatoptions+=c textwidth=80
-if has("gui_running")
-  autocmd FileType text set lines=90 columns=90
-endif
+  " CMake
+  " -------------
+  autocmd BufNewFile,BufRead CMakeLists.txt setlocal ft=cmake
 
-autocmd FileType html,xhtml,xml,htmldjango,jinja.html,jinja,eruby,mako setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+  " Git
+  " ---
+  autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
+  autocmd FileType gitcommit setlocal spell
+  autocmd FileType gitrebase nnoremap <buffer> S :Cycle<CR>
+  autocmd FileType git,gitcommit,gitrebase setlocal formatoptions+=a textwidth=68 nocindent
 
-" go support
-" ----------
-autocmd BufNewFile,BufRead *.go setlocal ft=go
-autocmd FileType go setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
+  " Go
+  " ----------
+  autocmd BufNewFile,BufRead *.go setlocal ft=go
+  autocmd FileType go setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 formatoptions+=c textwidth=80
 
-" Java
-" ----
-autocmd FileType java setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+  " Gsl
+  " ---
+  autocmd BufRead,BufNewFile *.gsl set syntax=c
 
-" C/C++
-autocmd FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-autocmd FileType cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+  " Java
+  " ----
+  autocmd FileType java setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab formatoptions+=c textwidth=80
 
-" vim
-" ---
-autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
+  " Json
+  " ----
+  autocmd FileType json setlocal syntax=javascript
 
-" make support
-" ------------
-autocmd FileType make setlocal noexpandtab
+  " Make
+  " ------------
+  autocmd FileType make setlocal noexpandtab formatoptions+=c textwidth=80
 
-" cmake support
-" -------------
-autocmd BufNewFile,BufRead CMakeLists.txt setlocal ft=cmake
+  " Python
+  " ------
+  autocmd FileType python setlocal noexpandtab shiftwidth=4 tabstop=8 softtabstop=4 formatoptions+=c textwidth=80
 
-" Json
-" ----
-autocmd FileType json setlocal syntax=javascript
+  " Text
+  " ----
+  autocmd BufRead,BufNewFile *.adoc,*.asciidoc set syntax=asciidoc
+  autocmd BufRead,BufNewFile README.txt set syntax=markdown
+  autocmd BufRead,BufNewFile *.tmp set filetype=text
+  if has("gui_running")
+    autocmd FileType text set lines=90 columns=90
+  endif
 
-" Text
-" ----
-autocmd BufRead,BufNewFile *.adoc,*.asciidoc set syntax=asciidoc
-autocmd BufRead,BufNewFile README.txt set syntax=markdown
-autocmd BufRead,BufNewFile *.tmp set filetype=text
+  " Vim
+  " ---
+  autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2 formatoptions+=c textwidth=80
 
-" GSL
-" ---
-autocmd BufRead,BufNewFile *.gsl set syntax=c
-
-endif
+  " Web
+  " ---
+  autocmd FileType html,xhtml,xml,htmldjango,jinja.html,jinja,eruby,mako setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+augroup END
 
 " ==============================================================================
 " Functions
