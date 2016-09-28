@@ -518,9 +518,6 @@ if neobundle#tap('incsearch-fuzzy.vim')
   call neobundle#untap()
 endif
 
-" Extends f, F, t and T mappings for more convenience. Repeat! Repeat!
-NeoBundle 'rhysd/clever-f.vim'
-
 " }}}
 
 " Motion {{{
@@ -538,6 +535,20 @@ if neobundle#tap('accelerated-jk')
   endfunction
   call neobundle#untap()
 endif
+
+" Extends f, F, t and T mappings for more convenience. Repeat! Repeat!
+NeoBundle 'rhysd/clever-f.vim'
+if neobundle#tap('clever-f.vim')
+  function! neobundle#hooks.on_source(bundle)
+    let g:clever_f_smart_case = 1
+    let g:clever_f_across_no_line = 1
+  endfunction
+  call neobundle#untap()
+endif
+
+" Highlights the characters where the cursor can move directly (by f,F,t,T).
+"NeoBundle 'deris/vim-shot-f'
+"let g:shot_f_no_default_key_mappings = 1
 
 " }}}
 
