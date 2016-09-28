@@ -36,6 +36,18 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 filetype plugin indent on     " Required!
 
+" Automatically update NeoBundle bundles once a week
+NeoBundle 'rhysd/auto-neobundle'
+  if neobundle#tap('auto-neobundle')
+    function! neobundle#hooks.on_source(bundle)
+      augroup AutoNeoBundle
+          autocmd!
+          autocmd VimEnter * call auto_neobundle#update_weekly()
+      augroup END
+  endfunction
+  call neobundle#untap()
+endif
+
 " Syntax & Completion {{{
 " ==============
 
