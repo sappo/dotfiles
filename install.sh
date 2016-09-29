@@ -208,45 +208,50 @@ while :
 do
     clear
     cat<<EOF
-    =====================================
+    ==============================================
     Sappo's dotfile installer
-    -------------------------------------
+    ----------------------------------------------
     Please enter which dotfile to install
 
-    all         ${BLUE}(1)${STD}
-    bashrc      ${BLUE}(2)${STD} - ${GREEN}$(is_bash_installed)${STD}
-    gitconfig   ${BLUE}(3)${STD} - ${GREEN}$(is_git_installed)${STD}
-    gpg         ${BLUE}(4)${STD} - ${GREEN}$(is_gpg_installed)${STD}
-    vimrc       ${BLUE}(5)${STD} - ${GREEN}$(is_vim_installed)${STD}
-    tmux        ${BLUE}(6)${STD} - ${GREEN}$(is_tmux_installed)${STD}
-                ${BLUE}(Q)uit${STD}
-    -------------------------------------
+    bashrc          ${BLUE}(1)${STD} - ${GREEN}$(is_bash_installed)${STD}
+    gitconfig       ${BLUE}(2)${STD} - ${GREEN}$(is_git_installed)${STD}
+    gpg             ${BLUE}(3)${STD} - ${GREEN}$(is_gpg_installed)${STD}
+    vimrc           ${BLUE}(4)${STD} - ${GREEN}$(is_vim_installed)${STD}
+    tmux            ${BLUE}(5)${STD} - ${GREEN}$(is_tmux_installed)${STD}
+                    ${BLUE}(A)ll${STD}
+                    ${BLUE}(U)pdate${STD}
+                    ${BLUE}(Q)uit${STD}
+    ----------------------------------------------
 EOF
     read -n1 -s
     case "$REPLY" in
     "1")
         install_bash
-        install_git
-        install_vim
-        install_tmux
         ;;
     "2")
-        install_bash
-        ;;
-    "3")
         install_git
         ;;
-    "4")
+    "3")
         install_gpg
         ;;
-    "5")
+    "4")
         install_vim
         ;;
-    "6")
+    "5")
         install_tmux
         ;;
-    "q")  exit                      ;;
-    "Q")  exit                      ;;
+    "A")
+        install_bash
+        install_git
+        install_gpg
+        install_vim
+        install_tmux
+        ;;
+    "U")
+        git submodule foreach git pull --rebase origin master
+        ;;
+    "q")  exit;;
+    "Q")  exit;;
      * )  echo -e "    ${RED}Invalid option...${STD}";;
     esac
     echo
