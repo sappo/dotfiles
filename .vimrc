@@ -38,12 +38,12 @@ filetype plugin indent on     " Required!
 
 " Automatically update NeoBundle bundles once a week
 NeoBundle 'rhysd/auto-neobundle'
-  if neobundle#tap('auto-neobundle')
-    function! neobundle#hooks.on_source(bundle)
-      augroup AutoNeoBundle
-          autocmd!
-          autocmd VimEnter * call auto_neobundle#update_weekly()
-      augroup END
+if neobundle#tap('auto-neobundle')
+  function! neobundle#hooks.on_source(bundle)
+    augroup AutoNeoBundle
+        autocmd!
+        autocmd VimEnter * call auto_neobundle#update_weekly()
+    augroup END
   endfunction
   call neobundle#untap()
 endif
@@ -177,9 +177,8 @@ if neobundle#tap('github-complete.vim')
     " <C-x><C-x> invokes completions of github-complete.vim
     augroup gitcomplete
       autocmd!
-      autocmd FileType markdown,gitcommit
+      autocmd FileType markdown,gitcommit imap <C-x><C-x> <Plug>(github-complete-manual-completion)
     augroup END
-    \ imap <C-x><C-x> <Plug>(github-complete-manual-completion)
   endfunction
   call neobundle#untap()
 endif
