@@ -1,0 +1,5 @@
+" Ctrl-a
+inoremap <C-a> <C-Home><C-S-End>
+
+" Temporary Firefox 49 fix - Vimperator can no longer seem to find / store history #594
+js services.services.autoCompleteSearch.class_="@mozilla.org/autocomplete/search;1?name=unifiedcomplete"
