@@ -812,11 +812,8 @@ if neobundle#tap('goyo.vim')
     let g:goyo_height=97
     let g:goyo_width=85
 
-    augroup goyo
-      autocmd!
-      autocmd User GoyoEnter nested call <SID>goyo_enter()
-      autocmd User GoyoLeave nested call <SID>goyo_leave()
-    augroup END
+    autocmd User GoyoEnter nested call <SID>goyo_enter()
+    autocmd User GoyoLeave nested call <SID>goyo_leave()
 
     function! s:goyo_enter()
       silent !tmux set status off
