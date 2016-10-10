@@ -935,6 +935,38 @@ if neobundle#tap('vim-pencil')
   call neobundle#untap()
 endif
 
+NeoBundleLazy 'rafaqz/citation.vim', {
+      \ 'autoload': { 'filetypes': ['markdown'] },
+      \ 'build' : 'easy_install3 --user pybtex'
+      \ }
+if neobundle#tap('citation.vim')
+  function! neobundle#hooks.on_source(bundle)
+    if isdirectory($ZOTERO_HOME)
+      let g:citation_vim_mode='zotero'
+      let g:citation_vim_zotero_path=$ZOTERO_HOME
+      "let g:citation_vim_collection='Master_Thesis'
+    else
+      let g:citation_vim_mode='bibtex'
+      let g:citation_vim_bibtex_file=globpath('.', '*.bib')
+    endif
+    " Create citation cache dir if necessary
+    if !isdirectory($HOME . '/.vim/citation')
+      silent !mkdir -p ~/.vim/citation >/dev/null 2>&1
+    endif
+    let g:citation_vim_cache_path='~/.vim/citation'
+    " Pandoc citation style
+    let g:citation_vim_outer_prefix='['
+    let g:citation_vim_inner_prefix='@'
+    let g:citation_vim_suffix=']'
+
+    " Insert a citation
+    nnoremap <silent>[unite]c :<C-u>Unite -buffer-name=citation -start-insert -default-action=append citation/key<cr>
+    " Open a file from a citation under the cursor
+    nnoremap <silent>[unite]o :<C-u>Unite -input=<C-R><C-W> -default-action=start -force-immediately citation/file<cr>
+  endfunction
+  call neobundle#untap()
+endif
+
 " }}}
 
 " Optimization {{{

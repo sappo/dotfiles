@@ -174,6 +174,7 @@ install_bash () {
     else
         install_symlink $PWD .bashrc
     fi
+    install_symlink $PWD .bash_exports
     install_symlink $PWD .liquidpromptrc
     install_symlink $PWD .lesspipe.sh
     install_symlink $PWD .LESS_TERMCAP
