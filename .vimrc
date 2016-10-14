@@ -885,10 +885,25 @@ if neobundle#tap('vim-grammarous')
   call neobundle#untap()
 endif
 
-NeoBundle 'dhruvasagar/vim-table-mode'
+NeoBundleLazy 'dhruvasagar/vim-table-mode', {
+      \ 'autoload': { 'filetypes': ['markdown'] }}
 if neobundle#tap('vim-table-mode')
   function! neobundle#hooks.on_source(bundle)
     let g:table_mode_corner="|"
+
+    function! s:isAtStartOfLine(mapping)
+      let text_before_cursor = getline('.')[0 : col('.')-1]
+      let mapping_pattern = '\V' . escape(a:mapping, '\')
+      let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+      return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+    endfunction
+
+    inoreabbrev <expr> <bar><bar>
+              \ <SID>isAtStartOfLine('\|\|') ?
+              \ '<c-o>:TableModeEnable<cr><c-o>:PFormatOff<cr><bar><space><bar><left><left>' : '<bar><bar>'
+    inoreabbrev <expr> __
+              \ <SID>isAtStartOfLine('__') ?
+              \ '<c-o>:silent! TableModeDisable<cr><c-o>:silent! PFormat<cr>' : '__'
   endfunction
   call neobundle#untap()
 endif
@@ -934,6 +949,12 @@ if neobundle#tap('vim-pencil')
         \['PFormat        allows autoformat to be enabled (if not blacklisted)', 'PFormat'],
         \['PFormatOff     prevents autoformat from enabling (blacklist all)', 'PFormatOff'],
         \['PFormatToggle  toggle to allow if off, etc.', 'PFormatToggle', ',pf'],
+        \['Tables'],
+        \['Toggle mode    toggle table mode on/off', 'TableModeToggle', ',tm'],
+        \['Realign table  realign an existing table', 'TableModeRealign', ',tr'],
+        \['Sort table     sort table by column under the cursor', 'TableSort', ',ts'],
+        \['Add formular   adds a formular to a table cell', 'TableAddForular', ',tfa'],
+        \['Eval formular  evaluate formulars inside a table', 'TableEvalFormulaLine', ',tfe'],
     \])
 
     exe 'nnoremap <silent>[menu]p :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Pencil.candidates) + 2).' menu:Pencil<CR>'
