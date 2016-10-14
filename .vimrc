@@ -894,6 +894,7 @@ if neobundle#tap('vim-table-mode')
 endif
 
 NeoBundle 'tpope/vim-markdown'
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'c', 'java', 'xml', 'json']
 NeoBundle 'reedes/vim-pencil'
 if neobundle#tap('vim-pencil')
   function! neobundle#hooks.on_source(bundle)
@@ -910,8 +911,8 @@ if neobundle#tap('vim-pencil')
 
     augroup pencil
       autocmd!
-      autocmd FileType markdown,mkd,text call pencil#init()
-                                \ | setl fdl=4 fdo+=search tw=80
+      autocmd FileType markdown,mkd,text call pencil#init({'wrap': 'hard'})
+                                     \ | setlocal fdl=4 fdo+=search tw=80
     augroup END
 
     " Unite menu [[[
