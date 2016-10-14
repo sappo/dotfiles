@@ -894,7 +894,14 @@ if neobundle#tap('vim-table-mode')
 endif
 
 NeoBundle 'tpope/vim-markdown'
-let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'c', 'java', 'xml', 'json']
+if neobundle#tap('vim-markdown')
+  function! neobundle#hooks.on_source(bundle)
+    let g:vim_markdown_frontmatter = 1
+    let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'c', 'java', 'xml', 'json', 'yaml']
+  endfunction
+  call neobundle#untap()
+endif
+
 NeoBundle 'reedes/vim-pencil'
 if neobundle#tap('vim-pencil')
   function! neobundle#hooks.on_source(bundle)
