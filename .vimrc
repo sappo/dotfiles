@@ -949,6 +949,7 @@ if neobundle#tap('citation.vim')
       let g:citation_vim_mode='bibtex'
       let g:citation_vim_bibtex_file=globpath('.', '*.bib')
     endif
+    let g:citation_vim_et_al_limit=2
     " Create citation cache dir if necessary
     if !isdirectory($HOME . '/.vim/citation')
       silent !mkdir -p ~/.vim/citation >/dev/null 2>&1
