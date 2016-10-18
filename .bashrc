@@ -6,6 +6,15 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+####################
+# Common functions #
+####################
+
+command_exists ()
+{
+    hash "$1" 2> /dev/null;
+}
+
 ##########
 # Colors #
 ##########
@@ -84,8 +93,15 @@ fi
 #########
 
 # user space haskell tools
-if [ -d ~/.cabal ]; then
-    PATH=$HOME/.cabal/bin:$PATH
+if command_exists cabal; then
+    if [ -d ~/.cabal ]; then
+        PATH=$HOME/.cabal/bin:$PATH
+    fi
+fi
+
+if command_exists npm; then
+    export NPM_CONFIG_PREFIX=$HOME/.npm
+    PATH=$HOME/.npm/bin:$PATH
 fi
 
 ###########
@@ -145,13 +161,8 @@ fi
 # Checks #
 ##########
 
-command_exists ()
-{
-    hash "$1" 2> /dev/null;
-}
-
 # OpenPGP applet support for YubiKey NEO
-if [ $(command_exists gpg-agent) ]; then
+if command_exists gpg-agent; then
     if [ ! -f /tmp/gpg-agent.env ]; then
         killall gpg-agent;
         eval $(gpg-agent --daemon --enable-ssh-support > /tmp/gpg-agent.env);
