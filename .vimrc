@@ -885,6 +885,17 @@ if neobundle#tap('vim-grammarous')
   call neobundle#untap()
 endif
 
+NeoBundleLazy 'suan/vim-instant-markdown', {
+      \ 'autoload': { 'filetypes': ['markdown'] },
+      \ 'build' : 'npm -g install instant-markdown-d'
+      \ }
+if neobundle#tap('vim-instant-markdown')
+  function! neobundle#hooks.on_source(bundle)
+    let g:instant_markdown_autostart = 0
+  endfunction
+  call neobundle#untap()
+endif
+
 NeoBundleLazy 'dhruvasagar/vim-table-mode', {
       \ 'autoload': { 'filetypes': ['markdown'] }}
 if neobundle#tap('vim-table-mode')
