@@ -158,10 +158,8 @@ else
   NeoBundle 'benekastah/neomake'
   if neobundle#tap('neomake')
     function! neobundle#hooks.on_source(bundle)
-      augroup neomake
-        autocmd!
-        autocmd BufNewFile,BufWritePost * Neomake
-      augroup END
+      autocmd BufNewFile,BufWritePost * Neomake
+      let g:neomake_c_enabled_makers = ['gcc']
       let g:neomake_airline = 1
     endfunction
     call neobundle#untap()
@@ -919,7 +917,7 @@ if neobundle#tap('vim-table-mode')
   call neobundle#untap()
 endif
 
-NeoBundle 'tpope/vim-markdown'
+NeoBundle 'sappo/vim-markdown'
 if neobundle#tap('vim-markdown')
   function! neobundle#hooks.on_source(bundle)
     let g:vim_markdown_frontmatter = 1
@@ -1253,6 +1251,20 @@ augroup colorcolumn
   autocmd VimEnter * let w:colorcolumn=1
   autocmd WinEnter * if !exists('w:colorcolumn') | call matchadd('ColorColumn', '\%'.&tw+1.'v', 100) | endif
 augroup END
+
+function! ListMatch()
+  let matches = []
+
+  let index = 0
+  let last = line('$')
+  while index <= last
+    if match (getline(index), '\vNeoBundle\w* ''([a-z,-]+/[a-z,-]+)''') == 0
+      call add(matches, matchlist(getline(index), '\vNeoBundle\w* ''([a-z,-]+/[a-z,-]+)''')[1])
+    endif
+    let index += 1
+  endwhile
+  echo matches
+endfunction
 
 " ==============================================================================
 " Settings and Defaults
