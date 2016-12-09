@@ -5,7 +5,6 @@ fi
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
-
 ####################
 # Common functions #
 ####################
@@ -116,6 +115,20 @@ if command_exists cpan; then
     fi
 fi
 
+# user space python packages
+if [ -d ~/.local/bin ]; then
+    PATH=$HOME/.local/bin:$PATH
+fi
+
+# python virtualenv
+if command_exists activate.sh; then
+    source `which activate.sh`
+fi
+
+if command_exists virtualenvwrapper.sh; then
+    source virtualenvwrapper.sh
+fi
+
 ###########
 # Aliases #
 ###########
@@ -209,3 +222,6 @@ if [ ! -f /tmp/bashrc_check ]; then
     fi
     cd - 2>&1 >/dev/null
 fi
+
+# added by travis gem
+[ -f /home/sappo/.travis/travis.sh ] && source /home/sappo/.travis/travis.sh

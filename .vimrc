@@ -128,7 +128,7 @@ else
       " Disable automatic completion in gitcommit
       augroup neo_lock
         autocmd!
-        autocmd FileType gitcommit NeoCompleteLock
+        autocmd FileType python,gitcommit NeoCompleteLock
       augroup END
     endfunction
     call neobundle#untap()
@@ -181,6 +181,7 @@ if neobundle#tap('github-complete.vim')
   call neobundle#untap()
 endif
 
+" Hint: Works only with VCS repositories
 NeoBundle 'ludovicchabant/vim-gutentags'
 if neobundle#tap('vim-gutentags')
   function! neobundle#hooks.on_source(bundle)
@@ -198,7 +199,7 @@ if neobundle#tap('vim-gutentags')
     call add(g:gutentags_project_info, {'type': 'C', 'file': 'CMakeLists.txt'})
     let g:gutentags_ctags_executable_C = 'ctags --fields=+l --langmap=c:.c.h.inc --languages=c --extra=+q'
 
-    let g:gutentags_enabled_dirs = ['~/workspace/zeromq', '/mnt/data/workspace/zeromq']
+    let g:gutentags_enabled_dirs = ['~/workspace/zeromq', '/mnt/data/workspace/zeromq', '~/workspace/zharry', '/mnt/data/workspace/zharry']
     let g:gutentags_enabled_user_func = 'CheckEnabledDirs'
     function! CheckEnabledDirs(file)
         let file_path = fnamemodify(a:file, ':p:h')
@@ -217,6 +218,78 @@ if neobundle#tap('vim-gutentags')
     for tagfile in split(globpath('~/.vim/gutentags', '*'))
       let &tags .= ',' . tagfile
     endfor
+  endfunction
+  call neobundle#untap()
+endif
+
+NeoBundleLazy 'klen/python-mode', {
+      \ 'autoload': { 'filetypes': ['python'] }}
+if neobundle#tap('python-mode')
+  function! neobundle#hooks.on_source(bundle)
+    let g:pymode_folding = 0
+    let g:pymode_rope = 0
+    let g:pymode_options_max_line_length = 80
+    let g:pymode_run = 0
+    let g:pymode_syntax = 1
+    let g:pymode_syntax_all = 1
+    let g:pymode_warnings = 1
+    " Auto open cwindow (quickfix) if any errors have been found
+    let g:pymode_lint_cwindow = 0
+  endfunction
+  call neobundle#untap()
+endif
+
+NeoBundleLazy 'davidhalter/jedi-vim', {
+      \ 'autoload': { 'filetypes': ['python'] }}
+if neobundle#tap('jedi-vim')
+  function! neobundle#hooks.on_source(bundle)
+    let g:jedi#goto_command = '<leader>k'
+  endfunction
+  call neobundle#untap()
+endif
+
+NeoBundleLazy 'jpalardy/vim-slime', {
+      \ 'autoload': { 'filetypes': ['python'] }}
+if neobundle#tap('vim-slime')
+  function! neobundle#hooks.on_source(bundle)
+    if exists('$TMUX')
+      " tmux:
+      let g:slime_target = "tmux"
+      let g:slime_default_config = {"socket_name": "default", "target_pane": "2"}
+    else
+      " screen:
+      let g:slime_target = "screen"
+      let b:slime_default_config = {"sessionname": "xxx", "windowname": "0"}
+    endif
+    let g:slime_paste_file = "$HOME/.vim/slime_paste"
+    let g:slime_dont_ask_default = 1
+    let g:slime_no_mappings = 1
+
+    function Repl()
+      let window_count = system('tmux list-panes | wc -l')
+      if window_count == 1
+        silent !tmux splitw -h "cd . && python"
+        silent !tmux select-pane -t 1
+      endif
+      :SlimeSend
+    endfunction
+
+    function ReplLeave()
+      let window_count = system('tmux list-panes | wc -l')
+      if window_count == 2
+        silent !tmux kill-pane -t 2
+      endif
+    endfunction
+
+    augroup VimSlime
+        autocmd!
+        autocmd VimLeave * call ReplLeave()
+    augroup END
+
+    "nmap <c-c>c :silent !tmux splitw -h "cd . && python"<cr>:silent !tmux select-pane -t 1<cr>
+    nmap <expr> <leader>c Repl()
+    vmap <expr> <leader>c Repl()
+
   endfunction
   call neobundle#untap()
 endif
@@ -921,6 +994,7 @@ NeoBundle 'sappo/vim-markdown'
 if neobundle#tap('vim-markdown')
   function! neobundle#hooks.on_source(bundle)
     let g:vim_markdown_frontmatter = 1
+    let g:vim_markdown_math = 1
     let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'c', 'java', 'xml', 'json', 'yaml']
   endfunction
   call neobundle#untap()
@@ -999,9 +1073,26 @@ if neobundle#tap('citation.vim')
     let g:citation_vim_suffix=']'
 
     " Insert a citation
-    nnoremap <silent>[unite]c :<C-u>Unite -buffer-name=citation -start-insert -default-action=append citation/key<cr>
+    nnoremap <silent>[unite]cc :<C-u>Unite -buffer-name=citation -start-insert -default-action=append citation/key<cr>
     " Open a file from a citation under the cursor
-    nnoremap <silent>[unite]o :<C-u>Unite -input=<C-R><C-W> -default-action=start -force-immediately citation/file<cr>
+    nnoremap <silent>[unite]co :<C-u>Unite -input=<C-R><C-W> -default-action=start -force-immediately citation/file<cr>
+
+    " Citation Menu {{{
+
+    call s:register_quickmenu('Citations', 'Insert/lookup citations                  ⚷ [space]c', [
+        \['Citation Inserts'],
+        \['key', 'Unite -buffer-name=Key citation/key', '[space]cc'],
+        \['author(s)', 'Unite -buffer-name=Author(s) citation/author'],
+        \['title', 'Unite -buffer-name=Title citation/title'],
+        \['year', 'Unite -buffer-name=Year citation/date'],
+        \['Citation Actions'],
+        \['Open PDF', 'Unite -buffer-name=PDF -default-action=start citation/file', '[space]co']
+    \])
+
+    exe 'nnoremap <silent>[menu]c :Unite -silent -winheight='.(len(g:unite_source_menu_menus.Citations.candidates) + 2).' menu:Citations<CR>'
+
+    " }}}
+
   endfunction
   call neobundle#untap()
 endif
@@ -1095,7 +1186,7 @@ augroup filetypes
 
   " Python
   " ------
-  autocmd FileType python setlocal noexpandtab shiftwidth=4 tabstop=8 softtabstop=4 formatoptions+=c textwidth=80
+  autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 formatoptions+=c textwidth=80
 
   " Text
   " ----
