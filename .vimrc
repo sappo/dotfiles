@@ -657,7 +657,7 @@ endif
 NeoBundleLazy 'majutsushi/tagbar'
 if neobundle#tap('tagbar')
   function! neobundle#hooks.on_source(bundle)
-    let g:tagbar_width = 30
+    let g:tagbar_width = 40
     let g:tagbar_foldlevel = 1
     let g:tagbar_type_rst = {
         \ 'ctagstype': 'rst',
