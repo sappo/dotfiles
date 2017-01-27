@@ -228,23 +228,6 @@ if neobundle#tap('vim-gutentags')
   call neobundle#untap()
 endif
 
-NeoBundleLazy 'klen/python-mode', {
-      \ 'autoload': { 'filetypes': ['python'] }}
-if neobundle#tap('python-mode')
-  function! neobundle#hooks.on_source(bundle)
-    let g:pymode_folding = 0
-    let g:pymode_rope = 0
-    let g:pymode_options_max_line_length = 80
-    let g:pymode_run = 0
-    let g:pymode_syntax = 1
-    let g:pymode_syntax_all = 1
-    let g:pymode_warnings = 1
-    " Auto open cwindow (quickfix) if any errors have been found
-    let g:pymode_lint_cwindow = 0
-  endfunction
-  call neobundle#untap()
-endif
-
 NeoBundleLazy 'davidhalter/jedi-vim', {
       \ 'autoload': { 'filetypes': ['python'] }}
 if neobundle#tap('jedi-vim')
