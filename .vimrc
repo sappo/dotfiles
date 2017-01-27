@@ -318,31 +318,41 @@ NeoBundle 'tpope/vim-repeat'
 NeoBundle 'svermeulen/vim-easyclip'
 if neobundle#tap('vim-easyclip')
   function! neobundle#hooks.on_source(bundle)
-  " Make vim use the system register for copy and paste
-  set clipboard=unnamedplus
-
-  let g:EasyClipYankHistorySize = 7
-  let g:EasyClipShareYanks = 1
-  let g:EasyClipShareYanksDirectory = '$HOME'
-  let g:EasyClipShareYanksFile = '.vim/.easyclip'
-
-  let g:EasyClipUseYankDefaults = 1
+  let g:EasyClipShareYanks = 0
+  let g:EasyClipUseYankDefaults = 0
   let g:EasyClipUseCutDefaults = 0
-  let g:EasyClipUsePasteDefaults = 1
   let g:EasyClipEnableBlackHoleRedirect = 0
   let g:EasyClipUsePasteToggleDefaults = 0
+  let g:EasyClipUsePasteDefaults = 1
   let g:EasyClipUseSubstituteDefaults = 1
-
-  " Redirect to blackhole instead of clipboard
-  nnoremap x "_x
-  nnoremap X "_X
-  vnoremap x "_x
-  vnoremap X "_X
 
   " Disable easyclip pastetoggle override
   let g:EasyClipUseGlobalPasteToggle = 0
   " Paste mode paste in insert mode
   imap <c-v> <plug>EasyClipInsertModePaste
+  endfunction
+  call neobundle#untap()
+endif
+
+NeoBundle 'vim-scripts/YankRing.vim'
+if neobundle#tap('YankRing.vim')
+  function! neobundle#hooks.on_source(bundle)
+    " Make vim use the system register for copy and paste
+    set clipboard=unnamedplus
+
+    let g:yankring_max_history = 7
+    let g:yankring_share_between_instances = 1
+    let g:yankring_ignore_duplicate = 1
+    let g:yankring_default_menu_mode = 3
+    let g:yankring_menu_priority = 30
+    let g:yankring_history_dir = '$HOME/.vim/'
+    let g:yankring_history_file = '.vim_yankring_history.txt'
+
+    " Redirect to blackhole instead of clipboard
+    nnoremap x "_x
+    nnoremap X "_X
+    vnoremap x "_x
+    vnoremap X "_X
   endfunction
   call neobundle#untap()
 endif
@@ -1260,7 +1270,7 @@ endfunction
 " ==============================================================================
 
 " Show the Yank Buffer
-nnoremap <silent> <leader>2 :Yanks<cr>
+nnoremap <silent> <leader>2 :YRShow<cr>
 " Toggle numbers (relative|absolute)
 nnoremap <silent> <leader>6 :call NumberRelativeToggle()<CR>
 " Toggle number (on|off)
