@@ -161,6 +161,12 @@ else
       autocmd BufNewFile,BufWritePost * Neomake
       let g:neomake_c_enabled_makers = ['gcc']
       let g:neomake_airline = 1
+
+      augroup neomake_no_pink_errors
+        au!
+        autocmd ColorScheme * hi NeomakeErrorSign ctermfg=196
+        autocmd ColorScheme * hi NeomakeError ctermfg=196 cterm=underline
+      augroup END
     endfunction
     call neobundle#untap()
   endif
