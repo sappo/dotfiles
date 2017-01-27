@@ -406,6 +406,9 @@ if neobundle#tap('vim-operator-surround')
   endfunction
   call neobundle#untap()
 endif
+
+NeoBundle 'cohama/lexima.vim'
+
 " }}}
 
 " Searching {{{
