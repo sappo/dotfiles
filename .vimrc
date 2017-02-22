@@ -1206,6 +1206,10 @@ augroup filetypes
   " Web
   " ---
   autocmd FileType html,xhtml,xml,htmldjango,jinja.html,jinja,eruby,mako setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+
+  " XML
+  " ---
+  au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 augroup END
 
 " ==============================================================================
