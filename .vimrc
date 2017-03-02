@@ -370,6 +370,7 @@ if neobundle#tap('vim-multiple-cursors')
   call neobundle#untap()
 endif
 
+
 NeoBundle 'kana/vim-textobj-user'
 " Adds new text object block `ib` and `ab`
 NeoBundle 'rhysd/vim-textobj-anyblock'
@@ -390,6 +391,7 @@ if neobundle#tap('vim-operator-surround')
   call neobundle#untap()
 endif
 
+" Adds smart enclosings
 NeoBundle 'cohama/lexima.vim'
 
 " }}}
@@ -645,6 +647,7 @@ if neobundle#tap('tagbar')
   function! neobundle#hooks.on_source(bundle)
     let g:tagbar_width = 40
     let g:tagbar_foldlevel = 1
+    let g:tagbar_sort = 0
     let g:tagbar_type_rst = {
         \ 'ctagstype': 'rst',
         \ 'kinds': [ 'r:references', 'h:headers' ],
@@ -973,7 +976,8 @@ NeoBundleLazy 'dhruvasagar/vim-table-mode', {
       \ 'autoload': { 'filetypes': ['markdown'] }}
 if neobundle#tap('vim-table-mode')
   function! neobundle#hooks.on_source(bundle)
-    let g:table_mode_corner="|"
+    let g:table_mode_corner_corner="|"
+    let g:table_mode_header_fillchar="-"
 
     function! s:isAtStartOfLine(mapping)
       let text_before_cursor = getline('.')[0 : col('.')-1]
@@ -992,12 +996,15 @@ if neobundle#tap('vim-table-mode')
   call neobundle#untap()
 endif
 
+NeoBundle 'vim-scripts/DrawIt'
+
+NeoBundle 'aklt/plantuml-syntax'
 NeoBundle 'sappo/vim-markdown'
 if neobundle#tap('vim-markdown')
   function! neobundle#hooks.on_source(bundle)
     let g:vim_markdown_frontmatter = 1
     let g:vim_markdown_math = 1
-    let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'c', 'java', 'xml', 'json', 'yaml']
+    let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'c', 'java', 'xml', 'json', 'plantuml', 'yaml']
   endfunction
   call neobundle#untap()
 endif
@@ -1077,7 +1084,7 @@ if neobundle#tap('citation.vim')
     " Insert a citation
     nnoremap <silent>[unite]cc :<C-u>Unite -buffer-name=citation -start-insert -default-action=append citation/key<cr>
     " Open a file from a citation under the cursor
-    nnoremap <silent>[unite]co :<C-u>Unite -input=<C-R><C-W> -default-action=start -force-immediately citation/file<cr>
+    nnoremap <silent>[unite]co F@lyt]:<C-u>Unite -input=<C-r>" -default-action=start -force-immediately citation/file<cr>
 
     " Citation Menu {{{
 
