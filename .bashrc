@@ -94,14 +94,14 @@ fi
 # user space haskell packages
 if command_exists cabal; then
     if [ -d ~/.cabal ]; then
-        PATH=$HOME/.cabal/bin:$PATH
+        export PATH=$HOME/.cabal/bin:$PATH
     fi
 fi
 
 # user space npm packages
 if command_exists npm; then
     export NPM_CONFIG_PREFIX=$HOME/.npm
-    PATH=$HOME/.npm/bin:$PATH
+    export PATH=$HOME/.npm/bin:$PATH
 fi
 
 # user space perl packages
@@ -117,7 +117,7 @@ fi
 
 # user space python packages
 if [ -d ~/.local/bin ]; then
-    PATH=$HOME/.local/bin:$PATH
+    export PATH=$HOME/.local/bin:$PATH
 fi
 
 # python virtualenv
@@ -128,6 +128,10 @@ fi
 if command_exists virtualenvwrapper.sh; then
     source virtualenvwrapper.sh
 fi
+
+# user space go packages
+export GOPATH=$HOME/.go
+export PATH=$PATH:$GOPATH/bin
 
 ###########
 # Aliases #
