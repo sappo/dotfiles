@@ -15,8 +15,11 @@
    height="3794.8601"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="vim_cheat_sheet.svg">
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="vim_cheat_sheet.svg"
+   inkscape:export-filename="/home/sappo/workspace/dotfiles/vim_cheat_sheet.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <linearGradient
@@ -68,18 +71,18 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.25000001"
-     inkscape:cx="1205.6839"
-     inkscape:cy="908.72311"
+     inkscape:cx="1974.2045"
+     inkscape:cy="2078.7973"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-bbox="true"
      inkscape:snap-bbox-midpoints="true"
-     inkscape:window-width="737"
-     inkscape:window-height="596"
-     inkscape:window-x="1170"
-     inkscape:window-y="130"
-     inkscape:window-maximized="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1021"
+     inkscape:window-x="1366"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
      showborder="false"
      inkscape:showpageshadow="false"
      fit-margin-top="0"
@@ -1225,30 +1228,6 @@
          sodipodi:role="line"
          id="tspan9106">char</tspan></text>
     <rect
-       y="19.404106"
-       x="1432.5955"
-       height="63.960197"
-       width="229.63622"
-       id="rect32995"
-       style="fill:#fffe6b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3.6124115;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-    <text
-       xml:space="preserve"
-       style="font-size:32px;font-style:normal;font-weight:bold;line-height:100%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
-       x="1546.3198"
-       y="46.821705"
-       id="text33003"
-       sodipodi:linespacing="100%"><tspan
-         sodipodi:role="line"
-         id="tspan33005"
-         x="1546.3198"
-         y="46.821705"
-         style="font-weight:bold;text-align:center;line-height:100%;text-anchor:middle;-inkscape-font-specification:Sans Bold">Uncomment</tspan><tspan
-         sodipodi:role="line"
-         x="1546.3198"
-         y="78.821701"
-         id="tspan5130"
-         style="font-weight:bold;text-align:center;line-height:100%;text-anchor:middle;-inkscape-font-specification:Sans Bold">line</tspan></text>
-    <rect
        y="388.30188"
        x="1366.7946"
        height="63.715649"
@@ -1684,30 +1663,6 @@
          x="1906.6925"
          sodipodi:role="line"
          id="tspan33273">change</tspan></text>
-    <rect
-       y="19.340879"
-       x="1814.9296"
-       height="64.086647"
-       width="213.41891"
-       id="rect33275"
-       style="fill:#fffe6b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3.48595977000000001;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-    <text
-       xml:space="preserve"
-       style="font-size:32px;font-style:normal;font-weight:bold;line-height:100%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
-       x="1921.2172"
-       y="47.032639"
-       id="text33283"
-       sodipodi:linespacing="100%"><tspan
-         sodipodi:role="line"
-         id="tspan33285"
-         x="1921.2172"
-         y="47.032639"
-         style="font-weight:bold;text-align:center;line-height:100%;text-anchor:middle;-inkscape-font-specification:Sans Bold">Comment</tspan><tspan
-         sodipodi:role="line"
-         x="1921.2172"
-         y="79.032639"
-         id="tspan4360"
-         style="font-weight:bold;text-align:center;line-height:100%;text-anchor:middle;-inkscape-font-specification:Sans Bold">line</tspan></text>
     <rect
        y="388.30188"
        x="1732.8481"
@@ -3743,41 +3698,12 @@
          sodipodi:role="line"
          id="tspan9144">mark</tspan></text>
     <rect
-       y="19.0979"
-       x="3335.9321"
-       height="64.572609"
-       width="156.87363"
+       y="19.187679"
+       x="3316.0103"
+       height="64.393044"
+       width="176.7059"
        id="rect34395"
-       style="fill:#ededed;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-    <rect
-       y="19.174377"
-       x="3160.0354"
-       height="64.572609"
-       width="156.87363"
-       id="rect34397"
-       style="fill:#ededed;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-    <text
-       xml:space="preserve"
-       style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="3196.1672"
-       y="63.390381"
-       id="text34399"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan34401"
-         x="3196.1672"
-         y="63.390381">Alt+m</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="3357.3376"
-       y="63.313892"
-       id="text34403"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan34405"
-         x="3357.3376"
-         y="63.313892">Ctrl+m</tspan></text>
+       style="fill:#fffe6b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3.17956424;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <rect
        y="388.30188"
        x="3197.0623"
@@ -3787,15 +3713,15 @@
        style="fill:#ededed;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <text
        xml:space="preserve"
-       style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="3247.6208"
-       y="432.49561"
+       style="font-style:normal;font-weight:normal;font-size:32px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="3240.7693"
+       y="432.08939"
        id="text34409"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan34411"
-         x="3247.6208"
-         y="432.49561">leader + m</tspan></text>
+         x="3240.7693"
+         y="432.08939">leader + m</tspan></text>
     <rect
        style="fill:#6bff6b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect34471"
@@ -4319,15 +4245,15 @@
        style="fill:#ededed;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <text
        xml:space="preserve"
-       style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="3613.6743"
-       y="432.49561"
+       style="font-style:normal;font-weight:normal;font-size:32px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="3617.5261"
+       y="430.45657"
        id="text34689"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan34691"
-         x="3613.6743"
-         y="432.49561">leader + ,</tspan></text>
+         x="3617.5261"
+         y="430.45657">leader + ,</tspan></text>
     <rect
        style="fill:#6bff6b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect34751"
@@ -4865,15 +4791,15 @@
        style="fill:#ededed;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <text
        xml:space="preserve"
-       style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="3979.7278"
-       y="432.49561"
+       style="font-style:normal;font-weight:normal;font-size:32px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="3983.7437"
+       y="432.08939"
        id="text34969"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan34971"
-         x="3979.7278"
-         y="432.49561">leader + .</tspan></text>
+         x="3983.7437"
+         y="432.08939">leader + .</tspan></text>
     <rect
        style="fill:#6bff6b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect35031"
@@ -7314,7 +7240,7 @@
        ry="66.114471" />
     <text
        xml:space="preserve"
-       style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-style:normal;font-weight:normal;font-size:32px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        x="2060.0222"
        y="618.02075"
        id="text4377-9"
@@ -7322,98 +7248,108 @@
          sodipodi:role="line"
          x="2060.0222"
          y="618.02075"
-         style="font-size:80px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:80px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4612">Insert Mode:</tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="698.21484"
-         style="font-size:60px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4610">Ctrl+v: paste in paste mode</tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="733.60297"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4347">  </tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="818.02075"
-         style="font-size:80px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:80px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4349">Menus:</tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="898.21484"
-         style="font-size:60px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4353">Space-u: Open master menu</tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="973.21484"
-         style="font-size:60px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4355">Space-g: Open git menu</tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="1048.2148"
-         style="font-size:60px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4359">Space-n: Open neobundle menu</tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="1083.6029"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4354">  </tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="1168.0208"
-         style="font-size:80px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:80px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4356">Searching:</tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="1248.2148"
-         style="font-size:60px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4358">Space-Space: Search files in dir recursivly</tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="1323.2148"
-         style="font-size:60px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4363">Space-/: Grep in dir recursivly</tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="1358.6029"
-         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4381">  </tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="1443.0208"
-         style="font-size:80px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:80px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4475">More Operators:   Text objects:</tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="1523.2148"
-         style="font-size:60px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4477">gq• format              i(w|W) - word|WORD </tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="1598.2148"
-         style="font-size:60px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
          id="tspan4479">g~• toggle case         a(w|W) - word|WORD + \s</tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="1673.2148"
-         style="font-size:60px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
-         id="tspan4481">gu• lower case          is     - sentence</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
+         id="tspan4481">gu• lower case          is[as] - sentence [+ \s]</tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="1748.2148"
-         style="font-size:60px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
-         id="tspan4483">gU• upper case          as     - sentence + \s</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
+         id="tspan4483">gU• upper case          ip[ap] - paragraph [+ \n]</tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="1823.2148"
-         style="font-size:60px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
-         id="tspan4485">                        ip     - paragraph</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
+         id="tspan4773">gc• (un)comment         ib[ab] - blocks [+ delim] </tspan><tspan
          sodipodi:role="line"
          x="2060.0222"
          y="1898.2148"
-         style="font-size:60px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Source Code Pro for Powerline;-inkscape-font-specification:Source Code Pro for Powerline Semi-Bold"
-         id="tspan4608">                        ap     - paragraph + \n</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
+         id="tspan4777">                                 (, {, [, &quot;, ', &lt;      </tspan><tspan
+         sodipodi:role="line"
+         x="2060.0222"
+         y="1973.2148"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
+         id="tspan4765" /><tspan
+         sodipodi:role="line"
+         x="2060.0222"
+         y="2048.2148"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:60px;line-height:125%;font-family:'Source Code Pro for Powerline';-inkscape-font-specification:'Source Code Pro for Powerline Semi-Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
+         id="tspan4608" /></text>
     <text
        xml:space="preserve"
        style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -7783,7 +7719,7 @@
        ry="70.328812" />
     <text
        xml:space="preserve"
-       style="font-size:32px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#5f5f5f;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       style="font-style:normal;font-weight:bold;font-size:32px;line-height:125%;font-family:Sans;-inkscape-font-specification:'Sans Bold';letter-spacing:0px;word-spacing:0px;fill:#5f5f5f;fill-opacity:1;stroke:none"
        x="5115.2568"
        y="162.44003"
        id="text5093"
@@ -7812,7 +7748,7 @@
          x="5115.2568"
          y="337.44003"
          style="font-size:40px;text-align:center;text-anchor:middle;fill:#5f5f5f;fill-opacity:1"
-         id="tspan4403">v1.0</tspan></text>
+         id="tspan4403">v1.1</tspan></text>
     <g
        id="g4382">
       <path
@@ -7913,5 +7849,112 @@
            x="5073.0825"
            sodipodi:role="line">Fullscreen</tspan></text>
     </g>
+    <rect
+       y="19.074287"
+       x="1871.7145"
+       height="64.572609"
+       width="156.87363"
+       id="rect34395-3"
+       style="fill:#ededed;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:32px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="1893.12"
+       y="63.290279"
+       id="text34403-6"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan34405-7"
+         x="1893.12"
+         y="63.290279">Ctrl+c</tspan></text>
+    <rect
+       y="19.104488"
+       x="1695.8263"
+       height="64.572609"
+       width="156.87363"
+       id="rect33557-5"
+       style="fill:#ededed;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:32px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="1730.0834"
+       y="63.547043"
+       id="text33559-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan33561-5"
+         x="1730.0834"
+         y="63.547043">Alt+c</tspan></text>
+    <rect
+       y="19.066811"
+       x="1505.6569"
+       height="64.572609"
+       width="156.87363"
+       id="rect34395-3-6"
+       style="fill:#ededed;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:32px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="1527.0624"
+       y="63.282875"
+       id="text34403-6-2"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan34405-7-9"
+         x="1527.0624"
+         y="63.282875">Ctrl+x</tspan></text>
+    <rect
+       y="19.097084"
+       x="1329.7687"
+       height="64.572609"
+       width="156.87363"
+       id="rect33557-5-1"
+       style="fill:#ededed;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:32px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="1364.0258"
+       y="63.539589"
+       id="text33559-3-2"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan33561-5-7"
+         x="1364.0258"
+         y="63.539589">Alt+x</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:bold;font-size:32px;line-height:100%;font-family:Sans;-inkscape-font-specification:'Sans Bold';text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
+       x="3317.1445"
+       y="47.313889"
+       id="text34123-3"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         x="3317.1445"
+         y="47.313889"
+         id="tspan4614-0"
+         style="line-height:100%">multi-line</tspan><tspan
+         sodipodi:role="line"
+         x="3317.1445"
+         y="79.313889"
+         id="tspan5624"
+         style="line-height:100%">mode</tspan></text>
+    <rect
+       y="19.005556"
+       x="3159.9404"
+       height="64.769211"
+       width="136.57011"
+       id="rect34677-6"
+       style="fill:#ededed;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.80339599;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:32px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       x="3178.8115"
+       y="63.54641"
+       id="text34679-2"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan34681-6"
+         x="3178.8115"
+         y="63.54641">Alt+m</tspan></text>
   </g>
 </svg>
