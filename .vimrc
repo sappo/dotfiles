@@ -288,15 +288,7 @@ endif
 " Manipulation {{{
 " ============
 
-NeoBundle 'aklt/vim-simple_comments'
-if neobundle#tap('vim-simple_comments')
-  function! neobundle#hooks.on_source(bundle)
-    let g:simple_comments_Comment = '<c-c>'
-    let g:simple_comments_Remove = '<c-x>'
-  endfunction
-  call neobundle#untap()
-endif
-
+NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'svermeulen/vim-easyclip'
 if neobundle#tap('vim-easyclip')
@@ -330,6 +322,7 @@ if neobundle#tap('YankRing.vim')
     let g:yankring_menu_priority = 30
     let g:yankring_history_dir = '$HOME/.vim/'
     let g:yankring_history_file = '.vim_yankring_history.txt'
+    let g:yankring_o_keys = 'b B w W e E d y $ G ; iw iW aw aW'
 
     " Redirect to blackhole instead of clipboard
     nnoremap x "_x
@@ -369,7 +362,6 @@ if neobundle#tap('vim-multiple-cursors')
   endfunction
   call neobundle#untap()
 endif
-
 
 NeoBundle 'kana/vim-textobj-user'
 " Adds new text object block `ib` and `ab`
@@ -923,9 +915,6 @@ if neobundle#tap('goyo.vim')
   endfunction
   call neobundle#untap()
 endif
-
-" Markdown highlighting in goyo
-NeoBundleLazy 'amix/vim-zenroom2'
 
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'rhysd/vim-grammarous'
