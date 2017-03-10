@@ -986,14 +986,23 @@ if neobundle#tap('vim-table-mode')
 endif
 
 NeoBundle 'vim-scripts/DrawIt'
-
 NeoBundle 'aklt/plantuml-syntax'
-NeoBundle 'sappo/vim-markdown'
+NeoBundle 'Konfekt/FastFold'
+NeoBundleLazy 'sappo/vim-markdown', {'autoload': {'filetypes': ['markdown'],},}
 if neobundle#tap('vim-markdown')
   function! neobundle#hooks.on_source(bundle)
     let g:vim_markdown_frontmatter = 1
     let g:vim_markdown_math = 1
-    let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'c', 'java', 'xml', 'json', 'plantuml', 'yaml']
+    let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'sh', 'c', 'java', 'xml', 'json', 'plantuml', 'yaml', 'texalgo=tex', 'tex']
+    " vim large code blocks can mess up highlighting as vim by default only
+    " syncs the syntax 50 lines before current cursor.
+    " Increase lines for vim movements
+    nnoremap <silent> gg gg:syn sync minlines=200<CR>
+    nnoremap <silent> G G:syn sync minlines=200<CR>
+    nnoremap <silent> <C-f> <C-f>:syn sync minlines=100<CR>
+    nnoremap <silent> <C-b> <C-b>:syn sync minlines=100<CR>
+    " Reload syntax for entire file
+    nnoremap <silent> <C-L> :syn sync fromstart<CR>
   endfunction
   call neobundle#untap()
 endif
@@ -1205,7 +1214,7 @@ augroup filetypes
 
   " XML
   " ---
-  au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+  autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 augroup END
 
 " ==============================================================================
