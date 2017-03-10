@@ -337,7 +337,7 @@ NeoBundle 'terryma/vim-multiple-cursors'
 if neobundle#tap('vim-multiple-cursors')
   function! neobundle#hooks.on_source(bundle)
     let g:multi_cursor_use_default_mapping=0
-    let g:multi_cursor_next_key='<c-d>'
+    let g:multi_cursor_next_key='<c-m>'
     let g:multi_cursor_prev_key=''
     let g:multi_cursor_skip_key=''
     let g:multi_cursor_quit_key='<Esc>'
@@ -950,17 +950,6 @@ if neobundle#tap('vim-grammarous')
   call neobundle#untap()
 endif
 
-NeoBundleLazy 'suan/vim-instant-markdown', {
-      \ 'autoload': { 'filetypes': ['markdown'] },
-      \ 'build' : 'npm -g install instant-markdown-d'
-      \ }
-if neobundle#tap('vim-instant-markdown')
-  function! neobundle#hooks.on_source(bundle)
-    let g:instant_markdown_autostart = 0
-  endfunction
-  call neobundle#untap()
-endif
-
 NeoBundleLazy 'dhruvasagar/vim-table-mode', {
       \ 'autoload': { 'filetypes': ['markdown'] }}
 if neobundle#tap('vim-table-mode')
@@ -1003,6 +992,21 @@ if neobundle#tap('vim-markdown')
     nnoremap <silent> <C-b> <C-b>:syn sync minlines=100<CR>
     " Reload syntax for entire file
     nnoremap <silent> <C-L> :syn sync fromstart<CR>
+  endfunction
+  call neobundle#untap()
+endif
+
+NeoBundle 'reedes/vim-textobj-sentence'
+if neobundle#tap('reedes/vim-textobj-sentence')
+  function! neobundle#hooks.on_source(bundle)
+    let g:textobj#sentence#select = 's'
+    let g:textobj#sentence#move_p = '('
+    let g:textobj#sentence#move_n = ')'
+    augroup textobj_sentence
+      autocmd!
+      autocmd FileType markdown call textobj#sentence#init()
+      autocmd FileType textile call textobj#sentence#init()
+    augroup END
   endfunction
   call neobundle#untap()
 endif
