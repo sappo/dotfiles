@@ -119,6 +119,9 @@ fi
 if [ -d ~/.local/bin ]; then
     export PATH=$HOME/.local/bin:$PATH
 fi
+if [ -d $HOME/miniconda3/bin/ ]; then
+    export PATH=$PATH:$HOME/miniconda3/bin/
+fi
 
 # python virtualenv
 if command_exists activate.sh; then
