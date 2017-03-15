@@ -337,7 +337,7 @@ NeoBundle 'terryma/vim-multiple-cursors'
 if neobundle#tap('vim-multiple-cursors')
   function! neobundle#hooks.on_source(bundle)
     let g:multi_cursor_use_default_mapping=0
-    let g:multi_cursor_next_key='<c-m>'
+    let g:multi_cursor_next_key='<c-,>'
     let g:multi_cursor_prev_key=''
     let g:multi_cursor_skip_key=''
     let g:multi_cursor_quit_key='<Esc>'
