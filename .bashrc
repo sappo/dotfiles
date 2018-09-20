@@ -232,3 +232,5 @@ fi
 
 # added by travis gem
 [ -f /home/sappo/.travis/travis.sh ] && source /home/sappo/.travis/travis.sh
+# Fixes alt+(left/right) behaviour and prevents tty switching
+alias ttyfix=sudo sh -c 'dumpkeys -k|grep -v Incr_Console|grep -v Decr_Console|grep -v Last_Console|loadkeys'
