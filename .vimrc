@@ -283,6 +283,9 @@ if neobundle#tap('vim-slime')
   call neobundle#untap()
 endif
 
+NeoBundle 'artur-shaik/vim-javacomplete2'
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
 " }}}
 
 " Manipulation {{{
@@ -745,6 +748,17 @@ if neobundle#tap('vim-fugitive')
   call neobundle#untap()
 endif
 
+NeoBundle 'christoomey/vim-conflicted'
+NeoBundle 'chrisbra/vim-diff-enhanced'
+" started In Diff-Mode set diffexpr (plugin not loaded yet)
+if &diff
+  let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
+endif
+if has("patch-8.1.0360")
+  set diffopt+=internal,algorithm:patience
+endif
+
+
 " gitk-like repository viewer
 NeoBundle 'cohama/agit.vim'
 if neobundle#tap('agit.vim')
@@ -757,19 +771,10 @@ if neobundle#tap('agit.vim')
   call neobundle#untap()
 endif
 
-" Show git diffs in the gutter
-NeoBundle 'airblade/vim-gitgutter'
-if neobundle#tap('vim-gitgutter')
+NeoBundle 'mhinz/vim-signify'
+if neobundle#tap('vim-signify')
   function! neobundle#hooks.on_source(bundle)
-    " Disabled by default
-    let g:gitgutter_enabled = 1
-    let g:gitgutter_signs = 1
-    let g:gitgutter_highlight_lines = 0
-    " Don't show git diff is there are too many changes
-    let g:gitgutter_max_signs = 500  " default value
-    " Update gitgutter more often
-    let g:gitgutter_realtime = 1000
-    let g:gitgutter_eager = 1000
+     let g:signify_line_highlight = 0
   endfunction
   call neobundle#untap()
 endif
@@ -1302,7 +1307,7 @@ nnoremap <silent> <F3> :TagbarToggle<CR>
 nnoremap <silent> <F4> :VimShellPop<CR>
 nmap <F5> :split<CR>
 nmap <F6> :vsplit<CR>
-nnoremap <F7> :GitGutterLineHighlightsToggle<cr>
+nnoremap <F7> :SignifyToggleHighlight<cr>
 set pastetoggle=<F8>
 nnoremap <F9> :UndotreeToggle<cr>
 
