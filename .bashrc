@@ -2,9 +2,23 @@
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc   # --> Read /etc/bashrc, if present.
 fi
+
+###############
+# Completions #
+###############
+
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
+
+if command_exists kubectl; then
+    source <(kubectl completion bash)
+fi
+
+if command_exists helm; then
+    source <(helm completion bash)
+fi
+
 ####################
 # Common functions #
 ####################
