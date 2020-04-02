@@ -62,6 +62,9 @@ Plug 'chrisbra/vim-diff-enhanced'
 
 " A Vim plugin for more pleasant editing on commit messages
 Plug 'rhysd/committia.vim'
+
+"" Writing
+Plug 'rhysd/vim-grammarous'
 "" Initialize plugin system
 call plug#end()
 
@@ -157,9 +160,6 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
 if has('patch8.1.1068')
@@ -193,8 +193,22 @@ nmap cu :<C-u>CocCommand git.chunkUndo<cr>
 nmap cs :<C-u>CocCommand git.chunkStage<cr>
 
 """ Coc Other Mappings
+" Use <c-space> to trigger completion.
+inoremap <expr> <c-space> coc#refresh()
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+" Use L or Ctrl+L to show signature help in preview window.
+nmap <silent> <L> :call CocActionAsync('showSignatureHelp')<CR>
+imap <silent> <C-l> <ESC>:call CocActionAsync('showSignatureHelp')<CR>a
+
+" $ccls/member
+" member variables / variables in a namespace
+nn <silent> xm :call CocLocations('ccls','$ccls/member')<cr>
+" member functions / functions in a namespace
+nn <silent> xf :call CocLocations('ccls','$ccls/member',{'kind':3})<cr>
+" nested classes / types in a namespace
+nn <silent> xs :call CocLocations('ccls','$ccls/member',{'kind':2})<cr>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -279,6 +293,8 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 "" Text Manipulation
 """ Yoink
+set clipboard=unnamedplus
+
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
 nmap <c-p> <plug>(YoinkPostPasteSwapForward)
 
@@ -342,6 +358,24 @@ function! g:committia_hooks.edit_open(info)
   imap <buffer><C-u> <Plug>(committia-scroll-diff-up-half)
 endfunction
 
+"" Writing
+""" vim-grammarous
+let g:grammarous#hooks = {}
+function! g:grammarous#hooks.on_check(errs) abort
+    nmap <buffer><C-n> <Plug>(grammarous-move-to-next-error)
+    nmap <buffer><C-p> <Plug>(grammarous-move-to-previous-error)
+    nmap <buffer><C-f> <Plug>(grammarous-fixit)
+    nmap <buffer><C-r> <Plug>(grammarous-reset)
+    nmap <buffer><C-o> <Plug>(grammarous-open-info-window)
+endfunction
+
+function! g:grammarous#hooks.on_reset(errs) abort
+    nunmap <buffer><C-n>
+    nunmap <buffer><C-p>
+    nunmap <buffer><C-f>
+    nunmap <buffer><C-r>
+    nunmap <buffer><C-o>
+endfunction
 """"""""""""""""""""""
 "  GENERAL SETTINGS  "
 """"""""""""""""""""""
