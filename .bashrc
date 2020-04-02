@@ -3,6 +3,15 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc   # --> Read /etc/bashrc, if present.
 fi
 
+####################
+# Common functions #
+####################
+
+command_exists ()
+{
+    hash "$1" 2> /dev/null;
+}
+
 ###############
 # Completions #
 ###############
@@ -18,15 +27,6 @@ fi
 if command_exists helm; then
     source <(helm completion bash)
 fi
-
-####################
-# Common functions #
-####################
-
-command_exists ()
-{
-    hash "$1" 2> /dev/null;
-}
 
 ##########
 # Colors #
@@ -246,8 +246,6 @@ fi
 
 # added by travis gem
 [ -f /home/sappo/.travis/travis.sh ] && source /home/sappo/.travis/travis.sh
-# Fixes alt+(left/right) behaviour and prevents tty switching
-alias ttyfix=sudo sh -c 'dumpkeys -k|grep -v Incr_Console|grep -v Decr_Console|grep -v Last_Console|loadkeys'
 
 export PATH=$HOME/.vim/plugged/fzf/bin:$PATH
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

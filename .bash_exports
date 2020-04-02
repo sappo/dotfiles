@@ -1,1 +1,0 @@
-export ZOTERO_HOME=$(dirname `find ~/.mozilla -name 'zotero.sqlite'`)
