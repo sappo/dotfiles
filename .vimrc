@@ -64,7 +64,8 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'rhysd/committia.vim'
 
 "" Writing
-Plug 'rhysd/vim-grammarous'
+Plug 'rhysd/vim-grammarous', { 'for': ['markdown', 'text', 'gitcommit', 'gitconfig'] } 
+
 "" Initialize plugin system
 call plug#end()
 
