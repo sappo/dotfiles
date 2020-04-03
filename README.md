@@ -57,7 +57,7 @@ Manager:
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
-After you started tmux press `ctrl+a I` to install all plugins. To update the
+After you started tmux, press `ctrl+a I` to install all plugins. To update the
 plugings press `ctrl+a U`.
 
 ### Keybindings
