@@ -30,6 +30,7 @@ Plug 'vim-airline/vim-airline'
 
 Plug 'NLKNguyen/papercolor-theme'
 
+Plug 'lukelbd/vim-scrollwrapped'
 Plug 'rhysd/accelerated-jk'
 
 "" Code Completion
@@ -43,6 +44,8 @@ Plug 'tpope/vim-commentary'
 Plug 'svermeulen/vim-yoink'
 Plug 'svermeulen/vim-subversive'
 
+Plug 'ntpeters/vim-better-whitespace'
+
 "" Operator extensions
 Plug 'kana/vim-textobj-user'
 " Adds new text object block `ib` and `ab`
@@ -51,7 +54,7 @@ Plug 'rhysd/vim-textobj-anyblock'
 Plug 'kana/vim-operator-user'
 Plug 'rhysd/vim-operator-surround'
 
-"" Search 
+"" Search
 Plug 'junegunn/fzf', { 'do': 'yes \| ./install' }
 
 "" Version Control
@@ -64,7 +67,9 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'rhysd/committia.vim'
 
 "" Writing
-Plug 'rhysd/vim-grammarous', { 'for': ['markdown', 'text', 'gitcommit', 'gitconfig'] } 
+Plug 'rhysd/vim-grammarous', { 'for': ['markdown', 'text', 'gitcommit', 'gitconfig'] }
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 "" Initialize plugin system
 call plug#end()
@@ -73,7 +78,7 @@ call plug#end()
 "  PLUGIN SETTINGS  "
 """""""""""""""""""""
 "" Look & Feel
-""" Powerline fonts 
+""" Powerline fonts
 let font_otf=expand('~/.local/share/fonts/Source Code Pro Medium for Powerline.otf')
 if filereadable(font_otf)
   silent !gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Source Code Pro for Powerline Medium 11"
@@ -308,6 +313,12 @@ nmap s <plug>(SubversiveSubstitute)
 nmap ss <plug>(SubversiveSubstituteLine)
 nmap S <plug>(SubversiveSubstituteToEndOfLine)
 
+""" Better Whitespace
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=1
+let g:show_spaces_that_precede_tabs=1
+let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help']
+
 "" Operator Settings
 """ Surround mappings
 map <silent>sa <Plug>(operator-surround-append)
@@ -377,6 +388,9 @@ function! g:grammarous#hooks.on_reset(errs) abort
     nunmap <buffer><C-r>
     nunmap <buffer><C-o>
 endfunction
+
+""" markdown-preview
+
 """"""""""""""""""""""
 "  GENERAL SETTINGS  "
 """"""""""""""""""""""
@@ -551,7 +565,7 @@ endfunction
 "" set foldsettings automatically for vim files
 augroup fold_vimrc
   autocmd!
-  autocmd FileType vim 
+  autocmd FileType vim
                    \ setlocal foldmethod=expr |
                    \ setlocal foldexpr=VimFolds(v:lnum) |
                    \ setlocal foldtext=VimFoldText() |
