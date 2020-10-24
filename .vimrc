@@ -204,9 +204,10 @@ inoremap <expr> <c-space> coc#refresh()
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+" imap <silent> <C-q> <ESC>:call <SID>show_documentation()<CR>a
 " Use L or Ctrl+L to show signature help in preview window.
 nmap <silent> <L> :call CocActionAsync('showSignatureHelp')<CR>
-imap <silent> <C-l> <ESC>:call CocActionAsync('showSignatureHelp')<CR>a
+imap <silent> <C-L> <ESC>:call CocActionAsync('showSignatureHelp')<CR>a
 
 " $ccls/member
 " member variables / variables in a namespace
@@ -425,8 +426,8 @@ nmap <c-Right> <c-W><c-l>
 nmap <c-Down> <c-W><c-j>
 nmap <c-Up> <c-W><c-k>
 nmap <c-h> <c-W><c-h>
-nmap <c-l> <c-W><c-l>
-nmap <c-j> <c-W><c-j>
+nnoremap <c-l> <c-W><c-l>
+nnoremap <c-j> <c-W><c-j>
 nmap <c-k> <c-W><c-k>
 
 " Resize

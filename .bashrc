@@ -150,6 +150,12 @@ fi
 export GOPATH=$HOME/.go
 export PATH=$PATH:$GOPATH/bin
 
+# Homebrew
+test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+
 ###########
 # Aliases #
 ###########
@@ -249,3 +255,6 @@ fi
 
 export PATH=$HOME/.vim/plugged/fzf/bin:$PATH
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# added by travis gem
+[ ! -s /home/ksapper/.travis/travis.sh ] || source /home/ksapper/.travis/travis.sh
