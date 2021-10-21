@@ -214,44 +214,41 @@ fi
 ##########
 
 # OpenPGP applet support for YubiKey NEO
-if command_exists gpg-agent; then
-    if [ ! -f /tmp/gpg-agent.env ]; then
-        killall gpg-agent;
-        eval $(gpg-agent --daemon --enable-ssh-support > /tmp/gpg-agent.env);
-    fi
-    . /tmp/gpg-agent.env
-fi
+# if command_exists gpg-agent; then
+#     if [ ! -f /tmp/gpg-agent.env ]; then
+#         killall gpg-agent;
+#         eval $(gpg-agent --daemon --enable-ssh-support > /tmp/gpg-agent.env);
+#     fi
+#     . /tmp/gpg-agent.env
+# fi
 
-GPG_TTY=$(tty)
-export GPG_TTY
+# GPG_TTY=$(tty)
+# export GPG_TTY
 
 #  Check if there are updates for the dotfiles on a tracked master branch
 #  Only check once after each reboot, for performance reasons!
-if [ ! -f /tmp/bashrc_check ]; then
-    echo Checking for dotfiles updates ...
-    cd $(dirname $(readlink -e ~/.bashrc))
-    timeout 5s git fetch --quiet --all
-    if [ $? = 0 ]; then
-        for remote in $(git remote show);
-        do
-            for branch in $(git branch --all --list);
-            do
-                if [[ $branch == *"${remote}/HEAD" ]]; then # true if tracking
-                    if [[ ! $(git rev-parse HEAD) == $(git rev-parse $remote/master) ]]; then
-                        echo $(git rev-list HEAD...$remote/master --count)" new updates available for dotfiles from ${remote}/master!"
-                    fi
-                fi
-            done
-        done
-        touch /tmp/bashrc_check
-    else
-        echo Timeout! Try again later.
-    fi
-    cd - 2>&1 >/dev/null
-fi
-
-# added by travis gem
-[ -f /home/sappo/.travis/travis.sh ] && source /home/sappo/.travis/travis.sh
+# if [ ! -f /tmp/bashrc_check ]; then
+#     echo Checking for dotfiles updates ...
+#     cd $(dirname $(readlink -e ~/.bashrc))
+#     timeout 5s git fetch --quiet --all
+#     if [ $? = 0 ]; then
+#         for remote in $(git remote show);
+#         do
+#             for branch in $(git branch --all --list);
+#             do
+#                 if [[ $branch == *"${remote}/HEAD" ]]; then # true if tracking
+#                     if [[ ! $(git rev-parse HEAD) == $(git rev-parse $remote/master) ]]; then
+#                         echo $(git rev-list HEAD...$remote/master --count)" new updates available for dotfiles from ${remote}/master!"
+#                     fi
+#                 fi
+#             done
+#         done
+#         touch /tmp/bashrc_check
+#     else
+#         echo Timeout! Try again later.
+#     fi
+#     cd - 2>&1 >/dev/null
+# fi
 
 export PATH=$HOME/.vim/plugged/fzf/bin:$PATH
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
